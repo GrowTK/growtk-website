@@ -1,0 +1,4374 @@
+{
+  "generatedAt": "2026-08-22T22:10:47.062Z",
+  "registries": {
+    "aceternity": {
+      "label": "Aceternity UI",
+      "indexItems": 278,
+      "eligible": 176,
+      "taken": 176
+    },
+    "magicui": {
+      "label": "Magic UI",
+      "indexItems": 246,
+      "eligible": 226,
+      "taken": 226
+    },
+    "reactbits": {
+      "label": "React Bits",
+      "indexItems": 664,
+      "eligible": 60,
+      "taken": 60
+    },
+    "animateui": {
+      "label": "Animate UI",
+      "indexItems": 579,
+      "eligible": 124,
+      "taken": 124
+    },
+    "eldora": {
+      "label": "Eldora UI",
+      "indexItems": 114,
+      "eligible": 97,
+      "taken": 97
+    },
+    "basecn": {
+      "label": "basecn",
+      "indexItems": 56,
+      "eligible": 13,
+      "taken": 13
+    }
+  },
+  "blocks": [
+    {
+      "name": "spotlight",
+      "registry": "aceternity",
+      "title": "Spotlight",
+      "description": null,
+      "category": "backgrounds",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/spotlight.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "text-reveal-card",
+      "registry": "aceternity",
+      "title": "Text Reveal Card",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/text-reveal-card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "animated-tooltip",
+      "registry": "aceternity",
+      "title": "Animated Tooltip",
+      "description": null,
+      "category": "overlays",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/animated-tooltip.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "following-pointer",
+      "registry": "aceternity",
+      "title": "Following Pointer",
+      "description": null,
+      "category": "interaction",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/following-pointer.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "infinite-moving-cards",
+      "registry": "aceternity",
+      "title": "Infinite Moving Cards",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/infinite-moving-cards.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "3d-pin",
+      "registry": "aceternity",
+      "title": "3d Pin",
+      "description": null,
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/3d-pin.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "parallax-scroll",
+      "registry": "aceternity",
+      "title": "Parallax Scroll",
+      "description": null,
+      "category": "media",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/parallax-scroll.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "parallax-hero-images",
+      "registry": "aceternity",
+      "title": "Parallax Hero Images",
+      "description": null,
+      "category": "hero",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/parallax-hero-images.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "tracing-beam",
+      "registry": "aceternity",
+      "title": "Tracing Beam",
+      "description": null,
+      "category": "backgrounds",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/tracing-beam.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "container-scroll-animation",
+      "registry": "aceternity",
+      "title": "Container Scroll Animation",
+      "description": null,
+      "category": "scroll",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/container-scroll-animation.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "text-generate-effect",
+      "registry": "aceternity",
+      "title": "Text Generate Effect",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/text-generate-effect.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "card-stack",
+      "registry": "aceternity",
+      "title": "Card Stack",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/card-stack.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "sticky-scroll-reveal",
+      "registry": "aceternity",
+      "title": "Sticky Scroll Reveal",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/sticky-scroll-reveal.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "floating-navbar",
+      "registry": "aceternity",
+      "title": "Floating Navbar",
+      "description": null,
+      "category": "navigation",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/floating-navbar.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "navbar-menu",
+      "registry": "aceternity",
+      "title": "Navbar Menu",
+      "description": null,
+      "category": "navigation",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/navbar-menu.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "card-hover-effect",
+      "registry": "aceternity",
+      "title": "Card Hover Effect",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/card-hover-effect.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "typewriter-effect",
+      "registry": "aceternity",
+      "title": "Typewriter Effect",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/typewriter-effect.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "3d-card",
+      "registry": "aceternity",
+      "title": "3d Card",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/3d-card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "images-slider",
+      "registry": "aceternity",
+      "title": "Images Slider",
+      "description": null,
+      "category": "marquee",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/images-slider.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "direction-aware-hover",
+      "registry": "aceternity",
+      "title": "Direction Aware Hover",
+      "description": null,
+      "category": "interaction",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/direction-aware-hover.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "hero-parallax",
+      "registry": "aceternity",
+      "title": "Hero Parallax",
+      "description": null,
+      "category": "hero",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/hero-parallax.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "background-gradient",
+      "registry": "aceternity",
+      "title": "Background Gradient",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/background-gradient.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "background-gradient-animation",
+      "registry": "aceternity",
+      "title": "Background Gradient Animation",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/background-gradient-animation.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "input",
+      "registry": "aceternity",
+      "title": "Input",
+      "description": null,
+      "category": "forms",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/input.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "hover-border-gradient",
+      "registry": "aceternity",
+      "title": "Hover Border Gradient",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/hover-border-gradient.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "wobble-card",
+      "registry": "aceternity",
+      "title": "Wobble Card",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/wobble-card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "placeholders-and-vanish-input",
+      "registry": "aceternity",
+      "title": "Placeholders And Vanish Input",
+      "description": null,
+      "category": "forms",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/placeholders-and-vanish-input.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "flip-words",
+      "registry": "aceternity",
+      "title": "Flip Words",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/flip-words.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "glare-card",
+      "registry": "aceternity",
+      "title": "Glare Card",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/glare-card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "focus-cards",
+      "registry": "aceternity",
+      "title": "Focus Cards",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/focus-cards.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "timeline",
+      "registry": "aceternity",
+      "title": "Timeline",
+      "description": null,
+      "category": "scroll",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/timeline.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "text-hover-effect",
+      "registry": "aceternity",
+      "title": "Text Hover Effect",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/text-hover-effect.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "lens",
+      "registry": "aceternity",
+      "title": "Lens",
+      "description": null,
+      "category": "media",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/lens.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "colourful-text",
+      "registry": "aceternity",
+      "title": "Colourful Text",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/colourful-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "magnetic-button",
+      "registry": "aceternity",
+      "title": "Magnetic Button",
+      "description": null,
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/magnetic-button.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "spotlight-new",
+      "registry": "aceternity",
+      "title": "Spotlight New",
+      "description": null,
+      "category": "backgrounds",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/spotlight-new.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "glowing-effect",
+      "registry": "aceternity",
+      "title": "Glowing Effect",
+      "description": null,
+      "category": "backgrounds",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/glowing-effect.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "3d-marquee",
+      "registry": "aceternity",
+      "title": "3d Marquee",
+      "description": null,
+      "category": "marquee",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/3d-marquee.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "container-text-flip",
+      "registry": "aceternity",
+      "title": "Container Text Flip",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/container-text-flip.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "sticky-banner",
+      "registry": "aceternity",
+      "title": "Sticky Banner",
+      "description": null,
+      "category": "scroll",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/sticky-banner.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "pointer-highlight",
+      "registry": "aceternity",
+      "title": "Pointer Highlight",
+      "description": null,
+      "category": "interaction",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/pointer-highlight.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "comet-card",
+      "registry": "aceternity",
+      "title": "Comet Card",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/comet-card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "layout-text-flip",
+      "registry": "aceternity",
+      "title": "Layout Text Flip",
+      "description": null,
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/layout-text-flip.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "tooltip-card",
+      "registry": "aceternity",
+      "title": "Tooltip Card",
+      "description": null,
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/tooltip-card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "noise-background",
+      "registry": "aceternity",
+      "title": "Noise Background",
+      "description": null,
+      "category": "backgrounds",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/noise-background.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "chromatic-image",
+      "registry": "aceternity",
+      "title": "Chromatic Image",
+      "description": null,
+      "category": "media",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/chromatic-image.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "images-badge",
+      "registry": "aceternity",
+      "title": "Images Badge",
+      "description": null,
+      "category": "media",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/aceternity/images-badge.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "cards-demo-2",
+      "registry": "aceternity",
+      "title": "Cards Demo 2",
+      "description": "Content Card",
+      "category": "cards",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/aceternity/cards-demo-2.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "features-section-demo-1",
+      "registry": "aceternity",
+      "title": "Features Section Demo 1",
+      "description": "Simple with card gradient",
+      "category": "features",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/aceternity/features-section-demo-1.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "line-shadow-text",
+      "registry": "magicui",
+      "title": "Line Shadow Text",
+      "description": "A text component with a moving line shadow.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/line-shadow-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "aurora-text",
+      "registry": "magicui",
+      "title": "Aurora Text",
+      "description": "A beautiful aurora text effect",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/aurora-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "morphing-text",
+      "registry": "magicui",
+      "title": "Morphing Text",
+      "description": "A dynamic text morphing component for Magic UI.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/morphing-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "scroll-progress",
+      "registry": "magicui",
+      "title": "Scroll Progress",
+      "description": "Animated Scroll Progress for your pages",
+      "category": "data",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/scroll-progress.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "pointer",
+      "registry": "magicui",
+      "title": "Pointer",
+      "description": "A component that displays a pointer when hovering over an element",
+      "category": "interaction",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/pointer.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "noise-texture",
+      "registry": "magicui",
+      "title": "Noise Texture",
+      "description": "An SVG fractal noise layer using feTurbulence, desaturation, and contrast controls for subtle texture overlays.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/noise-texture.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "hero-video-dialog",
+      "registry": "magicui",
+      "title": "Hero Video Dialog",
+      "description": "A hero video dialog component.",
+      "category": "hero",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/hero-video-dialog.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "marquee",
+      "registry": "magicui",
+      "title": "Marquee",
+      "description": "An infinite scrolling component that can be used to display text, images, or videos.",
+      "category": "marquee",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/marquee.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "glare-hover",
+      "registry": "magicui",
+      "title": "Glare Hover",
+      "description": "A diagonal glare on hover using a ::before gradient and CSS variables (angle, size, duration, color).",
+      "category": "interaction",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/glare-hover.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "shimmer-button",
+      "registry": "magicui",
+      "title": "Shimmer Button",
+      "description": "A button with a shimmering light which travels around the perimeter.",
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/shimmer-button.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "number-ticker",
+      "registry": "magicui",
+      "title": "Number Ticker",
+      "description": "Animate numbers to count up or down to a target number",
+      "category": "stats",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/number-ticker.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "animated-shiny-text",
+      "registry": "magicui",
+      "title": "Animated Shiny Text",
+      "description": "A light glare effect which pans across text making it appear as if it is shimmering.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/animated-shiny-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "text-reveal",
+      "registry": "magicui",
+      "title": "Text Reveal",
+      "description": "Fade in text as you scroll down the page.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/text-reveal.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "dia-text-reveal",
+      "registry": "magicui",
+      "title": "Dia Text Reveal",
+      "description": "A horizontal color band sweeps across text, revealing a gradient shine before settling on the base color.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/dia-text-reveal.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "hyper-text",
+      "registry": "magicui",
+      "title": "Hyper Text",
+      "description": "A text animation that scrambles letters before revealing the final text.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/hyper-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "word-rotate",
+      "registry": "magicui",
+      "title": "Word Rotate",
+      "description": "A vertical rotation of words",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/word-rotate.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "avatar-circles",
+      "registry": "magicui",
+      "title": "Avatar Circles",
+      "description": "Overlapping circles of avatars.",
+      "category": "team",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/avatar-circles.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "typing-animation",
+      "registry": "magicui",
+      "title": "Typing Animation",
+      "description": "Characters appearing in typed animation",
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/typing-animation.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "sparkles-text",
+      "registry": "magicui",
+      "title": "Sparkles Text",
+      "description": "A dynamic text that generates continuous sparkles with smooth transitions, perfect for highlighting text with animated stars.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/sparkles-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "text-animate",
+      "registry": "magicui",
+      "title": "Text Animate",
+      "description": "A text animation component that animates text using a variety of different animations.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/text-animate.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "scroll-based-velocity",
+      "registry": "magicui",
+      "title": "Scroll Based Velocity",
+      "description": "Scrolling text whose speed changes based on scroll speed",
+      "category": "scroll",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/scroll-based-velocity.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "shiny-button",
+      "registry": "magicui",
+      "title": "Shiny Button",
+      "description": "A shiny button component with dynamic styles in the dark mode or light mode.",
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/shiny-button.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "shine-border",
+      "registry": "magicui",
+      "title": "Shine Border",
+      "description": "Shine border is an animated background border effect.",
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/shine-border.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "animated-circular-progress-bar",
+      "registry": "magicui",
+      "title": "Animated Circular Progress Bar",
+      "description": "Animated Circular Progress Bar is a component that displays a circular gauge with a percentage value.",
+      "category": "data",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/animated-circular-progress-bar.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "ripple-button",
+      "registry": "magicui",
+      "title": "Ripple Button",
+      "description": "An animated button with ripple useful for user engagement.",
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/ripple-button.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "blur-fade",
+      "registry": "magicui",
+      "title": "Blur Fade",
+      "description": "Blur fade in and out animation. Used to smoothly fade in and out content.",
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/blur-fade.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "interactive-hover-button",
+      "registry": "magicui",
+      "title": "interactive-hover-button",
+      "description": null,
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/interactive-hover-button.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "video-text",
+      "registry": "magicui",
+      "title": "Video Text",
+      "description": "A component that displays text with a video playing in the background.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/magicui/video-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "hero-video-dialog-demo-top-in-bottom-out",
+      "registry": "magicui",
+      "title": "Hero Video Dialog Top In Bottom Out Demo",
+      "description": "Example showing a hero video dialog with top-in bottom-out animation.",
+      "category": "hero",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/hero-video-dialog-demo-top-in-bottom-out.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/hero-video-dialog"
+      ]
+    },
+    {
+      "name": "marquee-demo-vertical",
+      "registry": "magicui",
+      "title": "Marquee Vertical Demo",
+      "description": "Example showing a vertical infinite scrolling component.",
+      "category": "marquee",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/marquee-demo-vertical.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/marquee"
+      ]
+    },
+    {
+      "name": "marquee-logos",
+      "registry": "magicui",
+      "title": "Marquee Logos",
+      "description": "Example showing an infinite scrolling logo carousel.",
+      "category": "marquee",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/marquee-logos.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/marquee"
+      ]
+    },
+    {
+      "name": "marquee-3d",
+      "registry": "magicui",
+      "title": "Marquee 3D",
+      "description": "Example showing a 3D infinite scrolling component.",
+      "category": "marquee",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/marquee-3d.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/marquee"
+      ]
+    },
+    {
+      "name": "number-ticker-decimal-demo",
+      "registry": "magicui",
+      "title": "Number Ticker Decimal Demo",
+      "description": "Example showing animated counting decimal numbers.",
+      "category": "stats",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/number-ticker-decimal-demo.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/number-ticker"
+      ]
+    },
+    {
+      "name": "scroll-based-velocity-images-demo",
+      "registry": "magicui",
+      "title": "Scroll Based Velocity Images",
+      "description": "Example showing Unsplash images scrolling with speed reacting to scroll velocity.",
+      "category": "media",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/scroll-based-velocity-images-demo.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/scroll-based-velocity"
+      ]
+    },
+    {
+      "name": "blur-fade-text-demo",
+      "registry": "magicui",
+      "title": "Blur Fade Text Demo",
+      "description": "Example showing blur fade animations with text.",
+      "category": "typography",
+      "type": "registry:example",
+      "files": [
+        "components/blocks/magicui/blur-fade-text-demo.tsx"
+      ],
+      "registryDependencies": [
+        "@magicui/blur-fade"
+      ]
+    },
+    {
+      "name": "ClickSpark",
+      "registry": "reactbits",
+      "title": "ClickSpark",
+      "description": "Creates particle spark bursts at click position.",
+      "category": "interaction",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/ClickSpark.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "LogoLoop",
+      "registry": "reactbits",
+      "title": "LogoLoop",
+      "description": "Continuously looping marquee of brand or tech logos with seamless repeat and hover pause.",
+      "category": "marquee",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/LogoLoop.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "Magnet",
+      "registry": "reactbits",
+      "title": "Magnet",
+      "description": "Elements magnetically ease toward the cursor then settle back with spring physics.",
+      "category": "interaction",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/Magnet.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "MagnetLines",
+      "registry": "reactbits",
+      "title": "MagnetLines",
+      "description": "Animated field lines bend toward the cursor.",
+      "category": "interaction",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/MagnetLines.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "Noise",
+      "registry": "reactbits",
+      "title": "Noise",
+      "description": "Animated film grain / noise overlay adding subtle texture and motion.",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/Noise.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "OrbitImages",
+      "registry": "reactbits",
+      "title": "OrbitImages",
+      "description": "SVG Path customizable orbiting images effect",
+      "category": "media",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/OrbitImages.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "BlurText",
+      "registry": "reactbits",
+      "title": "BlurText",
+      "description": "Text starts blurred then crisply resolves for a soft-focus reveal effect.",
+      "category": "typography",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/BlurText.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "CountUp",
+      "registry": "reactbits",
+      "title": "CountUp",
+      "description": "Animated number counter supporting formatting and decimals.",
+      "category": "misc",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/CountUp.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "GradientText",
+      "registry": "reactbits",
+      "title": "GradientText",
+      "description": "Animated gradient sweep across live text with speed and color control.",
+      "category": "typography",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/GradientText.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "RotatingText",
+      "registry": "reactbits",
+      "title": "RotatingText",
+      "description": "Cycles through multiple phrases with 3D rotate / flip transitions.",
+      "category": "typography",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/RotatingText.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "ScrollVelocity",
+      "registry": "reactbits",
+      "title": "ScrollVelocity",
+      "description": "Text marquee animatio - speed and distortion scale with user's scroll velocity.",
+      "category": "scroll",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/ScrollVelocity.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "ShinyText",
+      "registry": "reactbits",
+      "title": "ShinyText",
+      "description": "Metallic sheen sweeps across text producing a reflective highlight.",
+      "category": "typography",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/ShinyText.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "Counter",
+      "registry": "reactbits",
+      "title": "Counter",
+      "description": "Flexible animated counter supporting increments + easing.",
+      "category": "stats",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/Counter.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "ElasticSlider",
+      "registry": "reactbits",
+      "title": "ElasticSlider",
+      "description": "Slider handle stretches elastically then snaps with spring physics.",
+      "category": "marquee",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/ElasticSlider.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "GooeyNav",
+      "registry": "reactbits",
+      "title": "GooeyNav",
+      "description": "Navigation indicator morphs with gooey blob transitions between items.",
+      "category": "navigation",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/GooeyNav.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "ProfileCard",
+      "registry": "reactbits",
+      "title": "ProfileCard",
+      "description": "Animated profile card glare with 3D hover effect.",
+      "category": "cards",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/ProfileCard.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "SpotlightCard",
+      "registry": "reactbits",
+      "title": "SpotlightCard",
+      "description": "Dynamic spotlight follows cursor casting gradient illumination.",
+      "category": "cards",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/SpotlightCard.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "BorderGlow",
+      "registry": "reactbits",
+      "title": "BorderGlow",
+      "description": "Glowing mesh-gradient border that follows cursor direction and intensifies near edges.",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/BorderGlow.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "LineSidebar",
+      "registry": "reactbits",
+      "title": "LineSidebar",
+      "description": "Static list navigation with a cursor-proximity effect that shifts and highlights nearby items.",
+      "category": "navigation",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/LineSidebar.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "ScrollExpand",
+      "registry": "reactbits",
+      "title": "ScrollExpand",
+      "description": "A rounded media frame that grows to full bleed as it scrolls through the viewport.",
+      "category": "scroll",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/ScrollExpand.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "Stepper",
+      "registry": "reactbits",
+      "title": "Stepper",
+      "description": "Animated multi-step progress indicator with active state transitions.",
+      "category": "scroll",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/Stepper.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "TiltedCard",
+      "registry": "reactbits",
+      "title": "TiltedCard",
+      "description": "3D perspective tilt card reacting to pointer.",
+      "category": "cards",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/TiltedCard.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "Waves",
+      "registry": "reactbits",
+      "title": "Waves",
+      "description": "Layered lines that form smooth wave patterns with animation.",
+      "category": "backgrounds",
+      "type": "registry:component",
+      "files": [
+        "components/blocks/reactbits/Waves.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "backgrounds-gradient",
+      "registry": "animateui",
+      "title": "Gradient Background",
+      "description": "A background component featuring a subtle yet engaging animated gradient effect, smoothly transitioning colors to enhance visual depth.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/backgrounds-gradient.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "effects-click",
+      "registry": "animateui",
+      "title": "Click",
+      "description": "An effect that creates animated effects at the click position, adding interactive feedback to user actions.",
+      "category": "interaction",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/effects-click.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "effects-highlight",
+      "registry": "animateui",
+      "title": "Highlight",
+      "description": "A highlight effect that allows you to highlight elements on hover, click or with a controlled value.",
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/effects-highlight.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "effects-image-zoom",
+      "registry": "animateui",
+      "title": "Image Zoom",
+      "description": "An effect that allows you to zoom in on an image on hover.",
+      "category": "media",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/effects-image-zoom.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "effects-shine",
+      "registry": "animateui",
+      "title": "Shine",
+      "description": "An animated light sweep effect with configurable timing, colors, and triggers (hover, tap, or continuous).",
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/effects-shine.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "texts-gradient",
+      "registry": "animateui",
+      "title": "Gradient Text",
+      "description": "A gradient text animation.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/texts-gradient.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "texts-shimmering",
+      "registry": "animateui",
+      "title": "Shimmering Text",
+      "description": "A shimmering text animation.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/animateui/texts-shimmering.tsx"
+      ],
+      "registryDependencies": [
+        "@animate-ui/hooks-use-is-in-view"
+      ]
+    },
+    {
+      "name": "animated-badge",
+      "registry": "eldora",
+      "title": "animated-badge",
+      "description": "An animated badge component.",
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/animated-badge.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "map",
+      "registry": "eldora",
+      "title": "map",
+      "description": "An animated map component with location markers.",
+      "category": "misc",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/map.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "blur-in-text",
+      "registry": "eldora",
+      "title": "blur-in-text",
+      "description": "A blur in text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/blur-in-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "fade-text",
+      "registry": "eldora",
+      "title": "fade-text",
+      "description": "A combined fade text component with support for in, up, and down directions.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/fade-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "gradual-spacing-text",
+      "registry": "eldora",
+      "title": "gradual-spacing-text",
+      "description": "A gradual spacing text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/gradual-spacing-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "letter-pull-up-text",
+      "registry": "eldora",
+      "title": "letter-pull-up-text",
+      "description": "A letter pull up text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/letter-pull-up-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "multi-direction-slide-text",
+      "registry": "eldora",
+      "title": "multi-direction-slide-text",
+      "description": "A multi direction slide text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/multi-direction-slide-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "seperate-away-text",
+      "registry": "eldora",
+      "title": "seperate-away-text",
+      "description": "A seperate away text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/seperate-away-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "word-pull-up-text",
+      "registry": "eldora",
+      "title": "word-pull-up-text",
+      "description": "A word pull up text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/word-pull-up-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "card-flip-hover",
+      "registry": "eldora",
+      "title": "card-flip-hover",
+      "description": "A card flip hover component.",
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/card-flip-hover.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "scale-letter-text",
+      "registry": "eldora",
+      "title": "scale-letter-text",
+      "description": "A scale letter text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/scale-letter-text.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "font-weight-text",
+      "registry": "eldora",
+      "title": "font-weight-text",
+      "description": "A font weight text component.",
+      "category": "typography",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/font-weight-text.tsx"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "animated-shiny-button",
+      "registry": "eldora",
+      "title": "animated-shiny-button",
+      "description": "An animated shiny button component.",
+      "category": "buttons",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/eldora/animated-shiny-button.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "logo-cloud-01",
+      "registry": "eldora",
+      "title": "logo-cloud-01",
+      "description": "A simple logo cloud.",
+      "category": "marquee",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/eldora/page.tsx",
+        "components/blocks/eldora/logo-cloud.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "logo-cloud-02",
+      "registry": "eldora",
+      "title": "logo-cloud-02",
+      "description": "A logo cloud with flex wrap layout.",
+      "category": "marquee",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/eldora/page.tsx",
+        "components/blocks/eldora/logo-cloud-02.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "logo-cloud-03",
+      "registry": "eldora",
+      "title": "logo-cloud-03",
+      "description": "A logo cloud with marquee effect.",
+      "category": "marquee",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/eldora/page.tsx"
+      ],
+      "registryDependencies": [
+        "marquee"
+      ]
+    },
+    {
+      "name": "testimonal-03",
+      "registry": "eldora",
+      "title": "testimonal-03",
+      "description": "A testimonial card grid.",
+      "category": "misc",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/eldora/page.tsx",
+        "components/blocks/eldora/testimonal-03.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "cta-03",
+      "registry": "eldora",
+      "title": "cta-03",
+      "description": "CTA with heading, button, and ripple background.",
+      "category": "cta",
+      "type": "registry:block",
+      "files": [
+        "components/blocks/eldora/page.tsx",
+        "components/blocks/eldora/cta-03.tsx",
+        "components/blocks/eldora/ripple-bg.tsx"
+      ],
+      "registryDependencies": [
+        "utils"
+      ]
+    },
+    {
+      "name": "alert",
+      "registry": "basecn",
+      "title": "Alert",
+      "description": "Displays a callout for user attention.",
+      "category": "overlays",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/basecn/alert.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "card",
+      "registry": "basecn",
+      "title": "Card",
+      "description": "Displays a card with header, content, and footer.",
+      "category": "cards",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/basecn/card.tsx"
+      ],
+      "registryDependencies": []
+    },
+    {
+      "name": "textarea",
+      "registry": "basecn",
+      "title": "Textarea",
+      "description": "Displays a form textarea or a component that looks like a textarea.",
+      "category": "forms",
+      "type": "registry:ui",
+      "files": [
+        "components/blocks/basecn/textarea.tsx"
+      ],
+      "registryDependencies": []
+    }
+  ],
+  "rejected": [
+    {
+      "name": "card-spotlight",
+      "registry": "aceternity",
+      "reason": "imports @react-three/fiber, three"
+    },
+    {
+      "name": "cover",
+      "registry": "aceternity",
+      "reason": "imports @tsparticles/react, @tsparticles/engine, @tsparticles/slim"
+    },
+    {
+      "name": "resizable-navbar",
+      "registry": "aceternity",
+      "reason": "imports @tabler/icons-react"
+    },
+    {
+      "name": "expandable-card-on-click",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "full-background-image-with-text",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "centered-around-testimonials",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-section-with-noise-background",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "logos-with-blur-flip",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "spotlight-logo-cloud",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "three-columns-with-images",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "cta-with-centered-text",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "simple-footer-with-four-grids",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "footer-with-grid",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "footer-with-big-text",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "premium-auth-split",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "blog-with-categories",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "simple-blog-with-grid",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "faqs-with-grid",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "stats-for-changelog",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "stats-with-number-ticker",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "stats-with-gradient",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-with-full-video",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-with-shooting-stars",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-dots",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-dots-masked",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-dots-masked-vertical",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-grid-with-dots",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-grid-with-dots-and-animations",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-with-skewed-rectangles",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-with-skewed-lines",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "background-noise-grid",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "text-animation-flipping-words-demo",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "text-animation-typewriter-effect-demo",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "text-animation-blur-fade-in-demo",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "text-generate-typewriter",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "minimal-hero-section-with-parallax-images",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-with-image-and-scales",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "logo-cloud-with-blur-animation",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "logo-cloud-with-swap-animation",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "single-row-logo-cloud",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "dot-distortion-shader",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "lines-gradient-shader",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "spotlight-shader",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-with-background-and-navbar",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-section-with-multi-color-background",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-section-with-infinite-scroll-cards",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "testimonials-background-with-drag",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-section-with-flickering-lights",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-section-with-tabs",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-section-with-mesh-gradient",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-with-dither-shader",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "hero-with-framed-image-and-logos",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "testimonials-with-carousel",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "chat-conversation",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "folder-with-files",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "testimonials-hover-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "contact-with-dither-image",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "team-section-with-scales",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "team-section-with-light-background",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "team-section-with-small-avatars",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "empty-state-vertical-grid",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "empty-state-with-cards",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "empty-state-with-pictures",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "empty-state-with-draggable-cards",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "empty-state-with-stacked-cards",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "uptime-status-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "rotating-tabs-with-text",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "flipping-images-with-bar",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "isometric-box",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "features-with-isometric-blocks",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "features-with-stacked-isometric-boxes",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "macbook-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "iphone-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "dynamic-island",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "ipad-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "bento-grid-illustrations",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "keyboard-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "simple-login-with-grid-lines",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "animated-beam-path-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "feature-section-with-centered-skeleton",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "box-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "features-with-hover-and-text-animation",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "macbook-illustration-with-icons",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "text-highlight-illustration",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "draggable-cards",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "multicolored-features",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "features-with-accordion-and-image",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "multi-level-features-with-illustrations",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "three-column-features-with-image",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "features-with-square-edges",
+      "registry": "aceternity",
+      "reason": "HTTP 401"
+    },
+    {
+      "name": "border-beam",
+      "registry": "magicui",
+      "reason": "imports : colorFrom,\n            "
+    },
+    {
+      "name": "animated-gradient-text",
+      "registry": "magicui",
+      "reason": "imports : colorFrom,\n          "
+    },
+    {
+      "name": "file-tree",
+      "registry": "magicui",
+      "reason": "imports @radix-ui/react-accordion"
+    },
+    {
+      "name": "animated-theme-toggler",
+      "registry": "magicui",
+      "reason": "imports )\n    }\n  }, [cancelAnim])\n\n  useEffect(() => {\n    if (isControlled) return\n\n    const updateTheme = () => {\n      setInternalIsDark(document.documentElement.classList.contains(, , clipPath[0])\n    const cleanup = () => {\n      isTransitioningRef.current = false\n      delete root.dataset.magicuiThemeVt\n      root.style.removeProperty(, )\n      cancelAnim()\n    }\n\n    isTransitioningRef.current = true\n    const transition = document.startViewTransition(() => {\n      flushSync(applyTheme)\n    })\n    if (typeof transition?.finished?.finally === "
+    },
+    {
+      "name": "magic-card-demo",
+      "registry": "magicui",
+      "reason": "imports next-themes"
+    },
+    {
+      "name": "magic-card-demo-2",
+      "registry": "magicui",
+      "reason": "imports next-themes"
+    },
+    {
+      "name": "line-shadow-text-demo",
+      "registry": "magicui",
+      "reason": "imports next-themes"
+    },
+    {
+      "name": "code-comparison-demo",
+      "registry": "magicui",
+      "reason": "imports @app/(auth)"
+    },
+    {
+      "name": "shine-border-demo-2",
+      "registry": "magicui",
+      "reason": "imports next-themes"
+    },
+    {
+      "name": "confetti-fireworks",
+      "registry": "magicui",
+      "reason": "imports canvas-confetti"
+    },
+    {
+      "name": "confetti-stars",
+      "registry": "magicui",
+      "reason": "imports canvas-confetti"
+    },
+    {
+      "name": "confetti-side-cannons",
+      "registry": "magicui",
+      "reason": "imports canvas-confetti"
+    },
+    {
+      "name": "confetti-custom-shapes",
+      "registry": "magicui",
+      "reason": "imports canvas-confetti"
+    },
+    {
+      "name": "confetti-emoji",
+      "registry": "magicui",
+      "reason": "imports canvas-confetti"
+    },
+    {
+      "name": "Lanyard",
+      "registry": "reactbits",
+      "reason": "imports @react-three/fiber, @react-three/drei, @react-three/rapier, meshline, three"
+    },
+    {
+      "name": "orbit-rotation-demo",
+      "registry": "eldora",
+      "reason": "imports react-icons"
+    },
+    {
+      "name": "footer-01",
+      "registry": "eldora",
+      "reason": "imports next-themes"
+    },
+    {
+      "name": "animated-modal",
+      "registry": "aceternity",
+      "reason": "does not compile — TS2345: Argument of type 'RefObject<null>' is not assignable to parameter of type 'RefObject<HTMLD"
+    },
+    {
+      "name": "background-beams-with-collision",
+      "registry": "aceternity",
+      "reason": "does not compile — TS2322: Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElemen"
+    },
+    {
+      "name": "moving-border",
+      "registry": "aceternity",
+      "reason": "does not compile — TS2554: Expected 1 arguments, but got 0."
+    },
+    {
+      "name": "stars-background",
+      "registry": "aceternity",
+      "reason": "does not compile — TS2322: Type 'RefObject<HTMLCanvasElement | null>' is not assignable to type 'RefObject<HTMLCanvas"
+    },
+    {
+      "name": "animate-avatar-group",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/tooltip' or its corresponding ty"
+    },
+    {
+      "name": "animate-cursor",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/lib/get-strict-context' or its corresponding type declarations."
+    },
+    {
+      "name": "animate-github-stars-wheel",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/texts/scrolling-number' or its correspon"
+    },
+    {
+      "name": "animate-github-stars",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "animate-motion-grid",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/lib/get-strict-context' or its corresponding type declarations."
+    },
+    {
+      "name": "animate-pinned-list",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "animate-scroll-progress",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "animate-spring",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-motion-value-state' or its corresponding type declarations"
+    },
+    {
+      "name": "animate-tabs",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/effects/highlight' or its corresponding "
+    },
+    {
+      "name": "animate-tooltip",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/tooltip' or its corresponding ty"
+    },
+    {
+      "name": "base-accordion",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/accordion' or its corresponding typ"
+    },
+    {
+      "name": "base-alert-dialog",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/alert-dialog' or its corresponding "
+    },
+    {
+      "name": "base-checkbox",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/checkbox' or its corresponding type"
+    },
+    {
+      "name": "base-dialog",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/dialog' or its corresponding type d"
+    },
+    {
+      "name": "base-files",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/effects/highlight' or its corresponding "
+    },
+    {
+      "name": "base-menu",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/menu' or its corresponding type dec"
+    },
+    {
+      "name": "base-popover",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/popover' or its corresponding type "
+    },
+    {
+      "name": "base-preview-card",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/preview-card' or its corresponding "
+    },
+    {
+      "name": "base-preview-link-card",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/preview-link-card' or its correspon"
+    },
+    {
+      "name": "base-progress",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/progress' or its corresponding type"
+    },
+    {
+      "name": "base-radio",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/radio' or its corresponding type de"
+    },
+    {
+      "name": "base-switch",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/switch' or its corresponding type d"
+    },
+    {
+      "name": "base-tabs",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/tabs' or its corresponding type dec"
+    },
+    {
+      "name": "base-toggle-group",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/toggle-group' or its corresponding "
+    },
+    {
+      "name": "base-toggle",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/toggle' or its corresponding type d"
+    },
+    {
+      "name": "base-tooltip",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/base/tooltip' or its corresponding type "
+    },
+    {
+      "name": "buttons-button",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "buttons-copy",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/buttons/button' or its corresponding typ"
+    },
+    {
+      "name": "buttons-flip",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/lib/get-strict-context' or its corresponding type declarations."
+    },
+    {
+      "name": "buttons-github-stars",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/buttons/button' or its corresponding typ"
+    },
+    {
+      "name": "buttons-icon",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/buttons/button' or its corresponding typ"
+    },
+    {
+      "name": "buttons-liquid",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "buttons-ripple",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/lib/get-strict-context' or its corresponding type declarations."
+    },
+    {
+      "name": "community-flip-card",
+      "registry": "animateui",
+      "reason": "does not compile — TS2305: Module '\"lucide-react\"' has no exported member 'Github'."
+    },
+    {
+      "name": "community-management-bar",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/texts/sliding-number' or its correspondi"
+    },
+    {
+      "name": "community-playful-todolist",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations."
+    },
+    {
+      "name": "community-share-button",
+      "registry": "animateui",
+      "reason": "does not compile — TS2305: Module '\"lucide-react\"' has no exported member 'Github'."
+    },
+    {
+      "name": "community-user-presence-avatar",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/avatar' or its corresponding type declarations."
+    },
+    {
+      "name": "effects-auto-height",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-auto-height' or its corresponding type declarations."
+    },
+    {
+      "name": "effects-blur",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "effects-effect",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "effects-fade",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "effects-magnetic",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "effects-particles",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "effects-slide",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "effects-tilt",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/animate/slot' or its corresponding type "
+    },
+    {
+      "name": "effects-zoom",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "headless-accordion",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/headless/disclosure' or its correspondin"
+    },
+    {
+      "name": "headless-checkbox",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/headless/checkbox' or its corresponding "
+    },
+    {
+      "name": "headless-dialog",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/headless/dialog' or its corresponding ty"
+    },
+    {
+      "name": "headless-popover",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/headless/popover' or its corresponding t"
+    },
+    {
+      "name": "headless-switch",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/headless/switch' or its corresponding ty"
+    },
+    {
+      "name": "headless-tabs",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/headless/tabs' or its corresponding type"
+    },
+    {
+      "name": "radix-accordion",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-alert-dialog",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-checkbox",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-collapsible",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-dialog",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-dropdown-menu",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-files",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/effects/highlight' or its corresponding "
+    },
+    {
+      "name": "radix-hover-card",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-popover",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-preview-link-card",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/animateui/radix/hover-card' or its corresponding t"
+    },
+    {
+      "name": "radix-progress",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-radio-group",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-sheet",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-sidebar",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-switch",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-tabs",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-toggle-group",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-toggle",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "radix-tooltip",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module 'radix-ui' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-counting-number",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-highlight",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-morphing",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-rolling",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-rotating",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-scrolling-number",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-splitting",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "texts-typing",
+      "registry": "animateui",
+      "reason": "does not compile — TS2307: Cannot find module '@/hooks/use-is-in-view' or its corresponding type declarations."
+    },
+    {
+      "name": "field",
+      "registry": "basecn",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/basecn/separator' or its corresponding type declar"
+    },
+    {
+      "name": "input-group",
+      "registry": "basecn",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/basecn/button' or its corresponding type declarati"
+    },
+    {
+      "name": "pagination",
+      "registry": "basecn",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/basecn/button' or its corresponding type declarati"
+    },
+    {
+      "name": "animated-frameworks",
+      "registry": "eldora",
+      "reason": "does not compile — TS2724: '\"@/components/icons\"' has no exported member named 'Icons'. Did you mean 'XIcon'?"
+    },
+    {
+      "name": "animated-grid-pattern-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/animated-grid-pattern' or its corresponding"
+    },
+    {
+      "name": "browser",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "cobe-globe-demo-2",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/cobe-globe' or its corresponding type decla"
+    },
+    {
+      "name": "cobe-globe-demo-3",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/cobe-globe' or its corresponding type decla"
+    },
+    {
+      "name": "cobe-globe-demo-4",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/cobe-globe' or its corresponding type decla"
+    },
+    {
+      "name": "cobe-globe-demo-5",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/cobe-globe' or its corresponding type decla"
+    },
+    {
+      "name": "cobe-globe-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/cobe-globe' or its corresponding type decla"
+    },
+    {
+      "name": "github-inline-comments",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/avatar' or its corresponding type declarations."
+    },
+    {
+      "name": "logo-timeline",
+      "registry": "eldora",
+      "reason": "does not compile — TS2724: '\"@/components/icons\"' has no exported member named 'Icons'. Did you mean 'XIcon'?"
+    },
+    {
+      "name": "novatrix-background-demo-2",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/novatrix-background' or its corresponding t"
+    },
+    {
+      "name": "novatrix-background-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/novatrix-background' or its corresponding t"
+    },
+    {
+      "name": "photon-beam-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/photon-beam' or its corresponding type decl"
+    },
+    {
+      "name": "terminal-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/terminal' or its corresponding type declara"
+    },
+    {
+      "name": "testimonal-slider-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/testimonal-slider' or its corresponding typ"
+    },
+    {
+      "name": "animated-gradient-text-demo-2",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-gradient-text' or its correspondi"
+    },
+    {
+      "name": "animated-gradient-text-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-gradient-text' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-diamond-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-hexagon-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-rectangle-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-square-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-star-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "animated-theme-toggler-triangle-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/animated-theme-toggler' or its correspondi"
+    },
+    {
+      "name": "border-beam-demo-2",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "border-beam-demo-3",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "border-beam-demo-4",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/border-beam' or its corresponding type dec"
+    },
+    {
+      "name": "border-beam-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "confetti-basic-cannon",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/confetti' or its corresponding type declar"
+    },
+    {
+      "name": "confetti-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/confetti' or its corresponding type declar"
+    },
+    {
+      "name": "confetti-random-direction",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/confetti' or its corresponding type declar"
+    },
+    {
+      "name": "dotted-map-demo-2",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/dotted-map' or its corresponding type decl"
+    },
+    {
+      "name": "dotted-map-demo-3",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/dotted-map' or its corresponding type decl"
+    },
+    {
+      "name": "file-tree-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/file-tree' or its corresponding type decla"
+    },
+    {
+      "name": "glare-hover-demo-alert",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/alert' or its corresponding type declarations."
+    },
+    {
+      "name": "glare-hover-demo-cta",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "glare-hover-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "globe-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/globe' or its corresponding type declarati"
+    },
+    {
+      "name": "lens-demo-2",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "lens-demo-3",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "lens-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "noise-texture-demo-2",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "noise-texture-demo-4",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/input' or its corresponding type declarations."
+    },
+    {
+      "name": "progressive-blur-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/scroll-area' or its corresponding type declarations."
+    },
+    {
+      "name": "shine-border-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "tweet-card-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/client-tweet-card' or its corresponding ty"
+    },
+    {
+      "name": "tweet-card-images",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/client-tweet-card' or its corresponding ty"
+    },
+    {
+      "name": "tweet-card-meta-preview",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/magicui/client-tweet-card' or its corresponding ty"
+    },
+    {
+      "name": "warp-background-demo",
+      "registry": "magicui",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/ui/card' or its corresponding type declarations."
+    },
+    {
+      "name": "SplitFlapText",
+      "registry": "reactbits",
+      "reason": "does not compile — TS2322: Type 'number' is not assignable to type 'Timeout'."
+    },
+    {
+      "name": "animated-frameworks-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/animated-frameworks' or its corresponding t"
+    },
+    {
+      "name": "browser-demo-2",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/browser' or its corresponding type declarat"
+    },
+    {
+      "name": "browser-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/browser' or its corresponding type declarat"
+    },
+    {
+      "name": "github-inline-comments-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/github-inline-comments' or its correspondin"
+    },
+    {
+      "name": "logo-timeline-demo-2",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/logo-timeline' or its corresponding type de"
+    },
+    {
+      "name": "logo-timeline-demo",
+      "registry": "eldora",
+      "reason": "does not compile — TS2307: Cannot find module '@/components/blocks/eldora/logo-timeline' or its corresponding type de"
+    },
+    {
+      "name": "moving-line",
+      "registry": "aceternity",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "glowing-stars",
+      "registry": "aceternity",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "svg-mask-effect",
+      "registry": "aceternity",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "evervault-card",
+      "registry": "aceternity",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "parallax-scroll-2",
+      "registry": "aceternity",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "meteors",
+      "registry": "aceternity",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "lamp",
+      "registry": "aceternity",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "google-gemini-effect",
+      "registry": "aceternity",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "gooey-input",
+      "registry": "aceternity",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "layout-grid",
+      "registry": "aceternity",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "shooting-stars",
+      "registry": "aceternity",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "squiggly-text",
+      "registry": "aceternity",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "notch",
+      "registry": "aceternity",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "draggable-card",
+      "registry": "aceternity",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "stateful-button",
+      "registry": "aceternity",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "loader",
+      "registry": "aceternity",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "background-ripple-effect",
+      "registry": "aceternity",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "pixelated-canvas",
+      "registry": "aceternity",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "canvas-text",
+      "registry": "aceternity",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "encrypted-text",
+      "registry": "aceternity",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "dither-shader",
+      "registry": "aceternity",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "cloud-shader",
+      "registry": "aceternity",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "webcam-pixel-grid",
+      "registry": "aceternity",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "terminal",
+      "registry": "aceternity",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "ascii-art",
+      "registry": "aceternity",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "scales",
+      "registry": "aceternity",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "text-flipping-board",
+      "registry": "aceternity",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "background-lines",
+      "registry": "aceternity",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "android",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "warp-background",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "lens",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "smooth-cursor",
+      "registry": "magicui",
+      "reason": "curated out: custom cursor, fights usability"
+    },
+    {
+      "name": "progressive-blur",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "neon-gradient-card",
+      "registry": "magicui",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "meteors",
+      "registry": "magicui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "hexagon-pattern",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "striped-pattern",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "interactive-grid-pattern",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "flickering-grid",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "glyph-matrix",
+      "registry": "magicui",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "particles",
+      "registry": "magicui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "ripple",
+      "registry": "magicui",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "animated-list",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "animated-beam",
+      "registry": "magicui",
+      "reason": "curated out: diagram connector, not a marketing block"
+    },
+    {
+      "name": "orbiting-circles",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "dock",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "spinning-text",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "comic-text",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "icon-cloud",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "cool-mode",
+      "registry": "magicui",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "pulsating-button",
+      "registry": "magicui",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "safari",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "iphone",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "rainbow-button",
+      "registry": "magicui",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "terminal",
+      "registry": "magicui",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "pixel-image",
+      "registry": "magicui",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "light-rays",
+      "registry": "magicui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "backlight",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "kinetic-text",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "text-3d-flip",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "android-demo",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "android-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "android-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "aurora-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "morphing-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "scroll-progress-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "pointer-demo-1",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "smooth-cursor-demo",
+      "registry": "magicui",
+      "reason": "curated out: custom cursor, fights usability"
+    },
+    {
+      "name": "neon-gradient-card-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "noise-texture-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "noise-texture-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "meteors-demo",
+      "registry": "magicui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "grid-pattern-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "striped-pattern-demo",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "striped-pattern-dashed",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "striped-pattern-right",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "hexagon-pattern-demo",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "hexagon-pattern-linear-gradient",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "hexagon-pattern-dashed",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "hexagon-pattern-spacing",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "dot-pattern-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "flickering-grid-demo",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "flickering-grid-rounded-demo",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "hero-video-dialog-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "marquee-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "shimmer-button-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "number-ticker-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "number-ticker-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "ripple-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "retro-grid-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "animated-list-demo",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "animated-grid-pattern-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "interactive-grid-pattern-demo",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "interactive-grid-pattern-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: busy animated background"
+    },
+    {
+      "name": "animated-beam-unidirectional",
+      "registry": "magicui",
+      "reason": "curated out: diagram connector, not a marketing block"
+    },
+    {
+      "name": "animated-beam-bidirectional",
+      "registry": "magicui",
+      "reason": "curated out: diagram connector, not a marketing block"
+    },
+    {
+      "name": "animated-beam-multiple-inputs",
+      "registry": "magicui",
+      "reason": "curated out: diagram connector, not a marketing block"
+    },
+    {
+      "name": "animated-beam-multiple-outputs",
+      "registry": "magicui",
+      "reason": "curated out: diagram connector, not a marketing block"
+    },
+    {
+      "name": "text-reveal-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "dia-text-reveal-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "dia-text-reveal-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "dia-text-reveal-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "dia-text-reveal-demo-4",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "dock-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "dock-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "word-rotate-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "hyper-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "avatar-circles-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-4",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-5",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-6",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-7",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "typing-animation-demo-8",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "scroll-based-velocity-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "sparkles-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "spinning-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "spinning-text-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "comic-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "icon-cloud-demo",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "icon-cloud-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "icon-cloud-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "text-animate-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-4",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-5",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-6",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-7",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-8",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "text-animate-demo-9",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "shiny-button-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "animated-circular-progress-bar-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "cool-mode-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "cool-mode-custom",
+      "registry": "magicui",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "pulsating-button-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "pulsating-button-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "ripple-button-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "blur-fade-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "safari-demo",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "safari-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "safari-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "safari-demo-4",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "iphone-demo",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "iphone-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "iphone-demo-3",
+      "registry": "magicui",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "rainbow-button-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "rainbow-button-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "interactive-hover-button-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "terminal-demo",
+      "registry": "magicui",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "terminal-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "video-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "pixel-image-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "light-rays-demo",
+      "registry": "magicui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "backlight-video-demo",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "backlight-image-demo",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "backlight-svg-demo",
+      "registry": "magicui",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "kinetic-text-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "text-3d-flip-demo",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "text-3d-flip-demo-2",
+      "registry": "magicui",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "utils",
+      "registry": "magicui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "ElectricBorder",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "GlareHover",
+      "registry": "reactbits",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "GradualBlur",
+      "registry": "reactbits",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "MetallicPaint",
+      "registry": "reactbits",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "PixelSwap",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "SplashCursor",
+      "registry": "reactbits",
+      "reason": "curated out: custom cursor, fights usability"
+    },
+    {
+      "name": "StarBorder",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "CircularText",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "CurvedLoop",
+      "registry": "reactbits",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "DecryptedText",
+      "registry": "reactbits",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "FuzzyText",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "GlitchText",
+      "registry": "reactbits",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "TextCursor",
+      "registry": "reactbits",
+      "reason": "curated out: custom cursor, fights usability"
+    },
+    {
+      "name": "TextPressure",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "TrueFocus",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "VariableProximity",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "ParticleText",
+      "registry": "reactbits",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "DepthText",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "EchoText",
+      "registry": "reactbits",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "AnimatedList",
+      "registry": "reactbits",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "DriftWall",
+      "registry": "reactbits",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "Dock",
+      "registry": "reactbits",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "Folder",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "GlassIcons",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "GlassSurface",
+      "registry": "reactbits",
+      "reason": "curated out: GPU-heavy canvas"
+    },
+    {
+      "name": "PixelCard",
+      "registry": "reactbits",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "OptionWheel",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "CursorGrid",
+      "registry": "reactbits",
+      "reason": "curated out: custom cursor, fights usability"
+    },
+    {
+      "name": "CurvedInput",
+      "registry": "reactbits",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "Stack",
+      "registry": "reactbits",
+      "reason": "curated out: novelty widget"
+    },
+    {
+      "name": "ReflectiveCard",
+      "registry": "reactbits",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "DotField",
+      "registry": "reactbits",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "LetterGlitch",
+      "registry": "reactbits",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "Lightning",
+      "registry": "reactbits",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "backgrounds-fireworks",
+      "registry": "animateui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "backgrounds-gravity-stars",
+      "registry": "animateui",
+      "reason": "curated out: heavy animated background"
+    },
+    {
+      "name": "community-notification-list",
+      "registry": "animateui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "community-pin-list",
+      "registry": "animateui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "community-radial-intro",
+      "registry": "animateui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "community-radial-nav",
+      "registry": "animateui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "animate-slot",
+      "registry": "animateui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "effects-theme-toggler",
+      "registry": "animateui",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "safari-browser",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "macbook-pro",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "iphone-17-pro",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "ipad",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "grid",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "clerk-otp",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "marquee",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "integrations",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "svg-ripple-effect",
+      "registry": "eldora",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "wavy-text",
+      "registry": "eldora",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "hacker-background",
+      "registry": "eldora",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "live-button",
+      "registry": "eldora",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "animated-list",
+      "registry": "eldora",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "dock-text",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "holographic-card",
+      "registry": "eldora",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "safari-browser-demo",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "macbook-pro-demo",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "iphone-17-pro-demo",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "ipad-demo",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "animated-badge-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "grid-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "grid-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "grid-demo-3",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "grid-demo-4",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "grid-demo-5",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "clerk-otp-demo",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "clerk-otp-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "integrations-demo",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "integrations-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "map-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "svg-ripple-effect-demo",
+      "registry": "eldora",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "svg-ripple-effect-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: novelty effect"
+    },
+    {
+      "name": "blur-in-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "fade-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "fade-text-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "fade-text-demo-3",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "gradual-spacing-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "letter-pull-up-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "multi-direction-slide-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "seperate-away-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "wavy-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: novelty type effect"
+    },
+    {
+      "name": "word-pull-up-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "hacker-background-demo",
+      "registry": "eldora",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "hacker-background-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: developer or code-themed"
+    },
+    {
+      "name": "card-flip-hover-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "scale-letter-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "font-weight-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "live-button-demo",
+      "registry": "eldora",
+      "reason": "curated out: novelty button"
+    },
+    {
+      "name": "animated-shiny-button-demo",
+      "registry": "eldora",
+      "reason": "curated out: duplicate demo variant"
+    },
+    {
+      "name": "animated-list-demo",
+      "registry": "eldora",
+      "reason": "curated out: not useful for a tour site"
+    },
+    {
+      "name": "dock-text-demo",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "dock-text-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "holographic-card-demo",
+      "registry": "eldora",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "holographic-card-demo-2",
+      "registry": "eldora",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "holographic-card-demo-3",
+      "registry": "eldora",
+      "reason": "curated out: novelty card"
+    },
+    {
+      "name": "utils",
+      "registry": "eldora",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "aspect-ratio",
+      "registry": "basecn",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "empty",
+      "registry": "basecn",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "label",
+      "registry": "basecn",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "kbd",
+      "registry": "basecn",
+      "reason": "curated out: device or app-chrome mockup"
+    },
+    {
+      "name": "skeleton",
+      "registry": "basecn",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "spinner",
+      "registry": "basecn",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "table",
+      "registry": "basecn",
+      "reason": "curated out: internal or product-specific"
+    },
+    {
+      "name": "registry.generated",
+      "registry": "registry.generated.ts",
+      "reason": "does not compile — TS2307: Cannot find module './aceternity/background-lines' or its corresponding type declarations."
+    },
+    {
+      "name": "grid",
+      "registry": "aceternity",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "background-beams",
+      "registry": "aceternity",
+      "reason": "curated out: decorative background, adds nothing on a client site"
+    },
+    {
+      "name": "aurora-background",
+      "registry": "aceternity",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "dotted-glow-background",
+      "registry": "aceternity",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "grid-pattern",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "dot-pattern",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "retro-grid",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "animated-grid-pattern",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "grid-pattern-linear-gradient",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "grid-pattern-dashed",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "dot-pattern-linear-gradient",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "dot-pattern-with-glow-effect",
+      "registry": "magicui",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "ShapeGrid",
+      "registry": "reactbits",
+      "reason": "curated out: grid or dot pattern, banned by the design law"
+    },
+    {
+      "name": "backgrounds-bubble",
+      "registry": "animateui",
+      "reason": "curated out: decorative background, adds nothing on a client site"
+    },
+    {
+      "name": "backgrounds-hexagon",
+      "registry": "animateui",
+      "reason": "curated out: decorative background, adds nothing on a client site"
+    },
+    {
+      "name": "backgrounds-hole",
+      "registry": "animateui",
+      "reason": "curated out: decorative background, adds nothing on a client site"
+    },
+    {
+      "name": "backgrounds-stars",
+      "registry": "animateui",
+      "reason": "curated out: decorative background, adds nothing on a client site"
+    }
+  ],
+  "prunedAt": "2026-08-22T22:24:12.383Z",
+  "curatedAt": "2026-08-22T22:24:02.919Z"
+}

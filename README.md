@@ -1,11 +1,44 @@
-# Dentavanta website
+# Dentavanta
 
-Not started yet. This will be the public marketing site — separate from the actual product (`dentavanta-platform-frontend`) and the internal tools, on purpose. Whoever works on marketing pages shouldn't need any access to patient-data-adjacent code.
+Public marketing site for Dentavanta. Separate from the actual product
+(`dentavanta-platform-frontend`) and the internal tools, on purpose: whoever
+works on marketing pages doesn't need access to patient-data-adjacent code.
+
+Next.js (App Router) · Tailwind v4 · shadcn/ui · `motion` · `lucide-react`.
+Built on a section-library starter (see `CLAUDE.md` for the full design law);
+the factory/dashboard half of that starter has been stripped out, this repo
+is just the site.
 
 ## One-time setup after cloning
 
 ```bash
 git config core.hooksPath .githooks
+npm install
+cp .env.example .env   # optional: add OPENAI_API_KEY to enable the FAQ widget
 ```
 
-This enables the pre-commit hook that scans for accidentally-committed secrets (gitleaks). Once this repo has real code (`package.json`), it should also get husky + the hidden-obfuscated-code scanner used in `dentavanta-backoffice`/`dentavanta-platform-backend` — see those repos' `scripts/security-scan.mjs` for the pattern.
+`.githooks/pre-commit` scans for accidentally-committed secrets (gitleaks).
+
+## Commands
+
+- `npm run dev` — start the dev server (Webpack, not Turbopack, capped at 4GB)
+- `npm run build` — production build
+- `npm run brand` — resync theme/fonts from `brand.config.ts` after editing it
+- `npm run check` — sub-second preflight (deps, brand sync, content, image weight)
+- `npm run guard` — supply-chain / malware scan, same posture as the org's other repos
+- `npm run ui -- <name>` — add a shadcn component
+
+## Layout
+
+```
+brand.config.ts   name, theme hue, fonts, domain, contact — never hardcode these in a component
+content/          all page copy, typed against content/types.ts — never in JSX
+app/              layout.tsx, page.tsx, api/chat (FAQ widget)
+components/       sections/ (page sections) · magic/ (Reveal, Gallery, Carousel...) ·
+                  ui/ (shadcn) · widget/ (faq, whatsapp) · blocks/ (raw vendored
+                  components used as source material for new bespoke sections)
+public/ingested/  real images used across the site
+```
+
+See [`CLAUDE.md`](./CLAUDE.md) for the full design system rules (color, type,
+motion, image limits, accessibility) that this site follows.
