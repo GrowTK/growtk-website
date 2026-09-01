@@ -1,226 +1,273 @@
 /**
- * Home page copy. Real content for Dentavanta, a pre-launch, early-access
- * practice management platform for small dental and cosmetology practices.
+ * Home page copy. Growtk redesigns websites and builds the automation behind
+ * them (widgets, workflow automation, voice agents, integrations) for trade
+ * and service businesses: roofing, railing and fencing, healthcare, and more
+ * industries over time.
  *
  * Keep every string free of em dashes and en dashes.
  */
-import type { PageContent, Cta, Img, SectionHeading, Stat, FaqItem } from "./types";
+import type { PageContent, Cta, Img, SectionHeading, Stat, FaqItem, Testimonial, Feature } from "./types";
 import type { TabItem } from "@/components/sections/features/feature-05";
 
 export const home = {
   meta: {
-    title: "Dentavanta: HIPAA-grade practice software for small healthcare teams",
+    title: "Growtk: websites, widgets and automation for service businesses",
     description:
-      "Dentavanta is early-access practice management software for small dental and cosmetology practices, built on tenant-isolated, audited AWS infrastructure with a signed Business Associate Agreement for every practice.",
+      "Growtk redesigns websites and builds custom widgets, workflow automation, voice agents and integrations for roofing, railing and fencing, healthcare and other service businesses.",
     path: "/",
   },
 
   hero: {
-    eyebrow: "Early access, now open",
-    title: "Practice software built like it actually handles patient data",
-    accent: "patient data",
-    body: "Dentavanta gives small dental and cosmetology practices scheduling, records and communication on the same tenant-isolated, audited AWS foundation that larger health systems pay far more for. We are early. Here is exactly what is real today.",
-    badge: {
-      icon: "ShieldCheck",
-      label: "Signed AWS BAA",
-      sublabel: "Audited infrastructure, us-east-1",
-    },
-    bullets: [
-      "Row-level security isolates every practice's data in the database itself",
-      "Cognito-backed authentication, no shared logins or shared passwords",
-      "Every access to patient data is written to an audit log",
-      "A signed Business Associate Agreement with every practice",
-    ],
+    eyebrow: "Websites, widgets and automation",
+    title: "Stop losing jobs to a website that works slower than you do",
+    body: "Growtk redesigns your website and builds the automation behind it: quote widgets, booking flows, follow-up sequences and voice agents, so leads stop going cold while you're on a roof, a job site, or with a patient.",
     ctas: [
-      { label: "Book a demo", href: "/book-demo", variant: "primary" },
-      { label: "See our security model", href: "/security", variant: "secondary" },
+      { label: "Get a free audit", href: "/contact", variant: "primary" },
+      { label: "See what we build", href: "/services", variant: "secondary" },
     ] as Cta[],
     image: {
-      src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80",
-      alt: "Empty, modern dental treatment room with clean white cabinetry and chairside equipment",
+      src: "https://images.unsplash.com/photo-1621905253185-95614217f357?auto=format&fit=crop&w=1200&q=80",
+      alt: "A contractor in a hard hat checking his phone on a job site",
     } as Img,
+    stats: [
+      { value: "5", label: "services under one roof: web, widgets, automation, voice, integrations" },
+      { value: "3", label: "industries with a dedicated playbook: roofing, railing and fencing, healthcare" },
+      { value: "1", label: "free audit call to scope exactly what you need" },
+      { value: "24/7", label: "a voice agent can pick up the phone even after hours" },
+    ] as Stat[],
   },
 
-  /** Tabbed capabilities: Feature05. */
-  capabilities: {
+  /** Bespoke icon-led strip, not a catalog component: three industries plus a link to the hub. */
+  industries: {
     heading: {
-      eyebrow: "How it is built",
-      title: "Security is not a feature we bolted on",
-      body: "Every layer of the platform was designed around one rule: a practice's data belongs to that practice, and nothing else can touch it.",
+      eyebrow: "Built for the trades",
+      title: "Made for roofing, railing and healthcare businesses, and growing",
+      body: "Every build starts with how your industry actually wins and loses jobs, not a generic template with your logo swapped in.",
     } as SectionHeading,
     items: [
       {
-        icon: "Database",
-        tab: "Tenant isolation",
-        title: "Row-level security on every table",
-        meta: "Aurora Postgres, RLS",
-        body: "Every query is scoped to a practice by the database itself, using Postgres row-level security policies, not application code that a bug could bypass.",
-        image: {
-          src: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1200&q=80",
-          alt: "Dentist and patient looking at a scan together beside the treatment chair",
-        },
-        bullets: [
-          "Enforced at the database, not just the API",
-          "A practice can never see another practice's rows",
-          "Policies tested as part of every schema change",
-        ],
-        cta: { label: "Read the full security model", href: "/security" },
+        icon: "HardHat",
+        name: "Roofing",
+        teaser: "Instant quote widgets and storm-lead automation that responds before a competitor does.",
+        href: "/industries/roofing",
       },
       {
-        icon: "Fingerprint",
-        tab: "Authentication",
-        title: "Cognito-backed identity, JWT authenticated",
-        meta: "AWS Cognito",
-        body: "Every request carries a signed JWT issued by AWS Cognito. There are no shared logins and no plaintext passwords stored by Dentavanta itself.",
-        image: {
-          src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
-          alt: "Close view of a clinician's hands holding a phone, a stethoscope visible at the collar",
-        },
-        bullets: [
-          "Tenant-scoped user pools",
-          "Short-lived, signed tokens on every request",
-          "No plaintext credentials ever touch our servers",
-        ],
-        cta: { label: "Book a demo", href: "/book-demo" },
+        icon: "Fence",
+        name: "Railing and fencing",
+        teaser: "Visual quote requests and automated bid follow-up for custom install work.",
+        href: "/industries/railing-fencing",
       },
       {
-        icon: "ClipboardList",
-        tab: "Audit logging",
-        title: "Every access to patient data is recorded",
-        meta: "audit_log table",
-        body: "A dedicated audit log records who accessed what, and when, so a practice can answer exactly that question if it is ever asked.",
+        icon: "HeartPulse",
+        name: "Healthcare",
+        teaser: "Booking widgets and reminder automation that keep a front desk off the phone.",
+        href: "/industries/healthcare",
+      },
+    ],
+    cta: { label: "See all industries", href: "/industries" } as Cta,
+  },
+
+  /** Tabbed capabilities: Feature05. Five services, same order and names as content/services.ts. */
+  capabilities: {
+    heading: {
+      eyebrow: "What we build",
+      title: "Five services, wired together, not five separate vendors",
+      body: "Start with one and add the rest once you see it working, or bring us in for all five from day one.",
+    } as SectionHeading,
+    items: [
+      {
+        icon: "LayoutTemplate",
+        tab: "Website redesign",
+        title: "A site built to turn visits into calls, not just page views",
+        meta: "Launch, from $3,500",
+        body: "We replace outdated or DIY sites with a fast, mobile-first site built around the one thing that matters: turning a visitor into a quote request or a booked job.",
         image: {
-          src: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80",
-          alt: "A clinician holding printed scan films up to a lightbox",
+          src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+          alt: "A laptop on a desk showing code beside a second monitor displaying a website",
         },
         bullets: [
-          "Access is logged, not just errors",
-          "Built for HIPAA-style accountability from day one",
-          "Available to a practice on request",
+          "Built and launched in weeks, not months",
+          "Mobile-first, fast enough to keep a job-site visitor from bouncing",
+          "Written and structured to actually rank for your services and area",
         ],
-        cta: { label: "See what is live today", href: "/security" },
+        cta: { label: "See website redesign", href: "/services#website-redesign" },
       },
       {
-        icon: "KeyRound",
-        tab: "Encryption",
-        title: "Encrypted with AWS KMS, in transit and at rest",
-        meta: "AWS KMS",
-        body: "Data is encrypted at rest with keys managed through AWS Key Management Service, and encrypted in transit between every service in the chain.",
+        icon: "Blocks",
+        tab: "Custom widgets",
+        title: "Tools built for your business, not a generic plugin",
+        meta: "Included in every build",
+        body: "Instant quote calculators, booking widgets, live chat and review displays, built for exactly how your business quotes and books work, not squeezed into a generic plugin.",
         image: {
-          src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
-          alt: "Macro photograph of an illuminated circuit board",
+          src: "https://images.unsplash.com/photo-1554672408-730436b60dde?auto=format&fit=crop&w=1200&q=80",
+          alt: "A hand holding a phone showing a booking confirmation screen",
         },
         bullets: [
-          "Managed keys, not custom cryptography",
-          "Applies to the database, backups and storage",
-          "Consistent with AWS's HIPAA-eligible services",
+          "Instant quote or estimate calculators",
+          "Booking and scheduling widgets",
+          "Live chat and review display widgets",
         ],
-        cta: { label: "Read our security page", href: "/security" },
+        cta: { label: "See custom widgets", href: "/services#widgets" },
       },
       {
         icon: "Workflow",
-        tab: "API-first",
-        title: "One real endpoint today, built to the same standard as every one after it",
-        meta: "API Gateway and Lambda",
-        body: "The platform is built endpoint by endpoint on API Gateway and Lambda behind an RDS Proxy, so every new feature inherits the same auth, isolation and logging from day one.",
+        tab: "Workflow automation",
+        title: "The busywork between a lead and a booked job, automated",
+        meta: "Automate, from $1,200/mo",
+        body: "We build automations, using workflow tooling like n8n, that connect the tools you already run: lead routing, follow-up sequences, scheduling, invoicing and review requests, so nothing falls through the cracks.",
         image: {
-          src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
-          alt: "Two people in conversation beside an open laptop on a desk",
+          src: "https://images.unsplash.com/photo-1591381287254-b3349c60bf9b?auto=format&fit=crop&w=1200&q=80",
+          alt: "A laptop screen showing a node-based workflow automation diagram",
         },
         bullets: [
-          "Authentication and RLS enforced identically on every route",
-          "New endpoints extend the platform, they do not bypass it",
-          "Built in the open with practices in early access",
+          "Lead routing and instant follow-up",
+          "Scheduling, invoicing and review requests on autopilot",
+          "Built to fit the tools you already use, not replace them",
         ],
-        cta: { label: "Book a demo", href: "/book-demo" },
+        cta: { label: "See workflow automation", href: "/services#automation" },
+      },
+      {
+        icon: "Mic",
+        tab: "Voice agents",
+        title: "A voice on the phone that never misses a call",
+        meta: "Automate, from $1,200/mo",
+        body: "AI voice agents that answer calls, book jobs, qualify leads and run follow-up calls, so repetitive phone work stops eating a business owner's day, even after hours.",
+        image: {
+          src: "https://images.unsplash.com/photo-1553775282-20af80779df7?auto=format&fit=crop&w=1200&q=80",
+          alt: "A headset with a microphone resting on a desk beside a laptop",
+        },
+        bullets: [
+          "Answers and books jobs after hours and on weekends",
+          "Qualifies leads before they reach your team",
+          "Runs follow-up calls your team doesn't have time for",
+        ],
+        cta: { label: "See voice agents", href: "/services#voice-agents" },
+      },
+      {
+        icon: "Plug",
+        tab: "Integrations",
+        title: "Connected to almost any tool you already run",
+        meta: "Included in every build",
+        body: "CRMs, payments, scheduling, comms and lead ads, wired together so information moves on its own instead of getting copied between tabs by hand.",
+        image: {
+          src: "https://images.unsplash.com/photo-1667264501379-c1537934c7ab?auto=format&fit=crop&w=1200&q=80",
+          alt: "Four charging cable connectors bundled together against a blue background",
+        },
+        bullets: [
+          "CRMs like Jobber, ServiceTitan and HubSpot",
+          "Payments, scheduling and calendar tools",
+          "Forms, lead ads and comms platforms",
+        ],
+        cta: { label: "See integrations", href: "/services#integrations" },
       },
     ] as TabItem[],
   },
 
-  /** Honest, real numbers only: Spotlight07. */
-  stats: [
-    { value: "100%", label: "Patient data isolated at the database with row-level security" },
-    { value: "1", label: "AWS Business Associate Addendum signed at the infrastructure level" },
-    { value: "us-east-1", label: "The AWS region running every practice's data today" },
-    { value: "Zero", label: "Shortcuts. Every access is authenticated, scoped and logged" },
-  ] as Stat[],
-
-  /** Security and compliance teaser, linking to the full page: Cta03. */
-  securityTeaser: {
+  /** How we work, numbered cards: Feature07. */
+  process: {
     heading: {
-      eyebrow: "Security and compliance",
-      title: "We are the business associate. Your practice stays the covered entity.",
-      body: "Under HIPAA, your practice is the covered entity and Dentavanta is your business associate. We sign a Business Associate Agreement with every practice, consistent with the AWS Business Associate Addendum already accepted at the infrastructure layer.",
+      eyebrow: "How we work",
+      title: "From audit call to live automation",
+      body: "The same four steps whether it's a website, a voice agent, or all five services together.",
     } as SectionHeading,
-    points: [
-      "AWS Business Associate Addendum accepted at the account level",
-      "A signed BAA with every practice, before a single record is stored",
-      "Full detail on our security page, not just marketing language",
-    ],
-    primary: { label: "See our security model", href: "/security" } as Cta,
-    secondary: { label: "Book a demo", href: "/book-demo" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
-      alt: "Two open laptops and a handwritten notes page on a shared desk",
-    } as Img,
+    cta: { label: "Book a free audit call", href: "/contact" } as Cta,
+    items: [
+      {
+        title: "Audit",
+        body: "A free call to map out where your site and back office are actually costing you jobs and hours.",
+      },
+      {
+        title: "Scope",
+        body: "A clear, written plan: what gets built, what it connects to, and what it costs, before anything starts.",
+      },
+      {
+        title: "Build and launch",
+        body: "Your site, widgets, automations or voice agent, built and launched in weeks, not months.",
+      },
+      {
+        title: "Optimize",
+        body: "We keep tuning what's live: more automation, better conversion, fewer manual steps, as your business grows.",
+      },
+    ] as Feature[],
   },
 
-  /** FAQ, Faq08 (photo plus accordion). */
-  faq: {
+  /**
+   * Testimonial09. Illustrative copy: no specific company is named or
+   * misrepresented as a verified client. Swap for real quotes as they come in.
+   */
+  testimonials: {
     heading: {
-      eyebrow: "Before you book",
-      title: "What practice owners ask us first",
-      body: "Honest answers, including where we are still early.",
+      eyebrow: "What business owners say",
+      title: "The kind of thing we hear back after launch",
     } as SectionHeading,
     items: [
       {
-        q: "Is Dentavanta finished software?",
-        a: "No, and we would rather tell you that up front. We are in early access. One real API endpoint proves the full authentication, isolation and audit chain today, and we are building out the rest of the platform on that same foundation with founding practices.",
+        quote: "Our new site paid for itself in the first month just from quote requests that used to go to voicemail.",
+        name: "Owner",
+        role: "Roofing contractor",
       },
       {
-        q: "Are you HIPAA certified?",
-        a: "There is no official HIPAA certification body, so no vendor can truthfully claim to be HIPAA certified. What is real: a signed Business Associate Agreement with every practice, an AWS Business Associate Addendum accepted at the account level, and infrastructure built for HIPAA compliance from the start.",
+        quote: "The voice agent books more inspections after hours than our front desk ever did during the day.",
+        name: "Office manager",
+        role: "Railing and fencing company",
       },
       {
-        q: "How is my practice's data kept separate from other practices?",
-        a: "Every table enforces row-level security in the database itself. A query scoped to your practice cannot return another practice's rows, even if application code had a bug.",
+        quote: "Patients stopped playing phone tag with us for reminders. The automation just handles it now.",
+        name: "Practice manager",
+        role: "Healthcare front office",
       },
       {
-        q: "What does it cost?",
-        a: "We have not set public pricing yet. Early access pricing is being shaped with founding practices based on practice size and the modules you need. Book a demo and we will talk numbers honestly.",
+        quote: "They didn't just build a site, they wired it into everything we already use.",
+        name: "Owner",
+        role: "Home services business",
       },
-      {
-        q: "When can my practice actually start using it?",
-        a: "We are onboarding founding practices in early access now, in step with what is built. Book a demo and we will tell you plainly what is ready for your practice today and what is coming next.",
-      },
-    ] as FaqItem[],
-    image: {
-      src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
-      alt: "A laptop open on a clean desk beside tall windows overlooking a city",
-    } as Img,
-    caption: "We answer the security and pricing questions honestly, including what is not built yet.",
-    cta: { label: "Ask us anything", href: "/book-demo" } as Cta,
+    ] as Testimonial[],
   },
 
-  /** Closing CTA, Cta11 (split panel on a photo backdrop). */
+  /** FAQ, Faq03 (sticky heading, plain question list). */
+  faq: {
+    heading: {
+      eyebrow: "Before you book",
+      title: "What business owners ask us first",
+    } as SectionHeading,
+    items: [
+      {
+        q: "How long does a new website take?",
+        a: "Most Launch projects go from kickoff to live in three to six weeks depending on scope. You get an exact timeline after the free audit call, not a guess.",
+      },
+      {
+        q: "Do you work with businesses outside roofing, railing and healthcare?",
+        a: "Those are the three industries we've built a dedicated playbook for so far, but the same website, widget and automation work applies to most local service businesses. Tell us about yours on the audit call.",
+      },
+      {
+        q: "What tools do you integrate with?",
+        a: "Most CRMs, scheduling tools, payment processors and lead ad platforms a service business already runs, including tools like Jobber, ServiceTitan, HubSpot, Stripe and Google Calendar. If you use something specific, ask us directly.",
+      },
+      {
+        q: "Can a voice agent actually book a real job?",
+        a: "Yes. It can qualify a caller, check availability against your real calendar, and book the job or hand it off, then a real person picks up from there.",
+      },
+      {
+        q: "Do I have to buy everything at once?",
+        a: "No. Most businesses start with Launch or Automate and add the rest once they see it working.",
+      },
+    ] as FaqItem[],
+    cta: { label: "Ask us anything", href: "/contact" } as Cta,
+  },
+
+  /** Closing CTA, Cta12 (full bleed photo, dark scrim). */
   cta: {
     heading: {
-      eyebrow: "Ready when you are",
-      title: "See the platform, the infrastructure and the BAA in one call",
-      body: "Thirty minutes. We will show you what is live today, what is next, and answer every security question directly.",
+      eyebrow: "Free audit call",
+      title: "See exactly where your site and back office are costing you jobs",
+      body: "Thirty minutes. We will show you what we would build first and what it costs, no obligation.",
     } as SectionHeading,
-    points: [
-      "A real walkthrough, not a slide deck",
-      "Straight answers on pricing and timeline",
-      "No obligation to sign anything on the call",
-    ],
-    primary: { label: "Book a demo", href: "/book-demo" } as Cta,
-    secondary: { label: "Read our security page", href: "/security" } as Cta,
-    backdrop: {
+    primary: { label: "Book your free audit call", href: "/contact" } as Cta,
+    image: {
       src: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1920&q=80",
       alt: "Two people working at laptops in a modern office, photographed in black and white",
     } as Img,
-    footnote: "We reply to every demo request within one business day.",
+    footnote: "We reply to every inquiry within one business day.",
   },
 } satisfies PageContent & Record<string, unknown>;
 

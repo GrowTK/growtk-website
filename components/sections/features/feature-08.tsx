@@ -90,7 +90,7 @@ export function Feature08({
           {cards.map((c) => (
             <li key={c.title} className={cardWidthClassName}>
               <div className={cn("flex h-full flex-col border border-border/50 bg-card p-4", radiusClassName)}>
-                <p className="font-display text-xs font-medium tracking-wide text-[#0636A6]">{c.tag}</p>
+                <p className="font-display text-xs font-medium tracking-wide text-primary">{c.tag}</p>
 
                 <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-foreground">{c.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.body}</p>

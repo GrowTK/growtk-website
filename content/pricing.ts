@@ -1,97 +1,135 @@
 /**
- * Pricing page copy. No public pricing exists yet. No invented tiers or
- * dollar amounts. Early access framing only, honest about the timeline.
+ * Pricing page copy. Growtk is a real, operating service agency with three
+ * real tiers. Every price is a starting price: the final scope and number
+ * are set on a free audit call, never presented as fixed here.
+ *
+ * No em dashes or en dashes.
  */
-import type { PageContent, Cta, Img, SectionHeading, Feature, FaqItem } from "./types";
+import type { PageContent, Cta, SectionHeading, Feature, FaqItem, PriceTier } from "./types";
 
 export const pricing = {
   meta: {
     title: "Pricing",
     description:
-      "Dentavanta has not set public pricing yet. We are in early access, shaping pricing with founding practices. Book a demo for a real conversation about cost.",
+      "Growtk pricing starts at $3,500 for a website redesign and $1,200 a month for ongoing automation and voice agents. Every project starts with a free audit call to scope the final price.",
     path: "/pricing",
   },
 
   hero: {
-    eyebrow: "Early access pricing",
-    title: "Pricing starts with a conversation, not a price list",
-    body: "We have not set public pricing yet. Founding practices are helping us shape it based on what they actually need, not what looks good on a comparison chart.",
-    ctas: [
-      { label: "Book a demo", href: "/book-demo", variant: "primary" },
-      { label: "See what is live today", href: "/security", variant: "secondary" },
-    ] as Cta[],
-    footnote: "No credit card, no obligation. Just a real conversation about your practice.",
+    eyebrow: "Pricing",
+    title: "Real starting prices, a final number after a free call",
+    body: "Every business is different, so what is below are starting prices, not the final quote. Book a free audit call and we will scope the work and give you a real number before anything is signed.",
+    ctas: [{ label: "Book a free audit call", href: "/contact", variant: "primary" }] as Cta[],
+    footnote: "No obligation. Just a real conversation about your business.",
   },
 
   factors: {
     heading: {
       eyebrow: "What decides your price",
       title: "The things that actually move the number",
-      body: "Every practice is different, so we would rather ask than guess.",
+      body: "Every business is different, so the final quote depends on a handful of concrete factors, not a flat rate.",
     } as SectionHeading,
     items: [
       {
-        icon: "Users",
-        title: "Practice size",
-        body: "How many providers and staff will use the platform day to day.",
-      },
-      {
         icon: "LayoutGrid",
-        title: "Which modules you need",
-        body: "Scheduling, records, communication and billing are being built out one at a time. You pay for what your practice actually uses.",
+        title: "Scope",
+        body: "A single website redesign is priced differently than a full retainer covering the site, widgets, automation and voice agents together.",
       },
       {
-        icon: "Rocket",
-        title: "Onboarding needs",
-        body: "Migrating existing patient records and training your team takes different amounts of work for different practices.",
+        icon: "Plug",
+        title: "Number of integrations",
+        body: "Connecting to one CRM is a different job than syncing five tools across payments, scheduling and communication.",
+      },
+      {
+        icon: "Clock",
+        title: "Timeline",
+        body: "A standard build timeline costs less than a rushed one. We will tell you honestly if a deadline changes the price.",
+      },
+      {
+        icon: "Repeat",
+        title: "One-time or ongoing",
+        body: "A website redesign is typically a one-time project. Automation and voice agents are ongoing work, tuned and maintained month to month.",
       },
     ] as Feature[],
   },
 
-  founding: {
-    heading: {
-      eyebrow: "Founding practices",
-      title: "Early access practices help set the price, not just pay it",
-      body: "Join now and you shape what gets built next, with pricing locked in as an early partner rather than set for you after the fact.",
-    } as SectionHeading,
-    points: [
-      "Direct input on which features get built next",
-      "Pricing shaped with you, not announced at you",
-      "Direct access to the two people building the platform",
-    ],
-    primary: { label: "Book a demo", href: "/book-demo" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
-      alt: "Two colleagues celebrating together over a laptop in a bright office",
-    } as Img,
-    footnote: "We reply to every demo request within one business day.",
-  },
+  tiers: [
+    {
+      name: "Launch",
+      price: "$3,500",
+      period: "starting price, one-time",
+      body: "A website redesign project: a fast, modern, conversion-focused site built and launched in weeks, not months.",
+      features: [
+        "A mobile-first design built around your services and service area",
+        "Copy and structure aimed at calls and quote requests",
+        "Launched in weeks, not months",
+        "One round of revisions included",
+      ],
+      cta: { label: "Book a free audit call", href: "/contact" },
+    },
+    {
+      name: "Automate",
+      price: "$1,200",
+      period: "starting price, per month",
+      body: "Ongoing workflow automation and voice agent build-out: custom automations, CRM and tool integrations, and one or more voice agent flows, continuously tuned.",
+      features: [
+        "Custom automations for lead routing, follow-up and scheduling",
+        "CRM and tool integrations built around what you already run",
+        "One or more voice agent flows answering and booking calls",
+        "Ongoing tuning as we see what is actually working",
+      ],
+      cta: { label: "Book a free audit call", href: "/contact" },
+      featured: true,
+    },
+    {
+      name: "Grow",
+      price: "Custom quote",
+      period: "after a free audit call",
+      body: "The full-service retainer: website, widgets, automation and voice agents together, continuously improved as your business grows.",
+      features: [
+        "Everything in Launch and Automate, built together",
+        "Custom widgets: quote calculators, booking tools, live chat, review displays",
+        "One team accountable for the whole system, not separate vendors",
+        "Ongoing improvements as your business and volume grow",
+      ],
+      cta: { label: "Book a free audit call", href: "/contact" },
+    },
+  ] as PriceTier[],
+
+  pricingHeading: {
+    eyebrow: "Choose a starting point",
+    title: "Three tiers, one team behind all of them",
+    body: "Start with a single project or the full retainer. Either way, the number below is where a conversation starts, not where it ends.",
+  } as SectionHeading,
 
   faq: {
     heading: {
       eyebrow: "Pricing questions",
-      title: "What people ask before they book a demo",
+      title: "What people ask before they book a call",
     } as SectionHeading,
     items: [
       {
-        q: "Is there a free trial?",
-        a: "We have not finalized a trial structure. Book a demo and we will tell you exactly what is available for your practice right now.",
+        q: "Does the free audit call cost anything?",
+        a: "No. It is a free, no-obligation call where we look at your current site, phone workflow and tools, and tell you honestly what would help and roughly what it would cost.",
       },
       {
-        q: "Will pricing be per provider, per practice, or something else?",
-        a: "We have not decided, honestly. That is part of what founding practices are helping us shape.",
+        q: "What happens after the call?",
+        a: "We send a written scope and a final price based on what we discussed. There is no pressure to sign anything on the call itself.",
       },
       {
-        q: "When will public pricing be announced?",
-        a: "We do not have a firm date. We are still early access and would rather get the pricing model right with real practices than publish a number before it makes sense.",
+        q: "Is there a contract?",
+        a: "Launch is a one-time build with no ongoing contract. Automate and Grow are month to month, not locked into a long-term term, so you can adjust or stop as your needs change.",
       },
       {
-        q: "Does the price include the security infrastructure?",
-        a: "Yes. Tenant isolation, authentication, encryption and audit logging are not an add on, they are the foundation every plan runs on.",
+        q: "Can I combine tiers, or start with just one service?",
+        a: "Yes. Most clients start with Launch or Automate and add the other once the first one is working. Grow simply bundles everything together from the start for businesses that want the full build at once.",
+      },
+      {
+        q: "Why is Grow a custom quote instead of a fixed price?",
+        a: "Because it depends on how many tools you use, how many automations and voice agent flows you need, and how big your site should be. We would rather give you a real number after understanding your business than a flat price that does not fit it.",
       },
     ] as FaqItem[],
-    cta: { label: "Book a demo", href: "/book-demo" } as Cta,
-    ctaTitle: "Still have questions?",
+    cta: { label: "Book a free audit call", href: "/contact" } as Cta,
     ctaBody: "Ask us directly. We would rather answer honestly than guess in an FAQ.",
   },
 } satisfies PageContent & Record<string, unknown>;

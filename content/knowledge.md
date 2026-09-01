@@ -5,89 +5,129 @@ Never invent features, certifications, prices, or customer numbers that are not 
 
 ## About
 
-Dentavanta is a pre-launch, early-access practice management platform for small
-dental and cosmetology practices. It is built by two people: Jean Derisma (business)
-and Muhammad Anique (engineering). The platform is not fully built yet. One real API
-endpoint (a "whoami" check) proves the full authentication, tenant isolation, and
-audit logging chain works end to end today, and the rest of the platform is being
-built out on that same foundation with founding practices in early access.
+Growtk is a service studio that redesigns outdated websites and builds custom
+software for small and mid-size trade and service businesses. Growtk is a real,
+operating business selling real services today, not a pre-launch product.
 
-Do not claim the product has dozens of live features. Do not invent a team size,
-customer count, or usage statistic beyond what is written here.
+Growtk offers five services:
 
-## Security and compliance
+1. Website redesign: modern, fast, mobile-first websites for trade and service
+   businesses replacing an outdated or DIY site, built to turn visitors into calls
+   and quote requests.
+2. Custom widgets: embeddable tools built for one business, such as instant quote
+   calculators, booking widgets, live chat, review displays, and service-area
+   checkers.
+3. Workflow automation: automations connecting the tools a business already runs,
+   built with n8n-style workflow tooling comparable to what Zapier or Make do.
+   Covers lead routing, follow-up sequences, scheduling, invoicing, review
+   requests, and CRM syncing. Growtk builds the automation; Growtk is not Zapier.
+4. Voice agents: AI voice agents that answer calls, book jobs, qualify leads, and
+   run follow-up calls, so repetitive phone work stops eating a business owner's
+   day.
+5. Integrations: connecting with almost any tool a business already uses,
+   including CRMs (such as Jobber, ServiceTitan, HubSpot), payments (Stripe),
+   scheduling (Calendly), comms (Twilio, WhatsApp, email and SMS), forms,
+   Google and Meta lead ads, QuickBooks, and Google Calendar or Workspace.
+   Naming a tool Growtk integrates with is standard "works with X" marketing,
+   not a claim of partnership, certification, or endorsement by that vendor.
 
-- There is no official "HIPAA certified" status. No vendor can truthfully claim it,
-  because no certifying body exists. Never say "HIPAA certified."
-- Dentavanta is built for HIPAA compliance. AWS has accepted a Business Associate
-  Addendum (BAA) at the account level, covering the infrastructure.
-- Under HIPAA, the practice (dentist or cosmetologist) is the covered entity, and
-  Dentavanta is the practice's business associate. Dentavanta signs a Business
-  Associate Agreement (BAA) directly with every practice before storing patient data.
-- Real infrastructure, all on AWS in the us-east-1 region:
-  - AWS Cognito for tenant-scoped authentication (JWT-based, no shared logins).
-  - API Gateway and Lambda for the application layer.
-  - Aurora Postgres with row-level security (RLS): every practice's data is isolated
-    at the database level, enforced by the database itself, not just application code.
-  - RDS Proxy in front of Aurora for connection management.
-  - Full audit logging: every access to patient data is written to an audit_log table.
-  - AWS KMS-managed encryption, at rest and in transit.
-- Dentavanta has not pursued SOC 2, HITRUST, ISO 27001, or any other formal
-  certification or audit. Do not claim one. If asked, say honestly that these have
-  not happened yet, and describe what infrastructure is real instead.
-- No physical office address, support phone number, or WhatsApp number exists yet.
-  Direct people to hello@getdentavanta.com or the Book a Demo page.
+Growtk works with three industries today: roofing, railing and fencing, and
+healthcare. More industries are added over time. For healthcare specifically,
+Growtk builds automation, booking widgets, and voice agents that respect how a
+healthcare front office has to handle scheduling and patient communication.
+Growtk is not a covered entity or a compliance vendor and does not claim HIPAA
+certification. No such certification exists for any vendor.
+
+Do not invent a team size, founding year, client count, or years-in-business
+statistic beyond what is written here.
 
 ## Pricing
 
-No public pricing has been set. Pricing is being shaped with founding practices
-based on practice size and which modules a practice needs. Direct people to
-book a demo for a real conversation about cost. Never state a specific dollar
-amount or tier.
+Growtk has three pricing tiers. All are starting prices; the final quote is set
+after a free audit call.
 
-## Onboarding and timeline
+- Launch: a website redesign project. Starting at $3,500, one time. A fast,
+  modern, conversion-focused site built and launched in weeks, not months.
+- Automate: ongoing workflow automation and voice agent build-out. Starting at
+  $1,200 per month. Custom automations, CRM and tool integrations, one or more
+  voice agent flows, continuously tuned.
+- Grow: the full-service retainer, combining website, widgets, automation, and
+  voice agents together, continuously improved as the business grows. Custom
+  quote after a free audit call.
 
-Dentavanta is in early access. Founding practices are onboarded in step with what
-is built. There is no fixed public launch date to quote. Encourage booking a demo
-to get an honest, specific answer for that practice.
+Never state a different dollar amount or invent a fourth tier. Always frame
+these as starting prices, not the final fixed price.
+
+## Process and timeline
+
+A typical Growtk engagement runs in five stages:
+
+1. Audit call: a free call to understand the business, what's slowing it down,
+   and which services actually make sense.
+2. Scoping: Growtk turns that conversation into a written proposal with a clear
+   scope, timeline, and price.
+3. Build: the website, widget, automation, or voice agent is built against that
+   scope, with regular check-ins.
+4. Launch: the work goes live, with Growtk making sure it's actually working in
+   the real business, not just in a demo.
+5. Ongoing optimization: for automation and voice agent work, Growtk keeps
+   tuning flows after launch. Website projects can also move into an ongoing
+   plan if the business wants continued work.
+
+Exact timelines vary by project and are set on the audit call and in the
+written proposal. Do not quote a specific number of weeks beyond what is stated
+above for the Launch tier ("weeks, not months").
 
 ## Contact
 
-- Email: hello@getdentavanta.com
-- Phone: not available yet
-- WhatsApp: not available yet
-- Address: not available yet
-- Best next step: Book a Demo at /book-demo
+- Email: hello@growtk.com
+- Best next step: the contact page at /contact. Fill in the form there to
+  reach the Growtk team directly.
 
 ## FAQ
 
-Q: Is Dentavanta HIPAA certified?
-A: There is no official HIPAA certification body, so no vendor can truthfully make
-that claim. Dentavanta is built for HIPAA compliance: we sign a Business Associate
-Agreement with every practice, and AWS has accepted a Business Associate Addendum
-covering our infrastructure.
+Q: How long does a website take?
+A: A Launch website redesign is typically built and launched in weeks, not
+months. The exact timeline depends on scope and is confirmed on the free audit
+call and in the written proposal, not before.
 
-Q: Who is the covered entity and who is the business associate?
-A: Your practice is the HIPAA covered entity. Dentavanta is your business associate.
-We sign a Business Associate Agreement with every practice before any patient data
-is stored.
+Q: Do you work with my industry if it's not listed yet?
+A: Growtk works with roofing, railing and fencing, and healthcare businesses
+today, with more industries added over time. If your industry isn't listed
+yet, reach out through /contact. The audit call is the best way to find out
+whether Growtk is a fit.
 
-Q: Is my practice's data isolated from other practices?
-A: Yes. Every table enforces row-level security in the database itself, so a query
-scoped to one practice cannot return another practice's rows.
+Q: What tools and CRMs do you integrate with?
+A: Growtk connects with almost any tool a business already uses, including
+CRMs like Jobber, ServiceTitan, and HubSpot, payments through Stripe,
+scheduling through Calendly, communication through Twilio, WhatsApp, email and
+SMS, forms, Google and Meta lead ads, QuickBooks, and Google Calendar or
+Workspace. Naming these tools means Growtk builds integrations with them, not
+that Growtk is partnered with or certified by any of them.
 
-Q: Do you have SOC 2 or HITRUST?
-A: Not yet. We are early in our build and have not pursued a formal third-party
-audit. We will not claim one we do not have.
+Q: Can a voice agent really book jobs?
+A: Yes. Growtk builds AI voice agents that answer calls, qualify leads, book
+jobs, and run follow-up calls, so repetitive phone work stops eating a
+business owner's day. Exactly what a voice agent handles is scoped to the
+business on the audit call.
 
-Q: What does Dentavanta cost?
-A: No public pricing has been set yet. Early access pricing is being shaped with
-founding practices. Book a demo for a real conversation about cost.
+Q: Do I need a contract?
+A: Yes. Every project starts with a free audit call, then a written proposal
+that sets the scope, timeline, and price before any work begins. Nothing on
+the website or in the FAQ widget is a binding quote on its own.
 
-Q: Is the product fully built?
-A: No. Dentavanta is in early access. One real API endpoint proves the full
-authentication, tenant isolation, and audit logging chain today, and the rest of
-the platform is being built out on that same foundation.
+Q: Can I start with just the website and add automation later?
+A: Yes. Many businesses start with the Launch website redesign and add
+Automate workflow and voice agent work later, or move into the full Grow
+retainer once the website is live. There's no requirement to buy everything
+at once.
+
+Q: What does it cost?
+A: Launch (website redesign) starts at $3,500 one time. Automate (workflow
+automation and voice agents) starts at $1,200 per month. Grow (the full-service
+retainer) is a custom quote after a free audit call. All three are starting
+prices; the final quote depends on scope.
 
 Q: How do I get in touch?
-A: Email hello@getdentavanta.com or book a demo at /book-demo.
+A: Email hello@growtk.com or fill in the form at /contact. Growtk replies
+directly, usually within one business day.

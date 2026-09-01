@@ -1,4 +1,5 @@
 import { brand } from "@/brand.config";
+import { site } from "@/content/site";
 import { Footer02 } from "@/components/sections/footer/footer-02";
 
 /** Standard footer, identical on every page. */
@@ -7,13 +8,10 @@ export function SiteFooter() {
     <Footer02
       brandName={brand.name}
       tagline={brand.tagline}
-      logoSrc="/brand/logo-black.png"
-      columns={[
-        { title: "Product", links: [{ label: "Platform", href: "/" }, { label: "Security", href: "/security" }, { label: "Pricing", href: "/pricing" }] },
-        { title: "Company", links: [{ label: "About", href: "/about" }, { label: "Book a demo", href: "/book-demo" }] },
-        { title: "Get in touch", links: [{ label: brand.contact.email, href: `mailto:${brand.contact.email}` }] },
-      ]}
-      legal={[{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }]}
+      logoSrc="/brand/logo-white.png"
+      columns={site.footer.groups}
+      legal={site.footer.legalLinks}
+      copyright={site.footer.legal}
     />
   );
 }

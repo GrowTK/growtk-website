@@ -25,7 +25,7 @@
 
 :root {
   /* brand:hue:start */
-  --brand-hue: 263; /* set by brand.config.ts */
+  --brand-hue: 278; /* set by brand.config.ts */
 /* brand:hue:end */
 
   /* radius — brand:corners controls this via `npm run brand` */
@@ -48,8 +48,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.12 0.01 var(--brand-hue));
 
-  /* Brand primary scale */
-  --primary: #0636A6;
+  /* Brand primary scale. #4510DD exactly (8.86:1 contrast with a white label). */
+  --primary: #4510DD;
   --primary-foreground: oklch(0.99 0.01 var(--brand-hue));
 
   --secondary: oklch(0.96 0.01 var(--brand-hue));
@@ -66,7 +66,7 @@
 
   --border: oklch(0.87 0.01 var(--brand-hue));
   --input: oklch(0.87 0.01 var(--brand-hue));
-  --ring: #0636A6;
+  --ring: #4510DD;
 
   /* Decorative gradient stops for hero/aurora effects */
   --aurora-1: oklch(0.7 0.2 var(--brand-hue));

@@ -13,22 +13,22 @@
 
 export const brand = {
   /** Company name. Nav, hero, footer, <title>, OG tags. `/build` sets it. */
-  name: "Dentavanta",
+  name: "Growtk",
 
   /** One-line value prop. Hero sub-headline + meta description. `/build` sets it. */
-  tagline: "HIPAA-grade practice software for small healthcare teams",
+  tagline: "Websites, widgets and automation for trades and service businesses",
 
   /** Longer SEO / Open Graph description, ~150 chars. `/build` sets it. */
   description:
-    "Dentavanta is HIPAA-compliant practice management software built on a secure, audited AWS foundation, with a signed Business Associate Agreement for every practice.",
+    "Growtk redesigns websites and builds automation, custom widgets and voice agents for roofing, railing, healthcare and other service businesses, integrated with the tools you already run.",
 
   /** Production domain, no protocol. Only used for metadataBase + canonical URLs. */
-  domain: "getdentavanta.com",
+  domain: "growtk.com",
 
   /** Theme. Run `npm run brand` after editing. */
   theme: {
     /** Brand hue in OKLCH degrees (0-360). This one number re-skins the site. */
-    hue: 263,
+    hue: 278,
     /** Corner style. "sharp" = editorial, "rounded" = friendly, "pill" = playful. */
     corners: "rounded" as "sharp" | "rounded" | "pill",
     /** Light only. Dark mode is not supported. */
@@ -71,7 +71,7 @@ export const brand = {
   contact: {
     whatsapp: "",
     phone: "",
-    email: "hello@getdentavanta.com",
+    email: "hello@growtk.com",
     address: "",
     mapQuery: "",
   },

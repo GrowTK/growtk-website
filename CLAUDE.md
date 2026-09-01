@@ -1,6 +1,6 @@
 # CLAUDE.md — how to build in this repo
 
-This is Dentavanta's public marketing site: a plain Next.js app, not a multi-tenant
+This is Growtk's public marketing site: a plain Next.js app, not a multi-tenant
 factory. It started from a website-factory starter kit, which had a "factory" half
 (dashboard, Supabase, multi-site provisioning) and a "template" half (the component
 library, design tokens, content system). The factory half has been stripped out.
@@ -29,8 +29,9 @@ shape before writing the import.
 **The library is the floor, not the ceiling.** Composing entirely from stock blocks
 is how a site ends up looking like every other site from this starter. Author at
 least one section that exists only for this content: the thing this page needs that
-nothing in the library covers (Dentavanta's HIPAA/BAA security page is a good
-example). Put it in `components/sections/<category>/` with the rest.
+nothing in the library covers (the bespoke industry pages under
+`content/industries/` and `components/sections/services/` are a good example).
+Put it in `components/sections/<category>/` with the rest.
 
 `components/blocks/` is raw vendored third-party component code (magicui,
 aceternity, reactbits, eldora...), source material for building new bespoke
@@ -169,6 +170,8 @@ Decorative layers `aria-hidden`. Keep contrast (no `text-muted-foreground` on `b
   tracked files, `eval`/`child_process`/obfuscated code, unsafe assets). Run it before
   shipping; a BLOCK finding should stop the deploy.
 - `.npmrc` sets `min-release-age=1` — the unit is **days**, not minutes.
-- This site makes real HIPAA/BAA claims (see `content/security.ts` or equivalent).
-  Only state what is actually true of the platform's infrastructure; do not add
-  certifications, badges, or claims that have not been verified.
+- Only state what is actually true of Growtk as a business (pricing, process,
+  what is built today). Do not add certifications, client counts, or claims
+  that have not been verified, especially on the healthcare industry page,
+  which must never claim a HIPAA certification (no such certification exists
+  for any vendor).

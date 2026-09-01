@@ -9,48 +9,47 @@ type FooterGroup = { title: string; links: Link[] };
 export const site = {
   /** Navbar links. */
   nav: [
-    { label: "Platform", href: "/" },
-    { label: "Security", href: "/security" },
+    { label: "Home", href: "/" },
+    { label: "Services", href: "/services" },
+    { label: "Industries", href: "/industries" },
     { label: "Pricing", href: "/pricing" },
     { label: "About", href: "/about" },
   ] as NavItem[],
 
   /** The single button in the navbar. */
-  navCta: { label: "Book a demo", href: "/book-demo", variant: "primary" } as Cta | null,
+  navCta: { label: "Get started", href: "/contact", variant: "primary" } as Cta | null,
 
   /** Footer link groups. */
   footer: {
     /** Short line under the logo. */
     blurb:
-      "Practice management software for small dental and cosmetology practices, built on tenant-isolated, audited AWS infrastructure.",
+      "Websites, widgets and automation for roofing, railing, healthcare and other service businesses, built to connect with the tools you already run.",
     groups: [
       {
-        title: "Product",
+        title: "Services",
         links: [
-          { label: "Platform", href: "/" },
-          { label: "Pricing", href: "/pricing" },
-          { label: "Book a demo", href: "/book-demo" },
+          { label: "Website redesign", href: "/services#website-redesign" },
+          { label: "Custom widgets", href: "/services#widgets" },
+          { label: "Workflow automation", href: "/services#automation" },
+          { label: "Voice agents", href: "/services#voice-agents" },
+          { label: "Integrations", href: "/services#integrations" },
         ] as Link[],
       },
       {
-        title: "Security",
+        title: "Industries",
         links: [
-          { label: "Security and compliance", href: "/security" },
-          { label: "Business Associate Agreement", href: "/security#baa" },
+          { label: "Roofing", href: "/industries/roofing" },
+          { label: "Railing and fencing", href: "/industries/railing-fencing" },
+          { label: "Healthcare", href: "/industries/healthcare" },
+          { label: "All industries", href: "/industries" },
         ] as Link[],
       },
       {
         title: "Company",
         links: [
           { label: "About", href: "/about" },
-          { label: "Contact us", href: "mailto:hello@getdentavanta.com" },
-        ] as Link[],
-      },
-      {
-        title: "Legal",
-        links: [
-          { label: "Terms of service", href: "/terms" },
-          { label: "Privacy policy", href: "/privacy" },
+          { label: "Pricing", href: "/pricing" },
+          { label: "Contact", href: "/contact" },
         ] as Link[],
       },
     ] as FooterGroup[],
@@ -60,7 +59,7 @@ export const site = {
       { label: "Privacy policy", href: "/privacy" },
     ] as Link[],
     /** Plain copyright line. No certifications or claims belong here. */
-    legal: "Dentavanta. Built on AWS in us-east-1.",
+    legal: "Growtk. Websites and automation for service businesses.",
   },
 } as const;
 

@@ -12,7 +12,7 @@ export default function AboutPage() {
     <>
       <PageHero
         heading={about.hero}
-        image={{ src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80", alt: "Clean, modern dental treatment room" }}
+        image={{ src: "https://images.unsplash.com/photo-1670851050245-d861fd433d06?auto=format&fit=crop&w=1600&q=80", alt: "Two colleagues catching up in a bright studio hallway, one holding a laptop" }}
         ctas={about.hero.ctas}
       />
       <About01

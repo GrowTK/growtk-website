@@ -1,81 +1,85 @@
 /**
- * About page copy. Honest about stage: pre-launch, two people, real infra.
- * No invented team size, no fabricated headshots standing in for real people.
+ * About page copy. Growtk is a real, operating service studio, not a
+ * pre-launch product. No invented team size, founding year, or fabricated
+ * stats (client count, years in business).
  */
 import type { PageContent, Cta, Img, SectionHeading, Feature } from "./types";
 
 export const about = {
   meta: {
-    title: "About Dentavanta",
+    title: "About Growtk",
     description:
-      "Dentavanta is a pre-launch practice management platform built by Jean Derisma and Muhammad Anique for small dental and cosmetology practices that deserve compliance-grade software.",
+      "Growtk is a service studio that redesigns websites and builds automation, voice agents and integrations for trade and service businesses. Here is why we started it and how we work.",
     path: "/about",
   },
 
   hero: {
-    eyebrow: "About Dentavanta",
-    title: "Small enough to know exactly whose data this is",
-    body: "We are two people building practice management software the way we would want it built for a family member's dental office: security first, and honest about what is not finished yet.",
-    ctas: [{ label: "Book a demo", href: "/book-demo", variant: "primary" }] as Cta[],
+    eyebrow: "About Growtk",
+    title: "We started Growtk because good work shouldn't be this hard to find",
+    body: "Small trade and service businesses get stuck picking between an enterprise agency built for a far bigger budget, or a cheap template site with nothing running behind it. We built Growtk to be the option in between: real engineering, sized and priced for the business that actually needs it.",
+    ctas: [
+      { label: "Talk to us", href: "/contact", variant: "primary" },
+      { label: "See our services", href: "/services", variant: "secondary" },
+    ] as Cta[],
   },
 
   story: {
     heading: {
-      eyebrow: "Where we are today",
-      title: "Two people, one real endpoint, and a rule we will not break",
-      body: "Dentavanta is pre-launch. We would rather you know that from us than find out on a sales call.",
+      eyebrow: "Why we started",
+      title: "Every option we saw for a small trade business was wrong in a different way",
+      body: "One kind of agency is built for enterprise budgets and enterprise timelines. The other hands over a templated site and calls it done. Neither one actually saves the owner any time.",
     } as SectionHeading,
     body: [
-      "Jean Derisma runs the business side of Dentavanta. Muhammad Anique builds the platform. That is the whole team today, and we are not going to pretend otherwise to sound bigger than we are.",
-      "The idea started from a simple observation: small dental and cosmetology practices are asked to hand over patient data to software built for hospital systems with security teams they do not have, or to software built cheaply with none of that rigor at all. Neither option is honest with the people whose data it is.",
-      "So we started with the infrastructure most vendors add later, if ever. Cognito authentication, row-level tenant isolation in the database, encryption through AWS KMS, and an audit log on every access, before a single scheduling screen existed. One real API endpoint proves that entire chain works end to end today.",
-      "Everything else on the platform is being built on that same foundation, in the open, with founding practices telling us what they actually need next.",
+      "Roofing crews, fencing contractors, and healthcare front offices are good at their trade, not at chasing down a web developer or wiring together five different tools that don't talk to each other. Most of them are running on a website nobody has touched in years and a phone that rings all day with the same three questions.",
+      "We started Growtk to build the way we would want a website and automation partner to build for our own business: fast, plain about scope and timeline, and focused on hours actually saved, not just a homepage that looks nice in a portfolio.",
+      "That starts with a real conversation about what is slowing a business down: an outdated site that never turns into a call, leads that go cold because nobody follows up fast enough, or an afternoon eaten by scheduling the same job over and over. Then we build the specific thing that fixes it, whether that is a new site, a workflow automation, a voice agent, or a proper integration between tools already in use.",
+      "We would rather build one thing that actually gets used than five things that look good in a proposal.",
     ],
     image: {
-      src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
-      alt: "A laptop open on a clean desk beside tall windows, early in a working day",
+      src: "https://images.unsplash.com/photo-1582005450386-52b25f82d9bb?auto=format&fit=crop&w=1200&q=80",
+      alt: "Three colleagues sitting around a table with laptops open, working together in a small studio",
     } as Img,
-    caption: "Built one endpoint at a time, with the security layer first.",
+    caption: "Built project by project, with the business that's paying for it in the room.",
   },
 
   values: {
     heading: {
-      eyebrow: "What we will not compromise on",
-      title: "The rules we built the platform around",
+      eyebrow: "How we work",
+      title: "Four things every project gets held to",
     } as SectionHeading,
-    lead: "None of this is aspirational. It is the standard every line of the platform is held to before it ships.",
+    lead: "None of this is aspirational. It is the standard every project ships against, not a slogan on a slide.",
     items: [
       {
-        icon: "ShieldCheck",
-        title: "Security first, not bolted on",
-        body: "Tenant isolation, authentication and audit logging existed before the first customer-facing feature did, and every new feature is held to the same bar.",
+        icon: "Clock",
+        title: "Built to save real hours",
+        body: "If a website or automation doesn't save time or win more calls, it doesn't ship. Looking good is a side effect, not the goal.",
       },
       {
         icon: "MessageSquareText",
-        title: "Honest about what is built",
-        body: "We say early access when we mean early access, and we will tell you plainly what is not built yet instead of implying it exists.",
+        title: "Honest about timelines and scope",
+        body: "We tell you what's realistic before you sign anything, and we say so plainly if something is going to take longer than planned instead of letting a deadline slip quietly.",
       },
       {
-        icon: "Stethoscope",
-        title: "Built for small practices, not enterprise contracts",
-        body: "Dentavanta is sized for a practice with a handful of providers, not a hospital system with its own IT department.",
+        icon: "Plug",
+        title: "Built to fit what you already run",
+        body: "We connect to the CRM, scheduling tool, and calendar a business already uses instead of asking anyone to rip out software that works fine and start over.",
       },
       {
-        icon: "Users",
-        title: "Built with practices, not just for them",
-        body: "Founding practices see the roadmap and shape what gets built next, instead of receiving a finished product with no say in it.",
+        icon: "Wrench",
+        title: "Sized for the business paying for it",
+        body: "Every project is scoped for a business with a handful of trucks or a couple of front-desk staff, not for a budget line at a franchise headquarters.",
       },
     ] as Feature[],
   },
 
   cta: {
     heading: {
-      eyebrow: "Join us early",
-      title: "Talk to the people actually building this",
-      body: "Book a call with Jean and Muhammad directly. No account managers, no scripts.",
+      eyebrow: "Let's talk",
+      title: "Tell us what's slowing your business down",
+      body: "A free audit call is the fastest way to find out what's worth fixing first.",
     } as SectionHeading,
-    primary: { label: "Book a demo", href: "/book-demo" } as Cta,
-    secondary: { label: "Read our security model", href: "/security" } as Cta,
+    primary: { label: "Talk to us", href: "/contact" } as Cta,
+    secondary: { label: "See our services", href: "/services" } as Cta,
   },
 } satisfies PageContent & Record<string, unknown>;
 

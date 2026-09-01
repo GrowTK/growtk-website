@@ -1,8 +1,8 @@
-# Dentavanta
+# Growtk
 
-Public marketing site for Dentavanta. Separate from the actual product
-(`dentavanta-platform-frontend`) and the internal tools, on purpose: whoever
-works on marketing pages doesn't need access to patient-data-adjacent code.
+Public marketing site for Growtk, a studio that redesigns websites and builds
+widgets, workflow automation, voice agents and integrations for trade and
+service businesses (roofing, railing and fencing, healthcare, and more).
 
 Next.js (App Router) · Tailwind v4 · shadcn/ui · `motion` · `lucide-react`.
 Built on a section-library starter (see `CLAUDE.md` for the full design law);

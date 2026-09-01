@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Project conventions
 
-**Read [`CLAUDE.md`](./CLAUDE.md) before writing any UI.** This is Dentavanta's marketing
+**Read [`CLAUDE.md`](./CLAUDE.md) before writing any UI.** This is Growtk's marketing
 site, built from a website-factory starter kit whose dashboard/Supabase half has been
 stripped out. What's left: the Next.js app, the component library in `components/sections`,
 and typed content in `content/*.ts`. Helper commands in `.claude/skills/`:

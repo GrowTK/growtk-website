@@ -28,8 +28,18 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: brand.name,
     description: brand.description,
-    creator: `@${brand.social.x}`,
+    ...(brand.social.x ? { creator: `@${brand.social.x}` } : {}),
   },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: brand.name,
+  url: siteUrl,
+  logo: `${siteUrl}/brand/logo-black.png`,
+  description: brand.description,
+  ...(brand.contact.email ? { email: brand.contact.email } : {}),
 };
 
 export default function RootLayout({
@@ -41,6 +51,10 @@ export default function RootLayout({
     <html lang="en" className={`${fontVariables} h-full`} suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
         <SiteBanner />

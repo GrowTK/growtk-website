@@ -10,7 +10,7 @@ export function Faq07({ heading, items, cta }: {
   heading?: SectionHeading; items: FaqItem[]; cta?: Cta;
 }) {
   return (
-    <section data-nav-theme="dark" className="bg-[#0636A6] py-20 text-white lg:py-28">
+    <section data-nav-theme="dark" className="bg-primary py-20 text-white lg:py-28">
       <div className="mx-auto max-w-5xl px-6">
         {heading ? (
           <Reveal className="max-w-3xl">

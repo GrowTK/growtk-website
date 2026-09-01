@@ -31,7 +31,7 @@ export function Footer02({
           <div>
             {logoSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={logoSrc} alt={brandName} className="h-7 w-auto brightness-0 invert" />
+              <img src={logoSrc} alt={brandName} className="h-7 w-auto" />
             ) : null}
             {tagline ? (
               <p className="mt-5 max-w-sm font-display text-2xl leading-snug tracking-tight text-background">{tagline}</p>

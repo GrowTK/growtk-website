@@ -17,7 +17,7 @@ export function Testimonial09({ heading, testimonials }: { heading: SectionHeadi
             return (
               <Reveal as="li" key={t.name} delay={0.05}>
                 <div className={cn("flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-8", flipped && "sm:flex-row-reverse sm:text-right")}>
-                  <span aria-hidden className="font-display text-6xl font-bold leading-none tracking-tight text-[#0636A6]/25 sm:text-7xl">
+                  <span aria-hidden className="font-display text-6xl font-bold leading-none tracking-tight text-primary/25 sm:text-7xl">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className={cn("max-w-2xl", flipped && "sm:ml-auto")}>

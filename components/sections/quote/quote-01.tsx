@@ -9,7 +9,7 @@ import type { Quote as QuoteData } from "@/content/demo";
  */
 export function Quote01({ quote }: { quote: QuoteData }) {
   return (
-    <section data-nav-theme="dark" className="bg-[#0636A6] text-white">
+    <section data-nav-theme="dark" className="bg-primary text-white">
       <div className="mx-auto max-w-5xl px-6 py-24 lg:py-32">
         <Reveal>
           <QuoteMark aria-hidden className="size-9 opacity-40" />

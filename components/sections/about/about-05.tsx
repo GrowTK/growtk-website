@@ -11,7 +11,7 @@ export function About05({ heading, lead, values = [] }: {
   return (
     <section className="bg-background py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div data-nav-theme="dark" className="rounded-3xl bg-[#0636A6] px-6 py-16 text-white sm:px-12 lg:px-16 lg:py-20">
+        <div data-nav-theme="dark" className="rounded-3xl bg-primary px-6 py-16 text-white sm:px-12 lg:px-16 lg:py-20">
           <Reveal className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div>
               {heading.eyebrow ? <p className="eyebrow text-background/60">{heading.eyebrow}</p> : null}
@@ -29,7 +29,7 @@ export function About05({ heading, lead, values = [] }: {
 
           <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-background/15 sm:grid-cols-2">
             {values.map((v, i) => (
-              <RevealItem key={v.title} className="bg-[#0636A6] p-7 sm:p-9">
+              <RevealItem key={v.title} className="bg-primary p-7 sm:p-9">
                 <div className="flex items-baseline gap-4">
                   <span className="font-mono text-xs tracking-[0.2em] text-background/50">
                     {String(i + 1).padStart(2, "0")}
