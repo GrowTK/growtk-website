@@ -232,9 +232,9 @@ export const CATALOG: CatalogEntry[] = [
   { code: "FEAT-04", category: "Features", label: "A numbered list of features running down a dark, high contrast panel, split beside the heading. Best for a process, itinerary or exactly what's included list where the order matters and a dark treatment gives it more weight than a plain white section.",
     file: "components/sections/features/feature-04.tsx", component: "Feature04", props: "heading, features[]",
     node: <Feature04 heading={{ eyebrow: "Included", title: "Everything in the price", body: "No fuel surcharge, no gear rental, no tipping expected." }} features={demoFeatures} /> },
-  { code: "FEAT-05", category: "Features", label: "A real tabbed panel, keyboard operable with arrow keys and Home/End wired up, where each tab crossfades into a different photo, with an optional auto advance timer. Best for presenting several distinct trip or service options side by side that a visitor picks between; higher effort than a plain grid, so reserve it for a page's main feature section.",
-    file: "components/sections/features/feature-05.tsx", component: "Feature05", props: "heading, features: TabItem[] (tab?, bullets[], meta?, cta?), autoAdvance?",
-    node: <Feature05 autoAdvance={7000}
+  { code: "FEAT-05", category: "Features", label: "A filmstrip selector: one wide, fully readable card beside narrow clickable slivers of the rest, with prev/next arrows above. On a phone it becomes a plain equal-width horizontal scroller instead. Best for presenting several distinct trip or service options side by side that a visitor picks between; higher effort than a plain grid, so reserve it for a page's main feature section.",
+    file: "components/sections/features/feature-05.tsx", component: "Feature05", props: "heading, features: TabItem[] (tab?, bullets[], meta?, cta?)",
+    node: <Feature05
       heading={{ eyebrow: "Choose a trip", title: "Four ways to spend a day on the water", body: "Every trip leaves from Slip 14 with twelve guests maximum and two crew aboard." }}
       features={[
         { icon: "Sunset", tab: "Sunset cruise", title: "Sunset cruise with dinner aboard", meta: "3 hours, departs 17:30", body: "Leave at golden hour, anchor off the lighthouse, and eat while the sky goes orange.", image: img(15, "Sailboat silhouetted against a sunset"), bullets: ["Grilled catch cooked on board", "Beer, wine and soft drinks", "Back at the dock by 20:30"], cta: { label: "Book the sunset cruise", href: "#book" } },

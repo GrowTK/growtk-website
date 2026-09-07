@@ -22,7 +22,7 @@ export function ProcessSteps({ heading, steps }: { heading: SectionHeading; step
           <div aria-hidden className="absolute inset-x-0 top-6 hidden border-t border-dashed border-border lg:block" />
           {steps.map((step) => (
             <RevealItem key={step.n} className="relative">
-              <span className="relative z-10 grid size-12 place-items-center rounded-full border border-border bg-card font-display text-lg font-bold text-primary">
+              <span className="relative z-10 grid size-12 place-items-center rounded-full border border-border bg-card font-display text-lg font-bold text-foreground">
                 {String(step.n).padStart(2, "0")}
               </span>
               <h3 className="mt-5 font-display text-lg font-semibold tracking-tight text-foreground">{step.title}</h3>

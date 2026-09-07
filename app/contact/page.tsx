@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { BookDemoForm } from "@/components/sections/contact/book-demo-form";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { contact } from "@/content/contact";
 
 export const metadata: Metadata = { title: contact.meta.title, description: contact.meta.description };
@@ -8,6 +9,7 @@ export const metadata: Metadata = { title: contact.meta.title, description: cont
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Contact", path: "/contact" }]} />
       <PageHero
         heading={contact.header}
         image={{ src: "https://images.unsplash.com/photo-1553775282-20af80779df7?auto=format&fit=crop&w=1600&q=80", alt: "A team member wearing a headset, smiling while on a call" }}

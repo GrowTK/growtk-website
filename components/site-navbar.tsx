@@ -2,10 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/brand.config";
 import { site } from "@/content/site";
+import { Icon } from "@/components/sections/icon";
+
+/** One flat neutral chip for every dropdown item, no color cycling. */
+const CHIP = "bg-black/5 text-foreground";
 
 /**
  * Sticky navbar, always transparent, only a frosted blur once the page
@@ -27,6 +31,7 @@ export function SiteNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [sectionDark, setSectionDark] = useState(true);
   const [open, setOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -82,19 +87,62 @@ export function SiteNavbar() {
           />
         </Link>
         <ul className="ml-auto hidden items-center gap-8 md:flex">
-          {site.nav.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "cursor-pointer text-sm font-medium tracking-wide underline-offset-4 transition-colors duration-300 hover:underline",
-                  dark ? "text-white" : "text-foreground",
-                )}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+          {site.nav.map((item) =>
+            item.children?.length ? (
+              <li key={item.label} className="group/nav relative">
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex cursor-pointer items-center gap-1 text-sm font-medium underline-offset-4 transition-colors duration-300 hover:underline",
+                    dark ? "text-white" : "text-foreground",
+                  )}
+                >
+                  {item.label}
+                  <ChevronDown aria-hidden className="size-3.5 transition-transform duration-200 group-hover/nav:rotate-180" />
+                </Link>
+                <div
+                  className="invisible absolute top-full left-1/2 z-50 w-108 -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
+                >
+                  <div className="rounded-2xl border border-black/6 bg-card p-4 shadow-xl">
+                    <ul className="grid grid-cols-3 gap-1">
+                      {item.children.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            className="group/item flex cursor-pointer flex-col items-start gap-2.5 rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-accent"
+                          >
+                            <span className={cn("grid size-8 place-items-center rounded-lg transition-transform duration-200 group-hover/item:scale-110", CHIP)}>
+                              {child.icon ? <Icon name={child.icon} className="size-4" /> : null}
+                            </span>
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={item.href}
+                      className="mt-2 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition-colors duration-150 hover:bg-accent"
+                    >
+                      See all industries
+                      <ArrowRight aria-hidden className="size-4" />
+                    </Link>
+                  </div>
+                </div>
+              </li>
+            ) : (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "cursor-pointer text-sm font-medium underline-offset-4 transition-colors duration-300 hover:underline",
+                    dark ? "text-white" : "text-foreground",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
         <Link
           href={site.navCta?.href ?? "/contact"}
@@ -131,17 +179,61 @@ export function SiteNavbar() {
       {open ? (
         <div className="border-t border-border bg-background px-6 pb-6 md:hidden">
           <ul className="flex flex-col divide-y divide-border">
-            {site.nav.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block cursor-pointer py-3.5 text-base font-medium text-foreground"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {site.nav.map((item) =>
+              item.children?.length ? (
+                <li key={item.label}>
+                  <div className="flex items-center justify-between py-1">
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="block cursor-pointer py-2.5 text-base font-medium text-foreground"
+                    >
+                      {item.label}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setMobileExpanded((v) => (v === item.label ? null : item.label))}
+                      aria-label={`${mobileExpanded === item.label ? "Collapse" : "Expand"} ${item.label}`}
+                      aria-expanded={mobileExpanded === item.label}
+                      className="grid size-9 cursor-pointer place-items-center rounded-lg text-muted-foreground hover:bg-accent"
+                    >
+                      <ChevronDown
+                        aria-hidden
+                        className={cn("size-4 transition-transform duration-200", mobileExpanded === item.label && "rotate-180")}
+                      />
+                    </button>
+                  </div>
+                  {mobileExpanded === item.label ? (
+                    <ul className="grid grid-cols-2 gap-1 pb-3">
+                      {item.children.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            onClick={() => setOpen(false)}
+                            className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
+                          >
+                            <span className={cn("grid size-7 shrink-0 place-items-center rounded-lg", CHIP)}>
+                              {child.icon ? <Icon name={child.icon} className="size-3.5" /> : null}
+                            </span>
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </li>
+              ) : (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="block cursor-pointer py-3.5 text-base font-medium text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ),
+            )}
           </ul>
           <Link
             href={site.navCta?.href ?? "/contact"}

@@ -31,6 +31,13 @@ export const terms = {
       ],
     },
     {
+      heading: "Payment and cancellation",
+      body: [
+        "Launch, the one-time website redesign project, is paid according to the schedule set out in your signed proposal, not on this website. This page does not set deposit amounts, milestones, or a refund window; that lives in the agreement you sign before work begins.",
+        "Automate and Grow are month-to-month engagements. They can be cancelled per the terms in your signed agreement with Growtk. This website does not set a specific cancellation notice period; the signed agreement does.",
+      ],
+    },
+    {
       heading: "Acceptable use",
       body: [
         "Do not use this website to attempt unauthorized access to any system, submit content that is unlawful or infringing, or interfere with the site's normal operation.",

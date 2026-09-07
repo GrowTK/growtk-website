@@ -104,6 +104,16 @@ export type FaqItem = {
   a: string;
 };
 
+/** A named team member. No photo field: use an initials/monogram avatar until a real headshot exists. */
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  skills?: string[];
+  links?: Link[];
+};
+
 export type Step = {
   n: number;
   title: string;

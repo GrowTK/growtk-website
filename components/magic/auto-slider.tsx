@@ -4,6 +4,8 @@ import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+export type AutoSliderHandle = { step: (dir: 1 | -1) => void };
+
 /**
  * AutoSlider — an auto-advancing, swipeable, looping horizontal slider that shows
  * SEVERAL items at once. Reach for this (or Marquee/Carousel) instead of yet
@@ -14,21 +16,23 @@ import { cn } from "@/lib/utils";
  *   </AutoSlider>
  *
  * Native scroll-snap = real touch swipe + keyboard. Auto-advance pauses on hover
- * and is disabled under prefers-reduced-motion.
+ * and is disabled under prefers-reduced-motion. Pass `controls={false}` and a
+ * ref (typed `AutoSliderHandle`) to drive prev/next from buttons placed
+ * somewhere else on the page instead of the built-in pair under the row.
  */
-export function AutoSlider({
-  children,
-  className,
-  itemClassName = "w-[82%] sm:w-[46%] lg:w-[31%]",
-  interval = 3500,
-  controls = true,
-}: {
+export const AutoSlider = React.forwardRef<AutoSliderHandle, {
   children: React.ReactNode;
   className?: string;
   itemClassName?: string;
   interval?: number;
   controls?: boolean;
-}) {
+}>(function AutoSlider({
+  children,
+  className,
+  itemClassName = "w-[82%] sm:w-[46%] lg:w-[31%]",
+  interval = 3500,
+  controls = true,
+}, forwardedRef) {
   const ref = React.useRef<HTMLDivElement>(null);
   const items = React.Children.toArray(children);
 
@@ -43,6 +47,8 @@ export function AutoSlider({
       el.scrollTo({ left: el.scrollWidth, behavior: "smooth" });
     else el.scrollBy({ left: delta * dir, behavior: "smooth" });
   }, []);
+
+  React.useImperativeHandle(forwardedRef, () => ({ step }), [step]);
 
   React.useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -95,4 +101,4 @@ export function AutoSlider({
       )}
     </div>
   );
-}
+});

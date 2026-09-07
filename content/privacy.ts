@@ -43,6 +43,13 @@ export const privacy = {
       ],
     },
     {
+      heading: "SMS and voice communications",
+      body: [
+        "If you submit the contact form or book a free audit call, Growtk may follow up by text message or phone call about your inquiry, in addition to email. We only send SMS messages or place calls to people who reached out first through this website, either by submitting the contact form or by booking a call. We do not maintain a separate marketing text or call list.",
+        "You can opt out of SMS or voice follow-up at any time: reply STOP to any text message, tell us during a call, or email hello@growtk.com. We will honor that request.",
+      ],
+    },
+    {
       heading: "Data retention",
       body: [
         "Contact form emails are kept as long as reasonably needed to follow up and maintain a record of the relationship, then deleted or archived per our internal retention practice.",

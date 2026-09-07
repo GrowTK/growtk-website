@@ -11,9 +11,23 @@ export const site = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
-    { label: "Industries", href: "/industries" },
-    { label: "Pricing", href: "/pricing" },
+    {
+      label: "Industries",
+      href: "/industries",
+      children: [
+        { label: "HVAC", href: "/industries/hvac", icon: "Wind" },
+        { label: "Plumbing", href: "/industries/plumbing", icon: "Droplets" },
+        { label: "Electrical", href: "/industries/electrical", icon: "Zap" },
+        { label: "Roofing", href: "/industries/roofing", icon: "HardHat" },
+        { label: "Railing and fencing", href: "/industries/railing-fencing", icon: "Fence" },
+        { label: "Landscaping", href: "/industries/landscaping", icon: "Trees" },
+        { label: "Pest control", href: "/industries/pest-control", icon: "Bug" },
+        { label: "Cleaning", href: "/industries/cleaning", icon: "SprayCan" },
+        { label: "Healthcare", href: "/industries/healthcare", icon: "HeartPulse" },
+      ],
+    },
     { label: "About", href: "/about" },
+    { label: "Team", href: "/team" },
   ] as NavItem[],
 
   /** The single button in the navbar. */
@@ -29,26 +43,34 @@ export const site = {
         title: "Services",
         links: [
           { label: "Website redesign", href: "/services#website-redesign" },
+          { label: "SEO and content", href: "/services#seo" },
           { label: "Custom widgets", href: "/services#widgets" },
           { label: "Workflow automation", href: "/services#automation" },
           { label: "Voice agents", href: "/services#voice-agents" },
           { label: "Integrations", href: "/services#integrations" },
+          { label: "Vibe code cleanup", href: "/code-cleanup" },
         ] as Link[],
       },
       {
         title: "Industries",
         links: [
+          { label: "HVAC", href: "/industries/hvac" },
+          { label: "Plumbing", href: "/industries/plumbing" },
+          { label: "Electrical", href: "/industries/electrical" },
           { label: "Roofing", href: "/industries/roofing" },
           { label: "Railing and fencing", href: "/industries/railing-fencing" },
+          { label: "Landscaping", href: "/industries/landscaping" },
+          { label: "Pest control", href: "/industries/pest-control" },
+          { label: "Cleaning", href: "/industries/cleaning" },
           { label: "Healthcare", href: "/industries/healthcare" },
-          { label: "All industries", href: "/industries" },
         ] as Link[],
       },
       {
         title: "Company",
         links: [
           { label: "About", href: "/about" },
-          { label: "Pricing", href: "/pricing" },
+          { label: "Team", href: "/team" },
+          { label: "How we work", href: "/process" },
           { label: "Contact", href: "/contact" },
         ] as Link[],
       },
@@ -57,6 +79,7 @@ export const site = {
     legalLinks: [
       { label: "Terms of service", href: "/terms" },
       { label: "Privacy policy", href: "/privacy" },
+      { label: "Compliance", href: "/compliance" },
     ] as Link[],
     /** Plain copyright line. No certifications or claims belong here. */
     legal: "Growtk. Websites and automation for service businesses.",

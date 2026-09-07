@@ -1,12 +1,12 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowRight, Check } from "lucide-react";
+import { useCallback, useState } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Icon } from "@/components/sections/icon";
 import { cn } from "@/lib/utils";
 import type { Cta, Feature, SectionHeading } from "@/content/types";
 
 export type TabItem = Feature & {
-  /** Short label for the tab strip; falls back to the title. */
+  /** Short label for the sliver strip; falls back to the title. */
   tab?: string;
   bullets?: string[];
   meta?: string;
@@ -14,54 +14,22 @@ export type TabItem = Feature & {
 };
 
 /**
- * Tabbed feature panel.
- *
- * Rebuilt as a real tablist: roving tabindex, arrow and Home/End keys, and
- * aria-controls wiring, so it is operable from the keyboard rather than being a
- * row of buttons that happen to swap a picture.
- *
- * The strip is horizontal and scrollable on small screens, with an animated
- * underline on the active tab. The panel crossfades its photo and slides its
- * copy in, keyed on the index so the transition replays per tab. A progress
- * counter makes it obvious there is more than one.
+ * Filmstrip selector: one card is wide and fully readable, the rest collapse
+ * into narrow slivers you can click (or step through with the arrows) to
+ * bring into focus. On narrow screens every card is simply an equal-width
+ * card in a horizontal scroller, since there is no room for a sliver strip
+ * on a phone.
  */
-export function Feature05({ heading, features, autoAdvance = 0 }: {
+export function Feature05({ heading, features }: {
   heading: SectionHeading;
   features: TabItem[];
-  /** Milliseconds between automatic advances. 0 disables it. */
-  autoAdvance?: number;
 }) {
   const [active, setActive] = useState(0);
-  const [motionOk, setMotionOk] = useState(true);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const current = features[active];
+  const last = features.length - 1;
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setMotionOk(!mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  useEffect(() => {
-    if (!autoAdvance || !motionOk || features.length < 2) return;
-    const t = setInterval(() => setActive((n) => (n + 1) % features.length), autoAdvance);
-    return () => clearInterval(t);
-  }, [autoAdvance, motionOk, features.length]);
-
-  const focusTab = useCallback((i: number) => {
-    setActive(i);
-    tabRefs.current[i]?.focus();
-  }, []);
-
-  const onKey = (e: React.KeyboardEvent) => {
-    const last = features.length - 1;
-    if (e.key === "ArrowRight") { e.preventDefault(); focusTab(active === last ? 0 : active + 1); }
-    else if (e.key === "ArrowLeft") { e.preventDefault(); focusTab(active === 0 ? last : active - 1); }
-    else if (e.key === "Home") { e.preventDefault(); focusTab(0); }
-    else if (e.key === "End") { e.preventDefault(); focusTab(last); }
-  };
+  const step = useCallback((dir: 1 | -1) => {
+    setActive((n) => (n + dir + features.length) % features.length);
+  }, [features.length]);
 
   return (
     <section className="border-b border-border bg-background py-20">
@@ -72,99 +40,102 @@ export function Feature05({ heading, features, autoAdvance = 0 }: {
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight text-balance text-foreground sm:text-5xl">{heading.title}</h2>
             {heading.body ? <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{heading.body}</p> : null}
           </div>
-          <p className="eyebrow shrink-0 text-muted-foreground">
-            {String(active + 1).padStart(2, "0")} / {String(features.length).padStart(2, "0")}
-          </p>
+          <div className="flex shrink-0 gap-2">
+            <button
+              type="button"
+              aria-label="Previous service"
+              onClick={() => step(-1)}
+              className="grid size-11 cursor-pointer place-items-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <ChevronLeft className="size-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next service"
+              onClick={() => step(1)}
+              className="grid size-11 cursor-pointer place-items-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <ChevronRight className="size-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Horizontal tab strip, scrollable when it runs out of room. */}
         <div
-          role="tablist" aria-label={heading.title} onKeyDown={onKey}
-          className="mt-10 flex gap-1 overflow-x-auto border-b border-border pb-px"
+          role="tablist"
+          aria-label={heading.title}
+          className="mt-12 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] lg:overflow-hidden lg:pb-0 [&::-webkit-scrollbar]:hidden"
         >
           {features.map((f, i) => {
             const on = i === active;
             return (
               <button
                 key={f.title}
-                ref={(el) => { tabRefs.current[i] = el; }}
-                type="button" role="tab" id={`feat05-tab-${i}`}
-                aria-selected={on} aria-controls={`feat05-panel-${i}`}
-                tabIndex={on ? 0 : -1}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                aria-label={f.tab ?? f.title}
                 onClick={() => setActive(i)}
                 className={cn(
-                  "group relative flex shrink-0 cursor-pointer items-center gap-2 px-4 py-3 text-sm font-medium transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none",
-                  on ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                  "group relative isolate h-112 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-black/6 text-left transition-[flex-grow] duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:h-136 lg:h-152",
+                  "w-[78%] sm:w-[52%]",
+                  on ? "lg:w-auto lg:flex-1" : "lg:w-24 lg:shrink-0 lg:flex-none",
                 )}
               >
-                <Icon name={f.icon} className={cn("size-4 transition-colors duration-200", on ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
-                {f.tab ?? f.title}
-                <span
-                  aria-hidden
-                  className={cn(
-                    "absolute inset-x-0 -bottom-px h-0.5 origin-left bg-primary transition-transform duration-300 ease-out",
-                    on ? "scale-x-100" : "scale-x-0",
-                  )}
-                />
+                {f.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={f.image.src}
+                    alt=""
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    className="absolute inset-0 -z-20 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                ) : null}
+                <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
+
+                {/* Full content: always on mobile/tablet, only the active card on desktop. */}
+                <div className={cn("relative flex h-full flex-col justify-end p-6", !on && "lg:hidden")}>
+                  <div className="flex items-center gap-3">
+                    {f.icon ? (
+                      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/15 text-white backdrop-blur-md">
+                        <Icon name={f.icon} className="size-5" />
+                      </span>
+                    ) : null}
+                    {f.meta ? <p className="eyebrow text-white/70">{f.meta}</p> : null}
+                  </div>
+                  <h3 className="mt-4 font-display text-2xl font-bold tracking-tight text-balance text-white">{f.title}</h3>
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-white/80">{f.body}</p>
+                  {f.cta ? (
+                    <a
+                      href={f.cta.href}
+                      onClick={(e) => e.stopPropagation()}
+                      className="group/cta mt-5 inline-flex w-fit cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-foreground transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    >
+                      {f.cta.label}
+                      <ArrowRight aria-hidden className="size-4 transition-transform group-hover/cta:translate-x-0.5" />
+                    </a>
+                  ) : null}
+                </div>
+
+                {/* Sliver label: desktop only, shown when this card is not the active one. */}
+                <div className={cn("relative hidden h-full flex-col items-center justify-between p-4", !on && "lg:flex")}>
+                  {f.icon ? (
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white/15 text-white backdrop-blur-md">
+                      <Icon name={f.icon} className="size-4" />
+                    </span>
+                  ) : <span />}
+                  <span className="[writing-mode:vertical-rl] rotate-180 text-sm font-semibold tracking-tight text-white">
+                    {f.tab ?? f.title}
+                  </span>
+                </div>
               </button>
             );
           })}
         </div>
 
-        {/* Panels: only the active one is in the tree, keyed so it re-animates. */}
-        <div
-          role="tabpanel" id={`feat05-panel-${active}`} aria-labelledby={`feat05-tab-${active}`}
-          className="mt-10 grid items-center gap-10 lg:grid-cols-2"
-        >
-          <div key={`copy-${active}`} className={cn(motionOk && "animate-[fadeUp_450ms_ease-out]")}>
-            <div className="flex items-center gap-3">
-              {current.icon ? (
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                  <Icon name={current.icon} className="size-5" />
-                </span>
-              ) : null}
-              {current.meta ? <p className="eyebrow text-muted-foreground">{current.meta}</p> : null}
-            </div>
-            <h3 className="mt-3 font-display text-3xl font-bold tracking-tight text-balance text-foreground">{current.title}</h3>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">{current.body}</p>
-            {current.bullets?.length ? (
-              <ul className="mt-6 space-y-2.5">
-                {current.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
-                    <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" /> {b}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            {current.cta ? (
-              <a href={current.cta.href} className="group mt-7 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none">
-                {current.cta.label}
-                <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-            ) : null}
-          </div>
-
-          {/* Every photo stays mounted so switching tabs never re-downloads one. */}
-          <div className="relative isolate aspect-4/3 w-full overflow-hidden rounded-2xl border border-border bg-muted">
-            {features.map((f, i) =>
-              f.image ? (
-                <img
-                  key={f.image.src} src={f.image.src} alt={i === active ? f.image.alt : ""} aria-hidden={i !== active}
-                  loading={i === 0 ? "eager" : "lazy"} decoding="async"
-                  className={cn(
-                    "absolute inset-0 size-full object-cover transition-all duration-700 ease-out",
-                    i === active ? "z-10 scale-100 opacity-100" : "z-0 scale-105 opacity-0",
-                  )}
-                />
-              ) : null,
-            )}
-            {!current.image ? (
-              <p className="absolute inset-0 z-10 grid place-items-center p-8 text-center text-base leading-relaxed text-muted-foreground">
-                {current.body}
-              </p>
-            ) : null}
-          </div>
-        </div>
+        <p className="mt-4 text-sm text-muted-foreground">
+          {String(active + 1).padStart(2, "0")} / {String(last + 1).padStart(2, "0")}
+        </p>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { PageHero } from "@/components/page-hero";
 import { About01 } from "@/components/sections/about/about-01";
 import { About05 } from "@/components/sections/about/about-05";
 import { Cta12 } from "@/components/sections/cta/cta-12";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { about } from "@/content/about";
 
 export const metadata: Metadata = { title: about.meta.title, description: about.meta.description };
@@ -10,6 +11,7 @@ export const metadata: Metadata = { title: about.meta.title, description: about.
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "About", path: "/about" }]} />
       <PageHero
         heading={about.hero}
         image={{ src: "https://images.unsplash.com/photo-1670851050245-d861fd433d06?auto=format&fit=crop&w=1600&q=80", alt: "Two colleagues catching up in a bright studio hallway, one holding a laptop" }}

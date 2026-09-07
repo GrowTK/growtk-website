@@ -16,6 +16,36 @@ export type IndustryEntry = {
 
 export const industries: IndustryEntry[] = [
   {
+    slug: "hvac",
+    name: "HVAC",
+    href: "/industries/hvac",
+    teaser: "Answer the no-heat, no-cool call at 2am and get it on the schedule before the homeowner tries the next number.",
+    image: {
+      src: "https://images.unsplash.com/photo-1700124113583-81aa99ea2aa2?auto=format&fit=crop&w=1200&q=80",
+      alt: "A modern heat pump and air conditioning unit mounted on the exterior wall of a house",
+    },
+  },
+  {
+    slug: "plumbing",
+    name: "Plumbing",
+    href: "/industries/plumbing",
+    teaser: "Route burst-pipe and water-heater emergencies to whoever is on call, day or night, before they go to voicemail.",
+    image: {
+      src: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80",
+      alt: "A modern bathroom with a freestanding tub, shower and plumbing fixtures",
+    },
+  },
+  {
+    slug: "electrical",
+    name: "Electrical",
+    href: "/industries/electrical",
+    teaser: "Instant estimate requests and safety-call triage that gets a licensed electrician on the right job first.",
+    image: {
+      src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80",
+      alt: "An electrician in a yellow hard hat installing wiring on an exterior panel",
+    },
+  },
+  {
     slug: "roofing",
     name: "Roofing",
     href: "/industries/roofing",
@@ -36,6 +66,36 @@ export const industries: IndustryEntry[] = [
     },
   },
   {
+    slug: "landscaping",
+    name: "Landscaping",
+    href: "/industries/landscaping",
+    teaser: "Book recurring lawn and property maintenance automatically instead of re-selling the same customer every spring.",
+    image: {
+      src: "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=80",
+      alt: "A close-up of a freshly maintained green lawn in front of modern buildings",
+    },
+  },
+  {
+    slug: "pest-control",
+    name: "Pest control",
+    href: "/industries/pest-control",
+    teaser: "Keep recurring treatment plans on autopilot and jump on a new infestation call before a competitor does.",
+    image: {
+      src: "https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=1200&q=80",
+      alt: "A suburban house exterior with a well-kept lawn and landscaping",
+    },
+  },
+  {
+    slug: "cleaning",
+    name: "Cleaning",
+    href: "/industries/cleaning",
+    teaser: "Recurring-job booking and review-request automation that keeps your calendar full without a front desk.",
+    image: {
+      src: "https://images.unsplash.com/photo-1580256081112-e49377338b7f?auto=format&fit=crop&w=1200&q=80",
+      alt: "A cleaning cart with supplies parked in a hotel hallway",
+    },
+  },
+  {
     slug: "healthcare",
     name: "Healthcare",
     href: "/industries/healthcare",
@@ -51,7 +111,7 @@ export const industriesPage = {
   meta: {
     title: "Industries",
     description:
-      "Growtk builds websites, widgets, automation and voice agents for roofing, railing and fencing, and healthcare front offices, with more trade and service industries added over time.",
+      "Growtk builds websites, widgets, automation and voice agents for HVAC, plumbing, electrical, roofing, railing and fencing, landscaping, pest control, cleaning and healthcare front offices, with more added over time.",
     path: "/industries",
   },
 
@@ -65,7 +125,7 @@ export const industriesPage = {
   intro: {
     eyebrow: "How this works",
     title: "Pick your industry, see what we would build first",
-    body: "Three industries live today, and we take on new ones as we go. Every page below starts from the same place: a free audit call before any scope or price gets set.",
+    body: "Nine industries live today, and we take on new ones as we go. Every page below starts from the same place: a free audit call before any scope or price gets set.",
   } as SectionHeading,
 } satisfies PageContent & Record<string, unknown>;
 

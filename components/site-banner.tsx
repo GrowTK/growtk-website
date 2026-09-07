@@ -6,7 +6,7 @@ export function SiteBanner() {
   return (
     <div
       className="relative h-7 w-full bg-cover bg-center"
-      style={{ backgroundImage: "url(/brand/blue-blur.jpg)" }}
+      style={{ backgroundImage: "url(/brand/8.jpg)" }}
     >
       <div aria-hidden className="absolute inset-0 bg-primary/30 backdrop-blur-sm" />
       <p className="relative z-10 flex h-full items-center justify-center gap-1.5 text-[11px] font-medium text-white">

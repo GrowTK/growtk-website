@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { ImageCard } from "@/components/magic/image-card";
 import { Reveal, RevealGroup, RevealItem } from "@/components/magic/reveal";
+import { RelatedLinks } from "@/components/sections/services/related-links";
 import { Cta12 } from "@/components/sections/cta/cta-12";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { industries, industriesPage } from "@/content/industries";
 
 export const metadata: Metadata = { title: industriesPage.meta.title, description: industriesPage.meta.description };
@@ -10,6 +12,7 @@ export const metadata: Metadata = { title: industriesPage.meta.title, descriptio
 export default function IndustriesPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Industries", path: "/industries" }]} />
       <PageHero
         heading={industriesPage.hero}
         image={{
@@ -48,6 +51,16 @@ export default function IndustriesPage() {
           </RevealGroup>
         </div>
       </section>
+
+      <RelatedLinks
+        eyebrow="See what we build"
+        links={[
+          { label: "All services", href: "/services" },
+          { label: "Website redesign", href: "/services#website-redesign" },
+          { label: "Automation", href: "/services#automation" },
+          { label: "Voice agents", href: "/services#voice-agents" },
+        ]}
+      />
 
       <Cta12
         heading={{

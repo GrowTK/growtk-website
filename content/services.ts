@@ -1,7 +1,7 @@
 /**
  * Services page copy. Growtk is a service agency, not a SaaS product: it
  * redesigns outdated websites and builds custom software for small and
- * mid-size trade and service businesses. Five services, always in this
+ * mid-size trade and service businesses. Six services, always in this
  * order, always with these anchor ids so the footer's /services#<id> links
  * actually land on the right section.
  *
@@ -9,9 +9,9 @@
  */
 import type { PageContent, Cta, Img, SectionHeading, Step, FaqItem } from "./types";
 
-/** One of the five service sections rendered by ServicesList. */
+/** One of the six service sections rendered by ServicesList. */
 export type ServiceItem = {
-  id: "website-redesign" | "widgets" | "automation" | "voice-agents" | "integrations";
+  id: "website-redesign" | "seo" | "widgets" | "automation" | "voice-agents" | "integrations";
   eyebrow: string;
   title: string;
   body: string;
@@ -82,14 +82,30 @@ export const services = {
       },
     },
     {
-      id: "widgets",
-      eyebrow: "02. Custom widgets",
-      title: "Custom widgets",
-      body: "Widgets are small, embeddable tools built for exactly what your business does: an instant quote calculator for a roofing job, a booking widget for a fencing consult, live chat that actually answers questions, a review display, or a service-area checker that tells a visitor in one click whether you cover their zip code.",
+      id: "seo",
+      eyebrow: "02. SEO and content",
+      title: "SEO and content",
+      body: "A redesigned site that does not rank is only half built. We handle the technical SEO (fast Core Web Vitals, clean structured data, a sitemap that actually gets crawled), the local SEO that gets a trade business into the map pack (Google Business Profile, citation consistency, service-area pages per city), and the content that ranks for what your customers actually search, not a generic blog post. Every page we write is built to convert the traffic it earns, not just attract it.",
       bullets: [
+        "Technical SEO: fast load times, structured data, clean URLs and sitemaps",
+        "Local SEO: Google Business Profile, citations and service-area pages",
+        "Content written to rank for your services and service area, not filler",
+        "Every ranked page connects to a widget, form or voice agent that captures the lead",
+      ],
+      image: {
+        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+        alt: "A laptop on a dark desk displaying a traffic and analytics dashboard",
+      },
+    },
+    {
+      id: "widgets",
+      eyebrow: "03. Custom widgets",
+      title: "Custom widgets, led by Power Agent",
+      body: "Widgets are small, embeddable tools built for exactly what your business does. The flagship is Power Agent, Growtk's own chat widget: it holds a conversation using images and video, redirects a visitor straight to the right page or booking flow, sends an email inquiry on their behalf, reports live status on an existing job or project, and generates a QR code for a quote, a warranty registration or a review request. Alongside it we build instant quote calculators, booking widgets, review displays and service-area checkers, all built for exactly how your business quotes and books, not squeezed into a generic plugin.",
+      bullets: [
+        "Power Agent: images, video, internal redirects, email inquiries, live status and QR codes in one chat widget",
         "Instant quote calculators built around your actual pricing",
         "Booking widgets connected to your real calendar",
-        "Live chat and review displays that reflect your business, not a generic template",
         "Service-area checkers that stop unqualified leads before they call",
       ],
       image: {
@@ -99,7 +115,7 @@ export const services = {
     },
     {
       id: "automation",
-      eyebrow: "03. Workflow automation",
+      eyebrow: "04. Workflow automation",
       title: "Workflow automation",
       body: "We build the automation that connects the tools you already run, using n8n-style workflow tooling, comparable to what Zapier or Make do, but built and maintained by us for your specific business. We build the automation. We are not asking you to become a workflow engineer.",
       bullets: [
@@ -115,14 +131,14 @@ export const services = {
     },
     {
       id: "voice-agents",
-      eyebrow: "04. Voice agents",
+      eyebrow: "05. Voice agents",
       title: "Voice agents",
-      body: "AI voice agents answer calls, book jobs, qualify leads and run follow-up calls, so repetitive phone work stops eating your day. A voice agent picks up when your team can't, asks the right questions, and gets the job on your calendar.",
+      body: "AI voice agents answer calls, book jobs, qualify leads and run follow-up calls, so repetitive phone work stops eating your day. A voice agent picks up when your team can't, asks the right questions, and gets the job on your calendar, linked to your real-time booking workflow. When a call needs a real person, it escalates and forwards the call instead of guessing.",
       bullets: [
         "Answers incoming calls day and night, not just business hours",
-        "Books jobs directly onto your calendar",
+        "Books jobs directly onto your calendar in real time",
         "Qualifies leads before a human ever picks up the phone",
-        "Runs outbound follow-up calls after a quote goes cold",
+        "Escalates and forwards the call to your team when it should not handle something alone",
       ],
       image: {
         src: "https://images.unsplash.com/photo-1712159018726-4564d92f3ec2?auto=format&fit=crop&w=1200&q=80",
@@ -131,7 +147,7 @@ export const services = {
     },
     {
       id: "integrations",
-      eyebrow: "05. Integrations",
+      eyebrow: "06. Integrations",
       title: "Integrations",
       body: "We connect with almost any tool your business already uses: CRMs like Jobber, ServiceTitan or HubSpot, payments through Stripe, scheduling through Calendly, communication through Twilio, WhatsApp, email and SMS, forms, Google and Meta lead ads, QuickBooks, and Google Calendar or Workspace. If you already have tools you like, we connect to them rather than asking you to replace them.",
       bullets: [
@@ -154,7 +170,7 @@ export const services = {
     } as SectionHeading,
     items: [
       {
-        q: "Do I need all five services?",
+        q: "Do I need all six services?",
         a: "No. Most clients start with one, usually a website redesign or a voice agent, and add the others once the first one is working. The Grow tier bundles all of them together for businesses that want the full build at once.",
       },
       {

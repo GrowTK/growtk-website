@@ -16,11 +16,11 @@ export const brand = {
   name: "Growtk",
 
   /** One-line value prop. Hero sub-headline + meta description. `/build` sets it. */
-  tagline: "Websites, widgets and automation for trades and service businesses",
+  tagline: "Websites, SEO, widgets and automation for trades and service businesses",
 
   /** Longer SEO / Open Graph description, ~150 chars. `/build` sets it. */
   description:
-    "Growtk redesigns websites and builds automation, custom widgets and voice agents for roofing, railing, healthcare and other service businesses, integrated with the tools you already run.",
+    "Growtk builds websites, SEO, automation, custom widgets and voice agents for HVAC, plumbing, electrical, roofing, fencing, landscaping, pest control, cleaning and healthcare businesses.",
 
   /** Production domain, no protocol. Only used for metadataBase + canonical URLs. */
   domain: "growtk.com",
