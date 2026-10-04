@@ -23,6 +23,18 @@ export const about = {
     ] as Cta[],
   },
 
+  /** Three plain facts under the hero photo. All true today, nothing rounded up. */
+  facts: [
+    { value: "2", label: "Co-founders who lead every build, hands on" },
+    { value: "6", label: "Services, from a new site to a voice agent" },
+    { value: "9", label: "Trades we have worked out a setup for" },
+  ],
+
+  heroImage: {
+    src: "https://images.unsplash.com/photo-1670851050245-d861fd433d06?auto=format&fit=crop&w=1800&q=80",
+    alt: "Two colleagues catching up in a bright studio hallway, one holding a laptop",
+  } as Img,
+
   story: {
     heading: {
       eyebrow: "Why we started",
@@ -36,10 +48,58 @@ export const about = {
       "We would rather build one thing that actually gets used than five things that look good in a proposal.",
     ],
     image: {
-      src: "https://images.unsplash.com/photo-1582005450386-52b25f82d9bb?auto=format&fit=crop&w=1200&q=80",
-      alt: "Three colleagues sitting around a table with laptops open, working together in a small studio",
+      src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80",
+      alt: "A small team around a wooden table, taking notes together in a working session",
     } as Img,
     caption: "Built project by project, with the business that's paying for it in the room.",
+  },
+
+  /** Where Growtk sits between the two options most small trade businesses get offered. */
+  compare: {
+    heading: {
+      eyebrow: "The gap we fill",
+      title: "Two options were on the table. Neither one fit.",
+      body: "Most owners we talk to have already tried one of these. Here is how we are different, row by row.",
+    } as SectionHeading,
+    rows: ["Built for", "How long it takes", "What runs behind the site", "Who you talk to"],
+    columns: [
+      {
+        name: "Enterprise agency",
+        cells: [
+          "Franchise and corporate budgets",
+          "Months of discovery before anything ships",
+          "Whatever you can afford to add on",
+          "An account manager",
+        ],
+      },
+      {
+        name: "Template site",
+        cells: [
+          "Anyone, so no one in particular",
+          "Quick to launch, then left alone",
+          "A contact form that emails you",
+          "A support ticket queue",
+        ],
+      },
+      {
+        name: "Growtk",
+        featured: true,
+        cells: [
+          "A business with a few trucks or a small front desk",
+          "A site launched in weeks, tuned after launch",
+          "Automation, voice agents and integrations, when you need them",
+          "The engineers who build it",
+        ],
+      },
+    ],
+  },
+
+  founders: {
+    heading: {
+      eyebrow: "Who leads the build",
+      title: "The people on the call are the people writing the code",
+    } as SectionHeading,
+    link: { label: "Meet the team", href: "/team" } as Cta,
   },
 
   values: {

@@ -28,7 +28,7 @@ export const brand = {
   /** Theme. Run `npm run brand` after editing. */
   theme: {
     /** Brand hue in OKLCH degrees (0-360). This one number re-skins the site. */
-    hue: 278,
+    hue: 70,
     /** Corner style. "sharp" = editorial, "rounded" = friendly, "pill" = playful. */
     corners: "rounded" as "sharp" | "rounded" | "pill",
     /** Light only. Dark mode is not supported. */
@@ -46,9 +46,13 @@ export const brand = {
      * rendered heading font.
      */
     display: "Space Grotesk",
-    /** Body / UI. Clean and readable. */
+    /**
+     * Body / UI. Also not used right now: `--font-sans` is hardcoded to the
+     * same Helvetica stack in app/globals.css, and app/layout.tsx no longer
+     * loads lib/fonts.ts.
+     */
     sans: "Geist",
-    /** Code / labels / eyebrows. */
+    /** Code / labels. Also overridden by Helvetica in app/globals.css. */
     mono: "JetBrains Mono",
   },
 

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { ProcessSteps } from "@/components/sections/services/process-steps";
-import { ServicesList } from "@/components/sections/services/services-list";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Faq07 } from "@/components/sections/faq/faq-07";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustriesCarousel } from "@/components/sections/industries/industries-carousel";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { Wash, washTone } from "@/components/sections/company/wash";
+import { ServiceRows } from "@/components/sections/services/service-rows";
+import { ProcessTrack } from "@/components/sections/services/process-track";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { services } from "@/content/services";
+import { industries } from "@/content/industries";
+import { home } from "@/content/home";
 import type { FaqItem } from "@/content/types";
 
 export const metadata: Metadata = { title: services.meta.title, description: services.meta.description };
@@ -24,6 +28,8 @@ const faqJsonLd = {
   })),
 };
 
+const tone = washTone("apricot");
+
 export default function ServicesPage() {
   return (
     <>
@@ -32,40 +38,32 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <BreadcrumbJsonLd items={[{ name: "Services", path: "/services" }]} />
-      <PageHero
+
+      <IndustryHero
         heading={services.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1559523182-a284c3fb7cff?auto=format&fit=crop&w=1600&q=80",
-          alt: "Three people working together on laptops at a shared table",
-        }}
         ctas={services.hero.ctas}
+        tone={tone}
+        backdrop={<Wash name="apricot" />}
+        figure={<TradeFigure set="service" name="connect" gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
 
-      <ProcessSteps heading={services.process.heading} steps={services.process.steps} />
-
-      <ServicesList items={services.services} />
-
-      <RelatedLinks
-        eyebrow="Built for your industry"
-        links={[
-          { label: "Roofing", href: "/industries/roofing" },
-          { label: "Railing and fencing", href: "/industries/railing-fencing" },
-          { label: "Healthcare", href: "/industries/healthcare" },
-          { label: "All industries", href: "/industries" },
-          { label: "Stuck with a vibe-coded app", href: "/code-cleanup" },
-        ]}
+      <ServiceRows
+        heading={services.list.heading}
+        items={services.services}
+        labels={{ jump: services.jump.label, included: services.list.included, ask: services.list.ask }}
       />
 
-      <Faq07 heading={services.faq.heading} items={services.faq.items} cta={services.faq.cta} />
+      <ProcessTrack heading={services.process.heading} steps={services.process.steps} />
 
-      <Cta12
-        heading={services.cta.heading}
-        primary={services.cta.primary}
-        image={{
-          src: "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&w=1920&q=80",
-          alt: "A small group of people talking together in a bright, modern office",
-        }}
+      <IndustriesCarousel
+        heading={services.industries.heading}
+        items={industries.map((i) => ({ name: i.cardName ?? i.name, teaser: i.teaser, href: i.href }))}
+        cta={services.industries.cta}
       />
+
+      <IndustryFaq heading={services.faq.heading} items={services.faq.items} cta={services.faq.cta} tone={washTone("lilac")} helpBackdrop={<Wash name="lilac" />} />
+
+      <IndustryCta heading={services.cta.heading} primary={services.cta.primary} tone={washTone("peach")} backdrop={<Wash name="peach" />} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

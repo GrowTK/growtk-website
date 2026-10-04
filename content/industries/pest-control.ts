@@ -89,10 +89,6 @@ export const pestControl = {
       body: "Book a free audit call and we will tell you exactly what a faster site, an instant quote widget and renewal automation would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your pest control company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80",
-      alt: "A modern suburban house exterior with landscaping lit at dusk",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

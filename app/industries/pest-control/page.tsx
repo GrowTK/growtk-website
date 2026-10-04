@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { Feature01 } from "@/components/sections/features/feature-01";
-import { Faq03 } from "@/components/sections/faq/faq-03";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { themeFor } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
+import { IndustryServices } from "@/components/sections/industries/industry-services";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { pestControl } from "@/content/industries/pest-control";
-import { services } from "@/content/services";
 import type { FaqItem } from "@/content/types";
+
+const theme = themeFor("pest-control");
 
 export const metadata: Metadata = { title: pestControl.meta.title, description: pestControl.meta.description };
 
@@ -37,21 +41,16 @@ export default function PestControlPage() {
           { name: "Pest control", path: "/industries/pest-control" },
         ]}
       />
-      <PageHero
+      <IndustryHero
         heading={pestControl.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=1600&q=80",
-          alt: "A suburban house exterior with a well-kept lawn and landscaping",
-        }}
         ctas={pestControl.hero.ctas}
+        tone={theme.tone}
+        figure={<TradeFigure name={theme.icon} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
-      <Feature01 heading={pestControl.build.heading} features={pestControl.build.features} />
-      <Faq03 heading={pestControl.faq.heading} items={pestControl.faq.items} cta={pestControl.faq.cta} />
-      <RelatedLinks
-        eyebrow="Built from these services"
-        links={services.services.map((s) => ({ label: s.title, href: `/services#${s.id}` }))}
-      />
-      <Cta12 heading={pestControl.cta.heading} primary={pestControl.cta.primary} image={pestControl.cta.image} />
+      <IndustryServices heading={pestControl.build.heading} features={pestControl.build.features} tone={theme.tone} />
+      <IndustryServicesStrip tone={theme.tone} />
+      <IndustryFaq heading={pestControl.faq.heading} items={pestControl.faq.items} cta={pestControl.faq.cta} tone={theme.tone} />
+      <IndustryCta heading={pestControl.cta.heading} primary={pestControl.cta.primary} tone={theme.tone} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

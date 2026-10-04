@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { brand } from "@/brand.config";
-import { fontVariables } from "@/lib/fonts";
 import { ThemeScript } from "@/components/theme-provider";
-import { SiteBanner } from "@/components/site-banner";
-import { SiteNavbar } from "@/components/site-navbar";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteChrome } from "@/components/site-chrome";
 
 const siteUrl = `https://${brand.domain}`;
 
@@ -48,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${fontVariables} h-full`} suppressHydrationWarning>
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <head>
         <ThemeScript />
         <script
@@ -57,10 +54,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
-        <SiteBanner />
-        <SiteNavbar />
-        {children}
-        <SiteFooter />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

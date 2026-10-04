@@ -18,7 +18,7 @@ export const codeCleanup = {
   hero: {
     eyebrow: "For software founders and small teams",
     title: "Your app got you this far. Now it needs an engineer, not another prompt",
-    body: "A lot of first versions get vibe coded into existence fast, and then stall: a feature that half works, a security hole nobody noticed, no tests, and a codebase nobody on the team can confidently explain anymore. Growtk is run by two software engineers who read the code, tell you exactly what shape it is in, and either stabilize what is there or rebuild the parts that need it, properly this time.",
+    body: "A lot of first versions get vibe coded into existence fast, and then stall: a feature that half works, a security hole nobody noticed, no tests, and a codebase nobody on the team can confidently explain anymore. Growtk is a team of software engineers who read the code, tell you exactly what shape it is in, and either stabilize what is there or rebuild the parts that need it, properly this time.",
     ctas: [{ label: "Get a code audit", href: "/contact", variant: "primary" }] as Cta[],
   },
 

@@ -90,10 +90,6 @@ export const cleaning = {
       body: "Book a free audit call and Growtk will tell you exactly what a faster site, an instant quote widget and recurring-visit booking would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your cleaning company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=80",
-      alt: "A cleaner wiping down a countertop in a bright kitchen",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

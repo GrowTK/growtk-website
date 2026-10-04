@@ -90,10 +90,6 @@ export const landscaping = {
       body: "Book a free audit call and we will tell you exactly what a faster site, an instant estimate widget and recurring-plan booking would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your landscaping company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?auto=format&fit=crop&w=1600&q=80",
-      alt: "A landscaper trimming hedges in a well maintained garden",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

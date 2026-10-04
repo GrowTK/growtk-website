@@ -7,9 +7,8 @@ import { cn } from "@/lib/utils";
 import { brand } from "@/brand.config";
 import { site } from "@/content/site";
 import { Icon } from "@/components/sections/icon";
-
-/** One flat neutral chip for every dropdown item, no color cycling. */
-const CHIP = "bg-black/5 text-foreground";
+import { IndustryThumb } from "@/components/sections/industries/industry-thumb";
+import { themeFor, toneGradient } from "@/components/sections/industries/industry-tones";
 
 /**
  * Sticky navbar, always transparent, only a frosted blur once the page
@@ -32,6 +31,8 @@ export function SiteNavbar() {
   const [sectionDark, setSectionDark] = useState(true);
   const [open, setOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  // Which desktop dropdown is showing: its thumbnails' figures only run while it is.
+  const [menu, setMenu] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -89,7 +90,14 @@ export function SiteNavbar() {
         <ul className="ml-auto hidden items-center gap-8 md:flex">
           {site.nav.map((item) =>
             item.children?.length ? (
-              <li key={item.label} className="group/nav relative">
+              <li
+                key={item.label}
+                className="group/nav relative"
+                onPointerEnter={() => setMenu(item.label)}
+                onPointerLeave={() => setMenu(null)}
+                onFocus={() => setMenu(item.label)}
+                onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setMenu(null); }}
+              >
                 <Link
                   href={item.href}
                   className={cn(
@@ -101,20 +109,22 @@ export function SiteNavbar() {
                   <ChevronDown aria-hidden className="size-3.5 transition-transform duration-200 group-hover/nav:rotate-180" />
                 </Link>
                 <div
-                  className="invisible absolute top-full left-1/2 z-50 w-108 -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
+                  className="invisible absolute top-full left-1/2 z-50 w-[40rem] -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
                 >
                   <div className="rounded-2xl border border-black/6 bg-card p-4 shadow-xl">
-                    <ul className="grid grid-cols-3 gap-1">
+                    <ul className="grid grid-cols-3 gap-2">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
-                            className="group/item flex cursor-pointer flex-col items-start gap-2.5 rounded-xl px-3 py-3 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-accent"
+                            className="group/item flex cursor-pointer flex-col items-start gap-2 rounded-xl p-2 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                           >
-                            <span className={cn("grid size-8 place-items-center rounded-lg transition-transform duration-200 group-hover/item:scale-110", CHIP)}>
-                              {child.icon ? <Icon name={child.icon} className="size-4" /> : null}
-                            </span>
-                            {child.label}
+                            <IndustryThumb
+                              href={child.href}
+                              live={menu === item.label}
+                              className="transition-transform duration-200 ease-out group-hover/item:scale-[1.03]"
+                            />
+                            <span className="px-1">{child.label}</span>
                           </Link>
                         </li>
                       ))}
@@ -212,7 +222,10 @@ export function SiteNavbar() {
                             onClick={() => setOpen(false)}
                             className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
                           >
-                            <span className={cn("grid size-7 shrink-0 place-items-center rounded-lg", CHIP)}>
+                            <span
+                              className="grid size-7 shrink-0 place-items-center rounded-lg text-[#26262a]"
+                              style={{ backgroundImage: toneGradient(themeFor(child.href).tone) }}
+                            >
                               {child.icon ? <Icon name={child.icon} className="size-3.5" /> : null}
                             </span>
                             {child.label}

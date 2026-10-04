@@ -12,6 +12,8 @@ export type IndustryEntry = {
   href: string;
   teaser: string;
   image: Img;
+  /** A shorter name for one-line card titles, when `name` is long. */
+  cardName?: string;
 };
 
 export const industries: IndustryEntry[] = [
@@ -58,6 +60,7 @@ export const industries: IndustryEntry[] = [
   {
     slug: "railing-fencing",
     name: "Railing and fencing",
+    cardName: "Railing",
     href: "/industries/railing-fencing",
     teaser: "Give homeowners a rough estimate on the spot and stop losing bids to slow follow-up.",
     image: {
@@ -127,6 +130,44 @@ export const industriesPage = {
     title: "Pick your industry, see what we would build first",
     body: "Nine industries live today, and we take on new ones as we go. Every page below starts from the same place: a free audit call before any scope or price gets set.",
   } as SectionHeading,
+
+  cta: {
+    heading: {
+      eyebrow: "Do not see your trade yet",
+      title: "Tell us what you run, we will tell you what we would build",
+      body: "New industries get added as we take on new trades. Book a free audit call either way and we will tell you honestly what fits.",
+    } as SectionHeading,
+    primary: { label: "Talk to us about your business", href: "/contact" } as Cta,
+  },
 } satisfies PageContent & Record<string, unknown>;
 
 export default industriesPage;
+
+/**
+ * Labels shared by every industry page's middle sections (the service
+ * explorer, the FAQ and the services strip). Each industry's own copy lives
+ * in its content file; these are the words around it.
+ */
+export const industryPageLabels = {
+  services: {
+    /** "Service 2 of 5" above the open service. */
+    counter: "Service {n} of {total}",
+    link: "How we build this",
+  },
+  strip: {
+    eyebrow: "Built from these services",
+    title: "The same six building blocks, set up for your trade",
+    body: "Everything on this page is assembled from them. Open any one for the detail.",
+  },
+  faq: {
+    /** Shown under the FAQ title when an industry's heading has no body of its own. */
+    body: "Straight answers to what owners ask us before a first call. Open any question for the full answer.",
+    /** "4 questions answered" above the list. */
+    count: "{n} questions answered",
+    help: {
+      title: "Still have a question?",
+      body: "Book a free audit call and ask us anything about your setup. No pitch deck, just answers.",
+      email: "Or email us",
+    },
+  },
+};

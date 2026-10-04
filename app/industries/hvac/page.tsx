@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { Feature01 } from "@/components/sections/features/feature-01";
-import { Faq03 } from "@/components/sections/faq/faq-03";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { themeFor } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
+import { IndustryServices } from "@/components/sections/industries/industry-services";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { hvac } from "@/content/industries/hvac";
-import { services } from "@/content/services";
 import type { FaqItem } from "@/content/types";
+
+const theme = themeFor("hvac");
 
 export const metadata: Metadata = { title: hvac.meta.title, description: hvac.meta.description };
 
@@ -37,21 +41,16 @@ export default function HvacPage() {
           { name: "HVAC", path: "/industries/hvac" },
         ]}
       />
-      <PageHero
+      <IndustryHero
         heading={hvac.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1700124113583-81aa99ea2aa2?auto=format&fit=crop&w=1600&q=80",
-          alt: "A modern heat pump and air conditioning unit mounted on the exterior wall of a house",
-        }}
         ctas={hvac.hero.ctas}
+        tone={theme.tone}
+        figure={<TradeFigure name={theme.icon} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
-      <Feature01 heading={hvac.build.heading} features={hvac.build.features} />
-      <Faq03 heading={hvac.faq.heading} items={hvac.faq.items} cta={hvac.faq.cta} />
-      <RelatedLinks
-        eyebrow="Built from these services"
-        links={services.services.map((s) => ({ label: s.title, href: `/services#${s.id}` }))}
-      />
-      <Cta12 heading={hvac.cta.heading} primary={hvac.cta.primary} image={hvac.cta.image} />
+      <IndustryServices heading={hvac.build.heading} features={hvac.build.features} tone={theme.tone} />
+      <IndustryServicesStrip tone={theme.tone} />
+      <IndustryFaq heading={hvac.faq.heading} items={hvac.faq.items} cta={hvac.faq.cta} tone={theme.tone} />
+      <IndustryCta heading={hvac.cta.heading} primary={hvac.cta.primary} tone={theme.tone} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

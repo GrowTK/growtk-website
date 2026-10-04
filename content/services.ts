@@ -64,6 +64,29 @@ export const services = {
     ] as Step[],
   },
 
+  /** The sticky row of anchor pills above the six services. */
+  jump: { label: "Jump to" },
+
+  /** Section intro above the six alternating service rows. */
+  list: {
+    heading: {
+      eyebrow: "Six services",
+      title: "Pick one, or let them work together",
+      body: "Each one stands on its own. Most clients start with one, then add the next once the first is already bringing in work.",
+    } as SectionHeading,
+    included: "What you get",
+    ask: "Ask about this",
+  },
+
+  industries: {
+    heading: {
+      eyebrow: "Built for your industry",
+      title: "Set up for the trade you actually run",
+      body: "The same six services, worked out for how each trade takes calls, quotes and books jobs.",
+    } as SectionHeading,
+    cta: { label: "See all industries", href: "/industries" } as Cta,
+  },
+
   services: [
     {
       id: "website-redesign",
@@ -167,6 +190,7 @@ export const services = {
     heading: {
       eyebrow: "Before you book",
       title: "What people ask before they call",
+      body: "Scope, timing and cost, answered plainly. Anything else, ask us on the audit call.",
     } as SectionHeading,
     items: [
       {
@@ -182,8 +206,8 @@ export const services = {
         a: "Usually not. Most of what we build connects to the CRM, calendar and payment tools you already run, rather than asking you to switch to something new.",
       },
       {
-        q: "Do you work outside roofing, railing and fencing, and healthcare?",
-        a: "Those are the industries we work in most today, and we are adding more over time. If your business is not listed, get in touch and we will tell you honestly whether it is a good fit.",
+        q: "Do you work outside the industries on your site?",
+        a: "The trades on our industries page are where we work most today, and we are adding more over time. If your business is not listed, get in touch and we will tell you honestly whether it is a good fit.",
       },
       {
         q: "What does it cost?",

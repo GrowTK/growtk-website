@@ -88,10 +88,6 @@ export const railingFencing = {
       body: "Book a free audit call and we will tell you exactly what a faster site, a quote form and bid follow-up would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your fencing or railing company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1679797870465-b4eda40ead96?auto=format&fit=crop&w=1600&q=80",
-      alt: "A contractor using a power drill to install a wooden fence",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

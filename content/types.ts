@@ -38,6 +38,13 @@ export type Img = {
   caption?: string;
 };
 
+/** One row in the ImageStatement step stack. `icon` keys a lookup in the component. */
+export type StatementStep = {
+  icon: "visit" | "leak" | "fix";
+  title: string;
+  body: string;
+};
+
 /** Small tracked label above a heading. Not a heading itself. */
 export type Eyebrow = string;
 
@@ -118,6 +125,22 @@ export type Step = {
   n: number;
   title: string;
   body: string;
+};
+
+/** A showcased project card, linked through to its own detail page at /work/[slug]. */
+export type Project = {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  /** Centered logo mark shown on the thumbnail and carried into the detail hero. */
+  logo: Img;
+  /** "square" for a mark like a face or icon (sized by height); omit for a wide wordmark. */
+  logoShape?: "square";
+  /** Literal background utility classes for the thumbnail/hero (no dynamic template strings). */
+  thumbnailClassName: string;
+  /** The project's own brand colour, as a hex value. Never substitute Growtk's own brand colour here. */
+  accentHex: string;
 };
 
 /** Per-page metadata. Feeds the Next.js `metadata` export. */

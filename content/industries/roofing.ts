@@ -88,10 +88,6 @@ export const roofing = {
       body: "Book a free audit call and we will tell you exactly what a faster site, a quote calculator and storm-lead follow-up would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your roofing company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1635424709845-3a85ad5e1f5e?auto=format&fit=crop&w=1600&q=80",
-      alt: "Two roofers working together on a residential roof",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

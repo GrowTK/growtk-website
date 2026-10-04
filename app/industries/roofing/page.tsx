@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { Feature01 } from "@/components/sections/features/feature-01";
-import { Faq03 } from "@/components/sections/faq/faq-03";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { themeFor } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
+import { IndustryServices } from "@/components/sections/industries/industry-services";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { roofing } from "@/content/industries/roofing";
-import { services } from "@/content/services";
 import type { FaqItem } from "@/content/types";
+
+const theme = themeFor("roofing");
 
 export const metadata: Metadata = { title: roofing.meta.title, description: roofing.meta.description };
 
@@ -37,21 +41,16 @@ export default function RoofingPage() {
           { name: "Roofing", path: "/industries/roofing" },
         ]}
       />
-      <PageHero
+      <IndustryHero
         heading={roofing.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&w=1600&q=80",
-          alt: "A roofer standing on a residential roof mid job",
-        }}
         ctas={roofing.hero.ctas}
+        tone={theme.tone}
+        figure={<TradeFigure name={theme.icon} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
-      <Feature01 heading={roofing.build.heading} features={roofing.build.features} />
-      <Faq03 heading={roofing.faq.heading} items={roofing.faq.items} cta={roofing.faq.cta} />
-      <RelatedLinks
-        eyebrow="Built from these services"
-        links={services.services.map((s) => ({ label: s.title, href: `/services#${s.id}` }))}
-      />
-      <Cta12 heading={roofing.cta.heading} primary={roofing.cta.primary} image={roofing.cta.image} />
+      <IndustryServices heading={roofing.build.heading} features={roofing.build.features} tone={theme.tone} />
+      <IndustryServicesStrip tone={theme.tone} />
+      <IndustryFaq heading={roofing.faq.heading} items={roofing.faq.items} cta={roofing.faq.cta} tone={theme.tone} />
+      <IndustryCta heading={roofing.cta.heading} primary={roofing.cta.primary} tone={theme.tone} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

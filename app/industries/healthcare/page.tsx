@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { Feature01 } from "@/components/sections/features/feature-01";
-import { Faq03 } from "@/components/sections/faq/faq-03";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { themeFor } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
+import { IndustryServices } from "@/components/sections/industries/industry-services";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { healthcare } from "@/content/industries/healthcare";
-import { services } from "@/content/services";
 import type { FaqItem } from "@/content/types";
+
+const theme = themeFor("healthcare");
 
 export const metadata: Metadata = { title: healthcare.meta.title, description: healthcare.meta.description };
 
@@ -37,21 +41,16 @@ export default function HealthcarePage() {
           { name: "Healthcare", path: "/industries/healthcare" },
         ]}
       />
-      <PageHero
+      <IndustryHero
         heading={healthcare.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1637711805966-c5181f89ddb6?auto=format&fit=crop&w=1600&q=80",
-          alt: "A clean, modern reception desk in a healthcare practice lobby",
-        }}
         ctas={healthcare.hero.ctas}
+        tone={theme.tone}
+        figure={<TradeFigure name={theme.icon} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
-      <Feature01 heading={healthcare.build.heading} features={healthcare.build.features} />
-      <Faq03 heading={healthcare.faq.heading} items={healthcare.faq.items} cta={healthcare.faq.cta} />
-      <RelatedLinks
-        eyebrow="Built from these services"
-        links={services.services.map((s) => ({ label: s.title, href: `/services#${s.id}` }))}
-      />
-      <Cta12 heading={healthcare.cta.heading} primary={healthcare.cta.primary} image={healthcare.cta.image} />
+      <IndustryServices heading={healthcare.build.heading} features={healthcare.build.features} tone={theme.tone} />
+      <IndustryServicesStrip tone={theme.tone} />
+      <IndustryFaq heading={healthcare.faq.heading} items={healthcare.faq.items} cta={healthcare.faq.cta} tone={theme.tone} />
+      <IndustryCta heading={healthcare.cta.heading} primary={healthcare.cta.primary} tone={theme.tone} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

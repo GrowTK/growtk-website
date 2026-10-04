@@ -89,10 +89,6 @@ export const plumbing = {
       body: "Book a free audit call and Growtk will tell you exactly what a faster site, an estimate widget and emergency-call triage would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your plumbing company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=1600&q=80",
-      alt: "A chrome bathtub faucet and hand shower fixture in a renovated bathroom",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

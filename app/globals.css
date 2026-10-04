@@ -25,7 +25,7 @@
 
 :root {
   /* brand:hue:start */
-  --brand-hue: 278; /* set by brand.config.ts */
+  --brand-hue: 70; /* set by brand.config.ts */
 /* brand:hue:end */
 
   /* radius — brand:corners controls this via `npm run brand` */
@@ -33,10 +33,11 @@
 
   /* No all-caps anywhere on this site, eyebrow labels included. */
   --accent-transform: none;
-  /* Eyebrow labels use the real Helvetica stack, not the mono face. A live
-     var(--font-display) reference would pick up next/font's Space Grotesk
-     override instead, so this repeats the literal stack from --font-display
-     below rather than referencing it. */
+  /* The whole site (headings, body, labels, eyebrows) is set in Helvetica. It isn't
+     on Google Fonts, so it comes from the system stack, not next/font. */
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --accent-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Neutrals tuned with a hint of brand hue (cool, not dead gray) */
@@ -48,8 +49,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.12 0.01 var(--brand-hue));
 
-  /* Brand primary scale. #4510DD exactly (8.86:1 contrast with a white label). */
-  --primary: #4510DD;
+  /* Brand primary: charcoal, the colour of the Hairline line art (15:1 with a white label). The pastels are accents, never the primary. */
+  --primary: #26262a;
   --primary-foreground: oklch(0.99 0.01 var(--brand-hue));
 
   --secondary: oklch(0.96 0.01 var(--brand-hue));
@@ -66,7 +67,7 @@
 
   --border: oklch(0.87 0.01 var(--brand-hue));
   --input: oklch(0.87 0.01 var(--brand-hue));
-  --ring: #4510DD;
+  --ring: #26262a;
 
   /* Decorative gradient stops for hero/aurora effects */
   --aurora-1: oklch(0.7 0.2 var(--brand-hue));
@@ -106,11 +107,11 @@
   --radius-2xl: calc(var(--radius) + 8px);
 
   /* Fonts — wired to next/font CSS variables set in layout.tsx */
-  /* Helvetica isn't on Google Fonts, so headings use the real system stack
-     directly instead of next/font. sans/mono stay on the generated faces. */
-  --font-display: Helvetica Neue, Helvetica, Arial, sans-serif;
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  /* Helvetica isn't on Google Fonts, so every face (display, body, and the
+     mono labels) uses the system stack directly instead of next/font. */
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Motion */
   --animate-aurora: aurora 18s ease-in-out infinite;
@@ -152,13 +153,13 @@
   body {
     background: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
   /* Headlines use the display face by default — the #1 thing breaking the AI look */
   h1, h2, h3, h4 {
-    font-family: var(--font-display), var(--font-sans), sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
@@ -228,5 +229,37 @@
   @keyframes fadeUp {
     from { opacity: 0; transform: translate3d(0, 0.75rem, 0); }
     to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+}
+
+/*
+ * Project card -> detail hero morph (ViewTransition name="project-<slug>",
+ * share="morph"). The grid cell and the full width hero are very different
+ * shapes, so a plain resize looks like a squish. A brief blur over the
+ * middle of the flight hides that distortion instead of fighting it.
+ */
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: ease-in-out;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: project-morph-blur;
+  animation-duration: 420ms;
+}
+@keyframes project-morph-blur {
+  30%, 70% { filter: blur(6px); }
+}
+
+/* Keeps the live page clickable while the transition overlay plays. */
+::view-transition {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

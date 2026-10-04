@@ -7,9 +7,9 @@
  *
  * Keep every string free of em dashes and en dashes.
  */
-import type { PageContent, Cta, Img, SectionHeading, Stat, FaqItem, Testimonial, Feature } from "./types";
+import type { PageContent, Cta, Img, SectionHeading, Stat, FaqItem, Testimonial, Feature, StatementStep } from "./types";
 
-type IndustryCard = { icon: string; name: string; teaser: string; href: string; image: Img };
+type IndustryCard = { icon: string; name: string; teaser: string; href: string };
 import type { TabItem } from "@/components/sections/features/feature-05";
 
 export const home = {
@@ -22,15 +22,17 @@ export const home = {
 
   hero: {
     eyebrow: "Websites, widgets and automation",
-    title: "Stop losing jobs to a website that works slower than you do",
-    body: "Growtk redesigns your website and builds the automation behind it: quote widgets, booking flows, follow-up sequences and voice agents, so leads stop going cold while you're on a roof, a job site, or with a patient.",
+    title: "More calls. More jobs. Less busywork.",
+    body: "We rebuild your website and wire in the automation behind it: quote widgets, booking flows, follow-up sequences and a voice agent that answers, so leads stop going cold while you're out on the job.",
     ctas: [
       { label: "Get a free audit", href: "/contact", variant: "primary" },
       { label: "See what we build", href: "/services", variant: "secondary" },
     ] as Cta[],
+    /** Accessible name for the animated line figure on the hero's right. */
+    figureLabel: "A lead machine: a call rings, the lead rides into automation, books a day on the calendar and prints a paid receipt",
     video: {
-      src: "/brand/hero.mp4",
-      poster: "/brand/hero-poster.jpg",
+      src: "/brand/blob-animation.mp4",
+      poster: "/brand/blob-poster.jpg",
     },
     stats: [
       { value: "6", label: "services under one roof: web, SEO, widgets, automation, voice, integrations" },
@@ -40,45 +42,53 @@ export const home = {
     ] as Stat[],
   },
 
-  /** Centered about copy with four parallax corner photos. */
+  /** Centered about copy with four parallax sticky notes, one per step from first click to booked job. */
   about: {
     eyebrow: "About us",
-    title: "Built by people who\nanswer the phone.",
-    body: "Growtk is a small team that builds the website and the automation behind it together, so a redesign is never just a new coat of paint on the same slow lead flow. We ship what we would want running our own trade business.",
+    title: "One team, from first\nclick to booked job.",
+    body: "Most trade businesses juggle a web designer, a booking tool and a CRM that never talk to each other. Growtk builds it all as one system, so every call, form and quote lands in the same place and gets followed up without you chasing it.",
     ctas: [
       { label: "Get a free audit", href: "/contact", variant: "primary" },
       { label: "About us", href: "/about", variant: "secondary" },
     ] as Cta[],
-    photos: [
+    /**
+     * Sticky notes around the copy, read clockwise from top left as the path a
+     * customer takes. `doodle` picks the ink drawing; `lines` is the handwriting.
+     */
+    notes: [
       {
-        src: "https://images.unsplash.com/photo-1621905253185-95614217f357?auto=format&fit=crop&w=500&q=70",
-        alt: "A contractor in a hard hat checking his phone on a job site",
-        position: "left-[8%] top-[12%] w-44 lg:w-56",
+        color: "#FFDE59",
+        lines: ["First click", "lands on a fast site"],
+        doodle: "browser",
+        position: "left-[7%] top-[11%]",
         rotate: "-rotate-6",
         speed: 0.7,
       },
       {
-        src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=500&q=70",
-        alt: "A laptop on a desk showing code beside a second monitor displaying a website",
-        position: "right-[7%] top-[12%] w-44 lg:w-60",
-        rotate: "rotate-6",
+        color: "#F2C4FF",
+        lines: ["Missed call?", "Texted back in minutes"],
+        doodle: "phone",
+        position: "right-[7%] top-[12%]",
+        rotate: "rotate-5",
         speed: 1.2,
       },
       {
-        src: "https://images.unsplash.com/photo-1554672408-730436b60dde?auto=format&fit=crop&w=500&q=70",
-        alt: "A hand holding a phone showing a booking confirmation screen",
-        position: "left-[12%] bottom-[13%] w-40 lg:w-52",
+        color: "#FFBA7B",
+        lines: ["Quote follow-up", "day 1, 3 and 7"],
+        doodle: "calendar",
+        position: "left-[11%] bottom-[11%]",
         rotate: "rotate-3",
         speed: 1,
       },
       {
-        src: "https://images.unsplash.com/photo-1591381287254-b3349c60bf9b?auto=format&fit=crop&w=500&q=70",
-        alt: "A laptop screen showing a node-based workflow automation diagram",
-        position: "right-[9%] bottom-[9%] w-40 lg:w-52",
+        color: "#A8E6B8",
+        lines: ["Job booked.", "Review asked for you"],
+        doodle: "star",
+        position: "right-[9%] bottom-[9%]",
         rotate: "-rotate-4",
         speed: 0.85,
       },
-    ],
+    ] as { color: string; lines: string[]; doodle: "browser" | "phone" | "calendar" | "star"; position: string; rotate: string; speed: number }[],
   },
 
   /** Heading plus a single centered voice demo blob. */
@@ -143,92 +153,56 @@ export const home = {
       {
         icon: "Wind",
         name: "HVAC",
-        teaser: "A no-heat call at midnight in January will not wait for morning. It gets triaged, routed to whoever is on call, and booked before the homeowner tries the next number on Google.",
+        teaser: "A no-heat call at midnight will not wait for morning. It gets triaged, routed to whoever is on call, and booked before the homeowner tries the next number.",
         href: "/industries/hvac",
-        image: {
-          src: "https://images.unsplash.com/photo-1700124113583-81aa99ea2aa2?auto=format&fit=crop&w=800&q=75",
-          alt: "A modern heat pump and air conditioning unit mounted on the exterior wall of a house",
-        },
       },
       {
         icon: "Droplets",
         name: "Plumbing",
-        teaser: "A burst pipe does not check the clock before it floods a kitchen. Every emergency call gets triaged and routed to whoever is on call, day or night, instead of ringing out to voicemail.",
+        teaser: "A burst pipe does not check the clock before it floods a kitchen. Every emergency call gets triaged and routed to whoever is on call, day or night.",
         href: "/industries/plumbing",
-        image: {
-          src: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=75",
-          alt: "A modern bathroom with a freestanding tub, shower and plumbing fixtures",
-        },
       },
       {
         icon: "Zap",
         name: "Electrical",
-        teaser: "A flickering panel or a tripped breaker is a safety call, not a maybe-later call. Estimate requests and urgent service calls get triaged and booked before a homeowner calls someone else first.",
+        teaser: "A tripped breaker is a safety call, not a maybe-later call. Estimate requests and urgent service calls get triaged and booked before a homeowner calls someone else first.",
         href: "/industries/electrical",
-        image: {
-          src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=75",
-          alt: "An electrician in a yellow hard hat installing wiring on an exterior panel",
-        },
       },
       {
         icon: "HardHat",
         name: "Roofing",
-        teaser: "After a storm, the first roofer to call back gets the job, not the one with the nicest site. Every storm-damage lead gets an instant quote and a callback within minutes.",
+        teaser: "After a storm, the first roofer to call back gets the job, not the nicest website. Every single storm lead gets an instant quote and a fast callback.",
         href: "/industries/roofing",
-        image: {
-          src: "https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&w=800&q=75",
-          alt: "A roofer standing on a residential roof mid job",
-        },
       },
       {
         icon: "Fence",
-        name: "Railing and fencing",
-        teaser: "A fence quote that takes a week to send is a quote that gets three other bids first. Homeowners get a visual estimate on the spot, and every bid gets followed up until it is won or lost.",
+        name: "Railing",
+        teaser: "A quote that takes a week to send gets three bids first. Homeowners get a visual estimate on the spot, and every bid gets followed up until decided.",
         href: "/industries/railing-fencing",
-        image: {
-          src: "https://images.unsplash.com/photo-1604015641586-6fa03629f976?auto=format&fit=crop&w=800&q=75",
-          alt: "A wooden fence running along a property line under a clear sky",
-        },
       },
       {
         icon: "Trees",
         name: "Landscaping",
-        teaser: "A landscaping business loses money re-selling the same customer every spring. Recurring visits book and rebill themselves, so the calendar stays full without a phone call every season.",
+        teaser: "A landscaping business loses money re-selling the same customer every spring. Recurring visits book and rebill themselves, so the calendar stays full without a phone call each season.",
         href: "/industries/landscaping",
-        image: {
-          src: "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=800&q=75",
-          alt: "A close-up of a freshly maintained green lawn in front of modern buildings",
-        },
       },
       {
         icon: "Bug",
         name: "Pest control",
-        teaser: "A new infestation call is won by whoever answers first, and a recurring treatment plan is lost the moment renewal falls through the cracks. Both run on autopilot instead of a sticky note.",
+        teaser: "A new infestation call goes to whoever answers first, and a treatment plan is lost the moment renewal slips through the cracks. Both now run on autopilot instead.",
         href: "/industries/pest-control",
-        image: {
-          src: "https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=800&q=75",
-          alt: "A suburban house exterior with a well-kept lawn and landscaping",
-        },
       },
       {
         icon: "SprayCan",
         name: "Cleaning",
-        teaser: "A cleaning business runs on repeat visits, not one-off jobs. Recurring bookings renew themselves, and a review request goes out the moment a job is marked done, no front desk required.",
+        teaser: "A cleaning business runs on repeat visits, not one-off jobs. Recurring bookings renew themselves automatically, and a review request goes out the moment a job is marked done.",
         href: "/industries/cleaning",
-        image: {
-          src: "https://images.unsplash.com/photo-1580256081112-e49377338b7f?auto=format&fit=crop&w=800&q=75",
-          alt: "A cleaning cart with supplies parked in a hotel hallway",
-        },
       },
       {
         icon: "HeartPulse",
         name: "Healthcare",
-        teaser: "A front desk on the phone all day booking and rescheduling has less time for the patient standing in front of them. Booking, reminders and no-show follow-up run in the background instead.",
+        teaser: "A front desk stuck on the phone booking all day has less time for the patient in front of them. Booking, reminders and no-show follow-up run quietly instead.",
         href: "/industries/healthcare",
-        image: {
-          src: "https://images.unsplash.com/photo-1637711805966-c5181f89ddb6?auto=format&fit=crop&w=800&q=75",
-          alt: "A clean, modern reception desk in a healthcare practice lobby",
-        },
       },
     ] as IndustryCard[],
     cta: { label: "See all industries", href: "/industries" } as Cta,
@@ -360,8 +334,8 @@ export const home = {
         title: "Audit",
         body: "A free call to map out where your site and back office are actually costing you jobs and hours.",
         image: {
-          src: "/brand/industry-4.webp",
-          alt: "Soft violet gradient wash",
+          src: "/brand/process-audit.webp",
+          alt: "Soft yellow to peach gradient wash",
         },
       },
       {
@@ -429,7 +403,24 @@ export const home = {
     eyebrow: "How we build",
     title: "Every build starts with your business, not our template",
     body: "We map how your leads actually move, by phone, by form, by walk-in, before we touch a single page, so what launches fits the way you already win jobs.",
-    secondaryBody: "That mapping happens on the free audit call, before anything is scoped or priced: what a visitor actually does on your current site, where a call or a form goes cold, and which single fix would move the needle first.",
+    secondaryBody: "That mapping happens on the free audit call, before anything is scoped or priced. It answers three questions.",
+    steps: [
+      {
+        icon: "visit",
+        title: "What visitors actually do",
+        body: "We walk your current site the way a customer does and note where they click, scroll and stop.",
+      },
+      {
+        icon: "leak",
+        title: "Where calls and forms go cold",
+        body: "We trace each lead path, phone, form or walk-in, to the exact step where people drop off.",
+      },
+      {
+        icon: "fix",
+        title: "The one fix to make first",
+        body: "You leave the call knowing which single change would move the needle most, before any price is set.",
+      },
+    ] as StatementStep[],
     cta: { label: "See how we work", href: "/services" } as Cta,
     image: {
       src: "/brand/8.jpg",

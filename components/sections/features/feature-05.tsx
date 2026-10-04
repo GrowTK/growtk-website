@@ -13,6 +13,16 @@ export type TabItem = Feature & {
   cta?: Cta;
 };
 
+/* Peach-led wash with a touch of lilac or butter yellow, in a different direction per card. */
+const CARD_TINTS = [
+  "bg-gradient-to-br from-[#FFBA7B]/50 via-[#FFBA7B]/40 to-[#F2C4FF]/40",
+  "bg-gradient-to-bl from-[#FFBA7B]/50 via-[#FFBA7B]/40 to-[#FFDE59]/35",
+  "bg-gradient-to-tr from-[#F2C4FF]/40 via-[#FFBA7B]/45 to-[#FFBA7B]/50",
+  "bg-gradient-to-b from-[#FFBA7B]/50 via-[#FFBA7B]/40 to-[#FFDE59]/35",
+  "bg-gradient-to-tl from-[#FFBA7B]/50 via-[#F2C4FF]/35 to-[#FFBA7B]/45",
+  "bg-gradient-to-r from-[#FFDE59]/35 via-[#FFBA7B]/45 to-[#FFBA7B]/50",
+];
+
 /**
  * Filmstrip selector: one card is wide and fully readable, the rest collapse
  * into narrow slivers you can click (or step through with the arrows) to
@@ -91,6 +101,7 @@ export function Feature05({ heading, features }: {
                     className="absolute inset-0 -z-20 size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   />
                 ) : null}
+                <div aria-hidden className={cn("absolute inset-0 -z-10", CARD_TINTS[i % CARD_TINTS.length])} />
                 <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
 
                 {/* Full content: always on mobile/tablet, only the active card on desktop. */}

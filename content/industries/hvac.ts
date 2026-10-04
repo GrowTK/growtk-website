@@ -90,10 +90,6 @@ export const hvac = {
       body: "Book a free audit call and we will tell you exactly what a faster site, a maintenance-plan widget and emergency call routing would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your HVAC company's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1700124113583-81aa99ea2aa2?auto=format&fit=crop&w=1600&q=80",
-      alt: "A modern heat pump and air conditioning unit mounted on the exterior wall of a house",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

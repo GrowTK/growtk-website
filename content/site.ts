@@ -72,6 +72,7 @@ export const site = {
           { label: "Team", href: "/team" },
           { label: "How we work", href: "/process" },
           { label: "Contact", href: "/contact" },
+          { label: "Groowt", href: "/groowt" },
         ] as Link[],
       },
     ] as FooterGroup[],

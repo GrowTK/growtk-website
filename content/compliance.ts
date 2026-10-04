@@ -16,7 +16,7 @@ export const compliance = {
   },
   effectiveDate: "Draft, last updated September 2026",
   intro:
-    "This page describes real practices Growtk follows when building this website and client projects. It is not a list of certifications: Growtk is a two-person software studio, and we would rather tell you plainly what we do and do not hold than let a vague word like compliance do the talking. This is a draft pending review by counsel before public launch.",
+    "This page describes real practices Growtk follows when building this website and client projects. It is not a list of certifications: Growtk is a small software studio, and we would rather tell you plainly what we do and do not hold than let a vague word like compliance do the talking. This is a draft pending review by counsel before public launch.",
   sections: [
     {
       heading: "Accessibility",

@@ -26,4 +26,7 @@ export const fontMono = JetBrains_Mono({
 });
 // brand:fonts:end
 
+// Not imported anywhere right now: the whole site is Helvetica from the system
+// stack (see app/globals.css). app/layout.tsx used to apply these variables on
+// <html>; re-add that import to bring the Google faces back.
 export const fontVariables = `${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable}`;

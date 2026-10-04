@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { Feature01 } from "@/components/sections/features/feature-01";
-import { Faq03 } from "@/components/sections/faq/faq-03";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { themeFor } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
+import { IndustryServices } from "@/components/sections/industries/industry-services";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { electrical } from "@/content/industries/electrical";
-import { services } from "@/content/services";
 import type { FaqItem } from "@/content/types";
+
+const theme = themeFor("electrical");
 
 export const metadata: Metadata = { title: electrical.meta.title, description: electrical.meta.description };
 
@@ -37,21 +41,16 @@ export default function ElectricalPage() {
           { name: "Electrical", path: "/industries/electrical" },
         ]}
       />
-      <PageHero
+      <IndustryHero
         heading={electrical.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1600&q=80",
-          alt: "An electrician in a yellow hard hat installing wiring on an exterior panel",
-        }}
         ctas={electrical.hero.ctas}
+        tone={theme.tone}
+        figure={<TradeFigure name={theme.icon} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
-      <Feature01 heading={electrical.build.heading} features={electrical.build.features} />
-      <Faq03 heading={electrical.faq.heading} items={electrical.faq.items} cta={electrical.faq.cta} />
-      <RelatedLinks
-        eyebrow="Built from these services"
-        links={services.services.map((s) => ({ label: s.title, href: `/services#${s.id}` }))}
-      />
-      <Cta12 heading={electrical.cta.heading} primary={electrical.cta.primary} image={electrical.cta.image} />
+      <IndustryServices heading={electrical.build.heading} features={electrical.build.features} tone={theme.tone} />
+      <IndustryServicesStrip tone={theme.tone} />
+      <IndustryFaq heading={electrical.faq.heading} items={electrical.faq.items} cta={electrical.faq.cta} tone={theme.tone} />
+      <IndustryCta heading={electrical.cta.heading} primary={electrical.cta.primary} tone={theme.tone} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

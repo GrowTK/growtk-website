@@ -89,10 +89,6 @@ export const electrical = {
       body: "Book a free audit call and Growtk will tell you exactly what a faster site, an estimate widget and safety-call triage would look like for your business.",
     } as SectionHeading,
     primary: { label: "Talk to us about your electrical business's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1600&q=80",
-      alt: "An electrician in a yellow hard hat installing wiring on an exterior panel",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { ImageCard } from "@/components/magic/image-card";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { IndustryMosaic } from "@/components/sections/industries/industry-mosaic";
+import { IndustryTile } from "@/components/sections/industries/industries-carousel";
+import { HUB_TONE } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
 import { Reveal, RevealGroup, RevealItem } from "@/components/magic/reveal";
 import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { industries, industriesPage } from "@/content/industries";
 
@@ -13,13 +16,11 @@ export default function IndustriesPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Industries", path: "/industries" }]} />
-      <PageHero
+      <IndustryHero
         heading={industriesPage.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1621905253185-95614217f357?auto=format&fit=crop&w=1600&q=80",
-          alt: "A contractor in a hard hat checking his phone on a job site",
-        }}
         ctas={industriesPage.hero.ctas}
+        tone={HUB_TONE}
+        figure={<IndustryMosaic items={industries} />}
       />
 
       <section className="bg-background py-20 lg:py-28">
@@ -37,15 +38,7 @@ export default function IndustriesPage() {
           <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {industries.map((industry) => (
               <RevealItem key={industry.slug}>
-                <ImageCard
-                  href={industry.href}
-                  src={industry.image.src}
-                  alt={industry.image.alt}
-                  eyebrow="Industry"
-                  title={industry.name}
-                  description={industry.teaser}
-                  className="h-full"
-                />
+                <IndustryTile industry={{ ...industry, name: industry.cardName ?? industry.name }} />
               </RevealItem>
             ))}
           </RevealGroup>
@@ -62,18 +55,7 @@ export default function IndustriesPage() {
         ]}
       />
 
-      <Cta12
-        heading={{
-          eyebrow: "Do not see your trade yet",
-          title: "Tell us what you run, we will tell you what we would build",
-          body: "New industries get added as we take on new trades. Book a free audit call either way and we will tell you honestly what fits.",
-        }}
-        primary={{ label: "Talk to us about your business", href: "/contact" }}
-        image={{
-          src: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1920&q=80",
-          alt: "Two people working at laptops in a modern office, photographed in black and white",
-        }}
-      />
+      <IndustryCta heading={industriesPage.cta.heading} primary={industriesPage.cta.primary} tone={HUB_TONE} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

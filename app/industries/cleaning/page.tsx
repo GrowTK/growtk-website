@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { Feature01 } from "@/components/sections/features/feature-01";
-import { Faq03 } from "@/components/sections/faq/faq-03";
-import { RelatedLinks } from "@/components/sections/services/related-links";
-import { Cta12 } from "@/components/sections/cta/cta-12";
+import { IndustryHero } from "@/components/sections/industries/industry-hero";
+import { IndustryCta } from "@/components/sections/industries/industry-cta";
+import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { themeFor } from "@/components/sections/industries/industry-tones";
+import { home } from "@/content/home";
+import { IndustryServices } from "@/components/sections/industries/industry-services";
+import { IndustryFaq } from "@/components/sections/industries/industry-faq";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { cleaning } from "@/content/industries/cleaning";
-import { services } from "@/content/services";
 import type { FaqItem } from "@/content/types";
+
+const theme = themeFor("cleaning");
 
 export const metadata: Metadata = { title: cleaning.meta.title, description: cleaning.meta.description };
 
@@ -37,21 +41,16 @@ export default function CleaningPage() {
           { name: "Cleaning", path: "/industries/cleaning" },
         ]}
       />
-      <PageHero
+      <IndustryHero
         heading={cleaning.hero}
-        image={{
-          src: "https://images.unsplash.com/photo-1580256081112-e49377338b7f?auto=format&fit=crop&w=1600&q=80",
-          alt: "A cleaning cart with supplies parked in a hotel hallway",
-        }}
         ctas={cleaning.hero.ctas}
+        tone={theme.tone}
+        figure={<TradeFigure name={theme.icon} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
-      <Feature01 heading={cleaning.build.heading} features={cleaning.build.features} />
-      <Faq03 heading={cleaning.faq.heading} items={cleaning.faq.items} cta={cleaning.faq.cta} />
-      <RelatedLinks
-        eyebrow="Built from these services"
-        links={services.services.map((s) => ({ label: s.title, href: `/services#${s.id}` }))}
-      />
-      <Cta12 heading={cleaning.cta.heading} primary={cleaning.cta.primary} image={cleaning.cta.image} />
+      <IndustryServices heading={cleaning.build.heading} features={cleaning.build.features} tone={theme.tone} />
+      <IndustryServicesStrip tone={theme.tone} />
+      <IndustryFaq heading={cleaning.faq.heading} items={cleaning.faq.items} cta={cleaning.faq.cta} tone={theme.tone} />
+      <IndustryCta heading={cleaning.cta.heading} primary={cleaning.cta.primary} tone={theme.tone} figureLabel={home.hero.figureLabel} />
     </>
   );
 }

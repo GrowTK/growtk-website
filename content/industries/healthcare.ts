@@ -90,10 +90,6 @@ export const healthcare = {
       body: "Book a free audit call and we will tell you exactly what a booking widget, reminder automation and call handling would look like for your front office.",
     } as SectionHeading,
     primary: { label: "Talk to us about your practice's website", href: "/contact" } as Cta,
-    image: {
-      src: "https://images.unsplash.com/photo-1689848693914-7ba25d9f3334?auto=format&fit=crop&w=1600&q=80",
-      alt: "A front desk staff member scheduling a call at her desk",
-    } as Img,
   },
 } satisfies PageContent & Record<string, unknown>;
 
