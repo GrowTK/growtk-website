@@ -75,7 +75,7 @@ export function Groowt({
   size?: number;
   className?: string;
 }) {
-  const { open: chatOpen, mood, travel } = useGroowt();
+  const { open: chatOpen, mood, travel, game } = useGroowt();
   const router = useRouter();
   const pathname = usePathname();
   const reduce = useReducedMotion();
@@ -119,7 +119,11 @@ export function Groowt({
   const playHide = React.useRef<number | undefined>(undefined);
   const peekPlay = (on: boolean) => {
     window.clearTimeout(playHide.current);
-    if (on) setShowPlay(true);
+    if (on) {
+      setShowPlay(true);
+      // Start downloading the game the moment Play shows up, so pressing it opens instantly.
+      void import("@/components/mascot/groowt-game");
+    }
     else playHide.current = window.setTimeout(() => setShowPlay(false), 700);
   };
   // Throwing: the fling speed at release, the spin he picks up, and the parachute back.
@@ -160,17 +164,18 @@ export function Groowt({
 
   // Line boil: the wobble re-seeds a few times a second, like frames redrawn by hand.
   React.useEffect(() => {
-    if (reduce) return;
+    if (reduce || game) return;
     const id = window.setInterval(() => setSeed((n) => (n % 4) + 1), 160);
     return () => window.clearInterval(id);
-  }, [reduce]);
+  }, [reduce, game]);
 
   // A wag every so often.
   React.useEffect(() => {
     if (reduce) return;
+    if (game) return;
     const id = window.setInterval(() => tail.start({ rotate: [0, -16, 9, -6, 0], transition: { duration: 0.7, ease: "easeInOut" } }), 5200);
     return () => window.clearInterval(id);
-  }, [reduce, tail]);
+  }, [reduce, tail, game]);
 
   // Eyes follow the pointer.
   React.useEffect(() => {
@@ -182,9 +187,10 @@ export function Groowt({
       const k = Math.min(1, d / (220 * scale)) * 1.9;
       setLook({ x: (dx / d) * k, y: (dy / d) * k });
     };
+    if (game) return;
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
-  }, [scale]);
+  }, [scale, game]);
 
   const hop = () => {
     if (reduce) return;
@@ -544,7 +550,7 @@ export function Groowt({
   return (
     <div
       className={cn(corner ? "pointer-events-none fixed right-4 bottom-3 z-50 sm:right-6 sm:bottom-5" : "relative", className)}
-      style={{ width: size }}
+      style={{ width: size, display: game && corner ? "none" : undefined }}
     >
       {/* The draggable layer (corner only): carries the bird and his bubble together. */}
       <motion.div

@@ -28,7 +28,7 @@ const PLAYER_KEY = "groowt-flies-player";
 const REST_EVERY = 20;
 const PILLAR_COLORS = ["#FFDE59", "#F2C4FF", "#FFBA7B", "#A8E6B8"];
 
-type Pillar = { x: number; gapY: number; color: string; scored: boolean };
+type Pillar = { x: number; gapY: number; color: string; scored: boolean; top?: HTMLCanvasElement; bottom?: HTMLCanvasElement };
 type Cloud = { x: number; y: number; s: number; v: number };
 type Phase = "intro" | "ready" | "playing" | "landing" | "rest" | "zombies" | "cleared" | "takeoff" | "over";
 
@@ -347,24 +347,25 @@ function drawPlatform(ctx: CanvasRenderingContext2D, p: Platform, boil: number, 
 }
 
 /** Night falls for the zombie stage: dusk sky, stars, a sleepy moon, bats. Fades in with `a`. */
-function drawNight(ctx: CanvasRenderingContext2D, W: number, H: number, t: number, a: number, stars: { x: number; y: number; r: number; p: number }[]) {
+/**
+ * Night falls for the zombie stage. `part: "static"` paints the dusk sky and the
+ * sleepy moon (pre-rendered once into a layer); `part: "live"` paints what moves:
+ * twinkling stars and bats. Fades in with `a`.
+ */
+function drawNight(ctx: CanvasRenderingContext2D, W: number, H: number, t: number, a: number, stars: { x: number; y: number; r: number; p: number }[], part: "static" | "live") {
   ctx.save();
   ctx.globalAlpha = a;
+  if (part === "live") {
+    drawNightLive(ctx, W, H, t, a, stars);
+    ctx.restore();
+    return;
+  }
   const sky = ctx.createLinearGradient(0, 0, 0, H);
   sky.addColorStop(0, "#1F1A3D");
   sky.addColorStop(0.55, "#4A3470");
   sky.addColorStop(1, "#8E5E9E");
   ctx.fillStyle = sky;
   ctx.fillRect(0, 0, W, H);
-  // Stars
-  ctx.fillStyle = "#FFF3B0";
-  for (const st of stars) {
-    ctx.globalAlpha = a * (0.5 + 0.5 * Math.sin(t * 3 + st.p));
-    ctx.beginPath();
-    ctx.arc(st.x * W, st.y * H, st.r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.globalAlpha = a;
   // The moon, sleepy and smiling
   const mx = W * 0.82, my = H * 0.17, mr = Math.max(40, H * 0.07);
   ctx.fillStyle = "rgba(255,243,176,.18)";
@@ -403,6 +404,20 @@ function drawNight(ctx: CanvasRenderingContext2D, W: number, H: number, t: numbe
   ctx.ellipse(mx - mr * 0.5, my + mr * 0.22, mr * 0.12, mr * 0.07, 0, 0, Math.PI * 2);
   ctx.ellipse(mx + mr * 0.5, my + mr * 0.22, mr * 0.12, mr * 0.07, 0, 0, Math.PI * 2);
   ctx.fill();
+  ctx.restore();
+}
+
+function drawNightLive(ctx: CanvasRenderingContext2D, W: number, H: number, t: number, a: number, stars: { x: number; y: number; r: number; p: number }[]) {
+  // Stars
+  ctx.fillStyle = "#FFF3B0";
+  for (const st of stars) {
+    ctx.globalAlpha = a * (0.5 + 0.5 * Math.sin(t * 3 + st.p));
+    ctx.beginPath();
+    ctx.arc(st.x * W, st.y * H, st.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = a;
+  ctx.globalAlpha = a;
   // Bats, flapping across
   for (let i = 0; i < 4; i++) {
     const bx = ((t * (40 + i * 12) + i * W * 0.3) % (W + 120)) - 60;
@@ -432,7 +447,6 @@ function drawNight(ctx: CanvasRenderingContext2D, W: number, H: number, t: numbe
     ctx.fill();
     ctx.restore();
   }
-  ctx.restore();
 }
 
 /** The grass turns into a cute graveyard: dark turf, wonky tombstones, a pumpkin. */
@@ -883,13 +897,27 @@ export function GroowtGame() {
     if (open) setPhase("intro");
   }, [open]);
 
-  // Lock page scroll while the sky is up.
+  // While the sky is up, the website underneath is switched off: hidden (so it stops painting,
+  // and its own animations go to sleep), videos paused, scroll locked. All restored on close.
   React.useEffect(() => {
     if (!open) return;
+    const scrollY = window.scrollY;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const videos = Array.from(document.querySelectorAll("video")).filter((v) => !v.paused);
+    videos.forEach((v) => v.pause());
+    // Hide after the sky has faded in, so opening still looks smooth.
+    let hidden: HTMLElement[] = [];
+    const t = window.setTimeout(() => {
+      hidden = Array.from(document.querySelectorAll<HTMLElement>("main, header, footer, nav")).filter((el) => !el.closest("[data-groowt-game]") && el.style.display !== "none");
+      hidden.forEach((el) => (el.style.display = "none"));
+    }, 400);
     return () => {
+      window.clearTimeout(t);
+      hidden.forEach((el) => (el.style.display = ""));
       document.body.style.overflow = prev;
+      window.scrollTo(0, scrollY);
+      videos.forEach((v) => v.play().catch(() => {}));
     };
   }, [open]);
 
@@ -921,7 +949,8 @@ export function GroowtGame() {
     HAND = `${getComputedStyle(canvas).getPropertyValue("--font-hand").trim() || "Caveat"}, cursive`;
     let W = 0, H = 0, dpr = 1;
     const resize = () => {
-      dpr = Math.min(2, window.devicePixelRatio || 1);
+      // 1.5x is crisp enough for hand-drawn lines and far cheaper to fill than 2x.
+      dpr = Math.min(1.5, window.devicePixelRatio || 1);
       W = window.innerWidth;
       H = window.innerHeight;
       canvas.width = W * dpr;
@@ -930,7 +959,31 @@ export function GroowtGame() {
       canvas.style.height = `${H}px`;
     };
     resize();
-    window.addEventListener("resize", resize);
+
+    /** Paint something once into an offscreen canvas at the current resolution. */
+    const layer = (w: number, h: number, paint: (c: CanvasRenderingContext2D) => void) => {
+      const c = document.createElement("canvas");
+      c.width = Math.max(1, Math.ceil(w * dpr));
+      c.height = Math.max(1, Math.ceil(h * dpr));
+      const x = c.getContext("2d")!;
+      x.setTransform(dpr, 0, 0, dpr, 0, 0);
+      paint(x);
+      return c;
+    };
+    const blit = (c: HTMLCanvasElement, x: number, y: number) => ctx.drawImage(c, x, y, c.width / dpr, c.height / dpr);
+    // Built when needed: the day sky and ground on open/resize, the night and graveyard only when a zombie stage arrives.
+    let skyLayer: HTMLCanvasElement | null = null;
+    let groundLayer: HTMLCanvasElement | null = null;
+    let nightLayer: HTMLCanvasElement | null = null;
+    let graveLayer: HTMLCanvasElement | null = null;
+    const invalidate = () => {
+      skyLayer = groundLayer = nightLayer = graveLayer = null;
+    };
+    const onResize = () => {
+      resize();
+      invalidate();
+    };
+    window.addEventListener("resize", onResize);
 
     // Paper grain over the sky, made once.
     const grain = document.createElement("canvas");
@@ -943,7 +996,6 @@ export function GroowtGame() {
       img.data[i + 3] = 255;
     }
     gctx.putImageData(img, 0, 0);
-    const grainPattern = ctx.createPattern(grain, "repeat");
 
     const size = () => Math.max(52, Math.min(84, H * 0.085));
     const groundH = () => Math.max(56, H * 0.09);
@@ -1508,7 +1560,20 @@ export function GroowtGame() {
         if (state === "playing" && spawned < REST_EVERY && (!lastP || lastP.x < W - spacing())) {
           const margin = 70;
           const g = gap();
-          pillars.push({ x: W + 40, gapY: margin + g / 2 + Math.random() * Math.max(10, H - GH - 2 * margin - g), color: PILLAR_COLORS[colorIdx++ % PILLAR_COLORS.length]!, scored: false });
+          const gapY = margin + g / 2 + Math.random() * Math.max(10, H - GH - 2 * margin - g);
+          const color = PILLAR_COLORS[colorIdx++ % PILLAR_COLORS.length]!;
+          const pwid = S * 1.25;
+          const hTop = gapY - g / 2 + 20;
+          const hBot = H - GH - (gapY + g / 2) + 20;
+          // Each pillar is drawn once into its own image, then just slides across.
+          pillars.push({
+            x: W + 40,
+            gapY,
+            color,
+            scored: false,
+            top: layer(pwid + 24, hTop + 50, (c) => drawPillar(c, 10, 24, hTop, pwid, color, true, 1)),
+            bottom: layer(pwid + 24, hBot + 50, (c) => drawPillar(c, 10, 24, hBot, pwid, color, false, 2)),
+          });
           spawned += 1;
         }
         for (const p of pillars) {
@@ -1558,22 +1623,32 @@ export function GroowtGame() {
 
       // ---- draw ----
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const sky = ctx.createLinearGradient(0, 0, 0, H);
-      sky.addColorStop(0, "#4FAEF0");
-      sky.addColorStop(0.6, "#8CCBF7");
-      sky.addColorStop(1, "#CDEBFF");
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, W, H);
-      if (grainPattern) {
-        ctx.save();
-        ctx.globalAlpha = 0.08;
-        ctx.globalCompositeOperation = "multiply";
-        ctx.fillStyle = grainPattern;
-        ctx.fillRect(0, 0, W, H);
-        ctx.restore();
-      }
+      if (!skyLayer)
+        skyLayer = layer(W, H, (c) => {
+          const sky = c.createLinearGradient(0, 0, 0, H);
+          sky.addColorStop(0, "#4FAEF0");
+          sky.addColorStop(0.6, "#8CCBF7");
+          sky.addColorStop(1, "#CDEBFF");
+          c.fillStyle = sky;
+          c.fillRect(0, 0, W, H);
+          const pattern = c.createPattern(grain, "repeat");
+          if (pattern) {
+            c.globalAlpha = 0.08;
+            c.globalCompositeOperation = "multiply";
+            c.fillStyle = pattern;
+            c.fillRect(0, 0, W, H);
+          }
+        });
+      if (platAlpha < 1) blit(skyLayer, 0, 0);
 
-      if (platAlpha > 0) drawNight(ctx, W, H, t, platAlpha, stars);
+      if (platAlpha > 0) {
+        if (!nightLayer) nightLayer = layer(W, H, (c) => drawNight(c, W, H, 0, 1, [], "static"));
+        ctx.save();
+        ctx.globalAlpha = platAlpha;
+        blit(nightLayer, 0, 0);
+        ctx.restore();
+        drawNight(ctx, W, H, t, platAlpha, stars, "live");
+      }
 
       const shapes = getShapes();
       for (const c of clouds) {
@@ -1592,35 +1667,51 @@ export function GroowtGame() {
 
       for (const p of pillars) {
         const g = gap();
-        drawPillar(ctx, p.x, -20, p.gapY - g / 2 + 20, pw, p.color, true, boil);
-        drawPillar(ctx, p.x, p.gapY + g / 2, H - GH - (p.gapY + g / 2) + 20, pw, p.color, false, boil);
+        if (p.top && p.bottom) {
+          blit(p.top, p.x - 10, -20 - 24);
+          blit(p.bottom, p.x - 10, p.gapY + g / 2 - 24);
+        } else {
+          drawPillar(ctx, p.x, -20, p.gapY - g / 2 + 20, pw, p.color, true, boil);
+          drawPillar(ctx, p.x, p.gapY + g / 2, H - GH - (p.gapY + g / 2) + 20, pw, p.color, false, boil);
+        }
       }
 
-      // Ground: a grassy strip with scrolling tufts.
-      ctx.save();
-      ctx.fillStyle = "#A8E6B8";
-      ctx.fillRect(0, H - GH + 3, W, GH);
-      ctx.fillStyle = "#8FD7A2";
-      ctx.fillRect(0, H - GH * 0.45, W, GH * 0.45);
-      ctx.strokeStyle = INK;
-      ctx.lineWidth = 2.2;
-      ctx.beginPath();
-      ctx.moveTo(0, H - GH);
-      for (let x = -groundOff; x <= W + 40; x += 20) ctx.quadraticCurveTo(x + 10, H - GH - 4, x + 20, H - GH);
-      ctx.stroke();
-      ctx.globalAlpha = 0.5;
-      ctx.lineWidth = 1.4;
-      ctx.beginPath();
-      for (let x = -groundOff; x <= W + 40; x += 40) {
-        ctx.moveTo(x + 8, H - GH * 0.55);
-        ctx.lineTo(x + 12, H - GH * 0.7);
-        ctx.moveTo(x + 14, H - GH * 0.55);
-        ctx.lineTo(x + 16, H - GH * 0.72);
-      }
-      ctx.stroke();
-      ctx.restore();
+      // Ground: a grassy strip with tufts, painted once and slid along (it repeats every 40px).
+      if (!groundLayer)
+        groundLayer = layer(W + 80, GH + 8, (c) => {
+          c.fillStyle = "#A8E6B8";
+          c.fillRect(0, 7, W + 80, GH);
+          c.fillStyle = "#8FD7A2";
+          c.fillRect(0, 4 + GH * 0.55, W + 80, GH * 0.45 + 4);
+          c.strokeStyle = INK;
+          c.lineWidth = 2.2;
+          c.beginPath();
+          c.moveTo(0, 4);
+          for (let x = 0; x <= W + 80; x += 20) c.quadraticCurveTo(x + 10, 0, x + 20, 4);
+          c.stroke();
+          c.globalAlpha = 0.5;
+          c.lineWidth = 1.4;
+          c.beginPath();
+          for (let x = 0; x <= W + 80; x += 40) {
+            c.moveTo(x + 8, 4 + GH * 0.45);
+            c.lineTo(x + 12, 4 + GH * 0.3);
+            c.moveTo(x + 14, 4 + GH * 0.45);
+            c.lineTo(x + 16, 4 + GH * 0.28);
+          }
+          c.stroke();
+        });
+      if (platAlpha < 1) blit(groundLayer, -groundOff, H - GH - 4);
 
-      if (platAlpha > 0) drawGraveyard(ctx, W, H, GH, platAlpha, boil);
+      if (platAlpha > 0) {
+        if (!graveLayer) graveLayer = layer(W, GH + 60, (c) => {
+          c.translate(0, -(H - GH - 60));
+          drawGraveyard(c, W, H, GH, 1, 1);
+        });
+        ctx.save();
+        ctx.globalAlpha = platAlpha;
+        blit(graveLayer, 0, H - GH - 60);
+        ctx.restore();
+      }
       if (platforms.length) {
         ctx.save();
         ctx.globalAlpha = platAlpha;
@@ -1686,7 +1777,7 @@ export function GroowtGame() {
     raf = requestAnimationFrame(frame);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       window.removeEventListener("pointerup", onPointerUp);
@@ -1728,6 +1819,7 @@ export function GroowtGame() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          data-groowt-game
           className={cn(handFont.variable, "fixed inset-0 z-[90] touch-none overflow-hidden bg-[#4FAEF0] select-none")}
           onPointerDown={(e) => {
             if ((e.target as HTMLElement).closest("button, input, form")) return;
@@ -2043,27 +2135,5 @@ export function GroowtGame() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
-}
-
-/** A Play button that opens the game, for pages (the corner one lives on Groowt himself, on hover). */
-export function GroowtPlayButton({ className }: { className?: string }) {
-  const { open, game } = useGroowt();
-  if (open || game) return null;
-  return (
-    <motion.button
-      type="button"
-      onClick={() => groowtStore.play()}
-      aria-label={groowt.game.playLabel}
-      whileHover={{ y: -2, rotate: -2 }}
-      whileTap={{ scale: 0.94 }}
-      className={cn(
-        "inline-flex cursor-pointer items-center gap-1.5 rounded-md border-2 border-[#2a2a2e] bg-white px-3 py-1.5 text-sm font-bold text-[#2a2a2e] shadow-[3px_3px_0_0_#FFDE59] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2a2a2e]/40 focus-visible:ring-offset-2",
-        className,
-      )}
-    >
-      <Play className="size-3.5 fill-current" />
-      {groowt.game.play}
-    </motion.button>
   );
 }

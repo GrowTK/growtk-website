@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Groowt } from "@/components/mascot/groowt";
 import { GroowtOpenButton } from "@/components/mascot/groowt-open-button";
-import { GroowtPlayButton } from "@/components/mascot/groowt-game";
+import { GroowtPlayButton } from "@/components/mascot/groowt-play-button";
 import { groowt } from "@/content/groowt";
 
 export const metadata: Metadata = { title: groowt.page.meta.title, description: groowt.page.meta.description };
