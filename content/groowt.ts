@@ -88,6 +88,10 @@ export const groowt = {
     best: "Best",
     newBest: "New best!",
     again: "Play again",
+    /** {n} is the stage number. */
+    stage: "Stage {n}",
+    revive: "Revive at Stage {n}",
+    startOver: "Start over from Stage 1",
     close: "Close game",
   },
 

@@ -886,6 +886,8 @@ export function GroowtGame() {
   const inputRef = React.useRef({ left: false, right: false, down: false, fire: false });
   const flapRef = React.useRef<() => void>(() => {});
   const restartRef = React.useRef<() => void>(() => {});
+  const reviveRef = React.useRef<() => void>(() => {});
+  const [stageNum, setStageNum] = React.useState(1);
 
   // Remember the player on this device, and their best.
   React.useEffect(() => {
@@ -1022,6 +1024,11 @@ export function GroowtGame() {
     let pip: Friend | null = null;
     // Birds already rescued: they fly with Groowt from then on.
     let flock: Friend[] = [];
+    /**
+     * Where a revive puts him back: the start of the current stage's pillars (morning)
+     * or of its zombie fight, with the score and rescued friends he had at that point.
+     */
+    let checkpoint: { mode: "pillars" | "zombies"; zstage: number; score: number; passed: number; flock: Palette[] } = { mode: "pillars", zstage: 0, score: 0, passed: 0, flock: [] };
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random() * 0.6, r: 0.8 + Math.random() * 1.6, p: Math.random() * 6 }));
     const keys = new Set<string>();
     const onKeyDown = (e: KeyboardEvent) => {
@@ -1064,6 +1071,7 @@ export function GroowtGame() {
     };
 
     const startZombies = () => {
+      checkpoint = { mode: "zombies", zstage, score: pts, passed: passedCount, flock: flock.map((f) => f.pal) };
       zstage += 1;
       platforms = makePlatforms(W, H, H - groundH());
       zombies = [];
@@ -1149,10 +1157,13 @@ export function GroowtGame() {
     const go = (p: Phase) => {
       state = p;
       setPhase(p);
+      // Stage N = the Nth stretch of pillars and the zombie fight that ends it.
+      setStageNum(p === "zombies" || p === "cleared" ? zstage : zstage + 1);
     };
 
     const reset = () => {
-      t = 0;
+      // The clock never rewinds: shot cooldowns, power-ups and grace times are absolute,
+      // so rewinding it left the blaster unable to fire after a restart.
       birdY = H * 0.45;
       vy = 0;
       rot = 0;
@@ -1178,7 +1189,53 @@ export function GroowtGame() {
       setZBanner(false);
       setScore(0);
       setNewBest(false);
+      platAlpha = 0;
+      nextShot = 0;
+      autoUntil = 0;
+      powersShown = "";
+      checkpoint = { mode: "pillars", zstage: 0, score: 0, passed: 0, flock: [] };
       go("ready");
+    };
+
+    /** Back to the last checkpoint: the same stage, morning pillars or the zombie fight. */
+    const revive = () => {
+      const cp = checkpoint;
+      vy = 0;
+      rot = 0;
+      pillars = [];
+      zombies = [];
+      shots = [];
+      puffs = [];
+      pickups = [];
+      floats = [];
+      pip = null;
+      bigUntil = 0;
+      tripleUntil = 0;
+      nextShot = 0;
+      powersShown = "";
+      setPowers({ big: false, triple: false });
+      pts = cp.score;
+      passedCount = cp.passed;
+      spawned = 0;
+      setScore(pts);
+      setPassed(passedCount);
+      setNewBest(false);
+      zstage = cp.zstage;
+      flock = cp.flock.map((pal, i) => ({ x: birdX() - size() * (1.15 + i * 0.8), y: H * 0.4, state: "free", at: t, pal }));
+      if (cp.mode === "zombies") {
+        px = W * 0.24;
+        birdY = H * 0.32;
+        startZombies();
+      } else {
+        platforms = [];
+        platAlpha = 0;
+        autoUntil = 0;
+        px = birdX();
+        birdY = H * 0.45;
+        setZLeft(0);
+        setZBanner(false);
+        go("ready");
+      }
     };
 
     const die = () => {
@@ -1222,6 +1279,7 @@ export function GroowtGame() {
       flap = 0;
     };
     restartRef.current = reset;
+    reviveRef.current = revive;
 
     // Read-only peek for automated testing, only with ?groowt-debug in the URL.
     if (new URLSearchParams(window.location.search).has("groowt-debug")) {
@@ -1250,7 +1308,7 @@ export function GroowtGame() {
       };
       (window as unknown as { __groowtFlies?: () => object }).__groowtFlies = () => {
         const next = pillars.find((p) => !p.scored);
-        return { phase: state, y: birdY, vy, H, W, target: next ? next.gapY : H * 0.45, pts, passed: passedCount, px, zombies: zombies.map((z) => ({ x: z.x, y: z.y })), zLeft: zToSpawn - kills };
+        return { phase: state, y: birdY, vy, H, W, target: next ? next.gapY : H * 0.45, pts, passed: passedCount, px, shots: shots.length, zstage, platAlpha, zombies: zombies.map((z) => ({ x: z.x, y: z.y })), zLeft: zToSpawn - kills };
       };
     }
 
@@ -1559,6 +1617,7 @@ export function GroowtGame() {
           platforms = [];
           spawned = 0;
           vy = 0;
+          checkpoint = { mode: "pillars", zstage, score: pts, passed: passedCount, flock: [...flock.map((f) => f.pal), ...(pip && pip.state === "free" ? [pip.pal] : [])] };
           // Hover until the player flaps, so the switch back to pillars is never a surprise.
           go("ready");
         }
@@ -1833,11 +1892,11 @@ export function GroowtGame() {
       if (phase === "intro" || el?.tagName === "INPUT" || el?.tagName === "TEXTAREA") return;
       if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyW") {
         e.preventDefault();
-        if (phase === "over") restartRef.current();
+        if (phase === "over") reviveRef.current();
         else flapRef.current();
       } else if (e.key === "Enter" && phase === "over") {
         e.preventDefault();
-        restartRef.current();
+        reviveRef.current();
       }
     };
     window.addEventListener("keydown", onKey);
@@ -1884,9 +1943,24 @@ export function GroowtGame() {
             </div>
           )}
 
+          {/* Stage counter */}
+          {phase !== "intro" && (
+            <div className="pointer-events-none absolute top-5 left-5">
+              <span
+                className={cn(
+                  "inline-flex items-center rounded-md border-2 border-[#2a2a2e] px-3 py-1 text-lg font-bold text-[#2a2a2e] shadow-[3px_3px_0_0_#2a2a2e]",
+                  phase === "zombies" || phase === "cleared" ? "bg-[#C3A6FF]" : "bg-[#FFDE59]",
+                )}
+                style={hand}
+              >
+                {copy.stage.replace("{n}", String(stageNum))}
+              </span>
+            </div>
+          )}
+
           {/* Zombie stage HUD */}
           {(phase === "zombies" || phase === "cleared") && (
-            <div className="pointer-events-none absolute top-5 left-5 flex flex-col items-start gap-2">
+            <div className="pointer-events-none absolute top-[4.25rem] left-5 flex flex-col items-start gap-2">
               <span className="rounded-md border-2 border-[#2a2a2e] bg-white px-3 py-1 text-lg font-bold text-[#2a2a2e] shadow-[3px_3px_0_0_#86B86A]" style={hand}>
                 {copy.zombies.left}: {zLeft}
               </span>
@@ -2135,6 +2209,7 @@ export function GroowtGame() {
                 <p className="text-5xl font-bold text-[#2a2a2e]" style={hand}>
                   {copy.over}
                 </p>
+                <p className="mt-1 text-sm font-semibold text-[#2a2a2e]/60">{copy.stage.replace("{n}", String(stageNum))}</p>
                 <div className="mt-4 flex justify-center gap-8">
                   <div>
                     <p className="text-xs font-semibold text-[#2a2a2e]/60">{copy.score}</p>
@@ -2150,22 +2225,22 @@ export function GroowtGame() {
                     {copy.newBest}
                   </p>
                 )}
-                <div className="mt-5 flex justify-center gap-2">
+                <div className="mt-5 flex flex-col items-stretch gap-2">
                   <button
                     type="button"
                     autoFocus
-                    onClick={() => restartRef.current()}
-                    className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-[#2a2a2e] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2a2a2e]/40 focus-visible:ring-offset-2"
+                    onClick={() => reviveRef.current()}
+                    className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-[#2a2a2e] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2a2a2e]/40 focus-visible:ring-offset-2"
                   >
                     <RotateCcw className="size-4" />
-                    {copy.again}
+                    {copy.revive.replace("{n}", String(stageNum))}
                   </button>
                   <button
                     type="button"
-                    onClick={() => groowtStore.stopGame()}
-                    className="inline-flex cursor-pointer items-center rounded-md border-2 border-[#2a2a2e] px-5 py-3 text-sm font-semibold text-[#2a2a2e] transition hover:bg-[#2a2a2e]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2a2a2e]/40"
+                    onClick={() => restartRef.current()}
+                    className="inline-flex cursor-pointer items-center justify-center rounded-md border-2 border-[#2a2a2e] px-5 py-3 text-sm font-semibold text-[#2a2a2e] transition hover:bg-[#2a2a2e]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2a2a2e]/40"
                   >
-                    {copy.close}
+                    {copy.startOver}
                   </button>
                 </div>
               </motion.div>
