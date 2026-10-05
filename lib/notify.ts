@@ -3,13 +3,13 @@
  *
  * Env:
  * - RESEND_API_KEY (required to send; without it nothing is sent and callers carry on)
- * - RESEND_FROM    (optional) a sender on a domain verified in Resend, e.g. "Growtk <hello@growtk.com>".
- *                  Defaults to Resend's test sender, which can only deliver to the Resend account's own email.
+ * - RESEND_FROM    (optional) a sender on a domain verified in Resend. Defaults to notifications@growtk.co.
  * - NOTIFY_TO      (optional) where notifications go. Defaults to the site owner.
  */
 
 const DEFAULT_TO = "anique.cs@gmail.com";
-const DEFAULT_FROM = "Growtk <onboarding@resend.dev>";
+// growtk.co is the domain verified in Resend; any address on it can send.
+const DEFAULT_FROM = "Growtk <notifications@growtk.co>";
 
 export const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);

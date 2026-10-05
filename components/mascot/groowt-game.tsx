@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Crosshair, Megaphone, Play, RotateCcw, X } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Crosshair, Egg, Megaphone, Play, RotateCcw, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { handFont } from "@/lib/hand-font";
 import { groowt } from "@/content/groowt";
@@ -71,7 +71,12 @@ function sketch(ctx: CanvasRenderingContext2D, path: Path2D, width: number, boil
   ctx.restore();
 }
 
-function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, rot: number, flap: number, face: "fly" | "panic" | "dead", boil: number, look: { x: number; y: number }) {
+type Palette = { wing: string; tail: string; body: [string, string, string, string]; belly: string; beak: string };
+const GROOWT_PAL: Palette = { wing: "#FFB25C", tail: "#F59E5B", body: ["#FFF3B0", "#FFDE59", "#FFC46E", "#FFA867"], belly: "#FFF6D2", beak: "#FF9F43" };
+/** Pip, Groowt's pink friend. */
+const PIP_PAL: Palette = { wing: "#E7A6F5", tail: "#D98BEA", body: ["#FFF0FA", "#F9D2F6", "#F2C4FF", "#E3A3F2"], belly: "#FFF0FA", beak: "#FF9F43" };
+
+function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, rot: number, flap: number, face: "fly" | "panic" | "dead", boil: number, look: { x: number; y: number }, pal: Palette = GROOWT_PAL) {
   const s = getShapes();
   const k = size / 88;
   ctx.save();
@@ -85,8 +90,8 @@ function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: n
   // Wings, spread and beating, behind the body.
   const a = Math.sin(flap) * 0.42;
   for (const [wing, lines, ox, dir, fill] of [
-    [s.wingL, s.wingLLines, 26, -1, "#FFB25C"],
-    [s.wingR, s.wingRLines, 66, 1, "#FFB25C"],
+    [s.wingL, s.wingLLines, 26, -1, pal.wing],
+    [s.wingR, s.wingRLines, 66, 1, pal.wing],
   ] as const) {
     ctx.save();
     ctx.translate(ox, 44);
@@ -108,7 +113,7 @@ function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: n
   // Tail
   ctx.save();
   ctx.translate(MIS.x, MIS.y);
-  ctx.fillStyle = "#F59E5B";
+  ctx.fillStyle = pal.tail;
   ctx.fill(s.tail);
   ctx.restore();
   sketch(ctx, s.tail, 1.5, boil);
@@ -119,10 +124,10 @@ function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: n
   ctx.scale(0.95, 0.95);
   ctx.translate(-46, -46);
   const g = ctx.createRadialGradient(31, 20, 2, 40, 42, 62);
-  g.addColorStop(0, "#FFF3B0");
-  g.addColorStop(0.34, "#FFDE59");
-  g.addColorStop(0.72, "#FFC46E");
-  g.addColorStop(1, "#FFA867");
+  g.addColorStop(0, pal.body[0]);
+  g.addColorStop(0.34, pal.body[1]);
+  g.addColorStop(0.72, pal.body[2]);
+  g.addColorStop(1, pal.body[3]);
   ctx.fillStyle = g;
   ctx.fill(s.body);
   ctx.restore();
@@ -144,7 +149,7 @@ function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: n
   ctx.save();
   ctx.translate(MIS.x, MIS.y);
   ctx.globalAlpha = 0.75;
-  ctx.fillStyle = "#FFF6D2";
+  ctx.fillStyle = pal.belly;
   ctx.fill(s.belly);
   ctx.restore();
   sketch(ctx, s.bodyLine, 1.7, boil);
@@ -154,7 +159,7 @@ function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: n
   // Beak
   ctx.save();
   ctx.translate(MIS.x * 0.8, MIS.y * 0.8);
-  ctx.fillStyle = "#FF9F43";
+  ctx.fillStyle = pal.beak;
   ctx.fill(s.beak);
   ctx.restore();
   ctx.lineWidth = 1.4;
@@ -220,10 +225,33 @@ function drawPillar(ctx: CanvasRenderingContext2D, x: number, top: number, h: nu
 /* ---------- zombie stage: ledges, cold-lead zombies, the Sticky-Note Blaster ---------- */
 
 type Platform = { x: number; y: number; w: number; color: string };
-type Zombie = { x: number; y: number; vx: number; vy: number; hp: number; onGround: boolean; dir: 1 | -1; jumpAt: number; flash: number; wobble: number; speed: number };
-type Shot = { x: number; y: number; vx: number; vy: number; rot: number; life: number };
+/** free: walking and deadly. egg: sealed in egg, harmless, can be pushed, hatches out in time. roll: kicked, knocks out others. */
+type Zombie = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  onGround: boolean;
+  dir: 1 | -1;
+  jumpAt: number;
+  flash: number;
+  wobble: number;
+  speed: number;
+  state: "free" | "egg" | "roll";
+  cover: number;
+  lastHit: number;
+  hatchAt: number;
+  rot: number;
+  rollT: number;
+  bounces: number;
+  chain: number;
+  dead: boolean;
+};
+/** Coats of egg it takes to seal a zombie in. */
+const EGG_FULL = 4;
+type Shot = { x: number; y: number; vx: number; vy: number; rot: number; life: number; big: boolean };
 type Puff = { x: number; y: number; vx: number; vy: number; life: number; color: string; r: number };
-type Pickup = { x: number; y: number; born: number };
+type Pickup = { x: number; y: number; born: number; kind: "big" | "triple" };
 type FloatText = { x: number; y: number; life: number; text: string };
 
 /** The handwriting font, resolved for canvas (which can't read CSS variables). Set when the game opens. */
@@ -484,6 +512,8 @@ function drawGraveyard(ctx: CanvasRenderingContext2D, W: number, H: number, GH: 
 }
 
 function drawZombie(ctx: CanvasRenderingContext2D, z: Zombie, size: number, t: number, boil: number, target: { x: number; y: number }) {
+  if (z.state !== "free") return drawEgg(ctx, z, size * 0.5, t, boil);
+  const cover = Math.min(1, z.cover / EGG_FULL);
   const s = getZShapes();
   const k = size / 100;
   ctx.save();
@@ -524,6 +554,21 @@ function drawZombie(ctx: CanvasRenderingContext2D, z: Zombie, size: number, t: n
   ctx.lineTo(100, 100);
   ctx.lineTo(0, 100);
   ctx.fill();
+  // Egg coating, rising from the feet as it gets hit
+  if (cover > 0) {
+    const top = 96 - cover * 84;
+    ctx.fillStyle = "rgba(255,255,255,.94)";
+    ctx.beginPath();
+    ctx.moveTo(0, top);
+    for (let x = 0; x <= 100; x += 10) ctx.quadraticCurveTo(x + 5, top + ((x / 10) % 2 ? -7 : 7), x + 10, top);
+    ctx.lineTo(100, 100);
+    ctx.lineTo(0, 100);
+    ctx.fill();
+    ctx.fillStyle = "#FFDE59";
+    ctx.beginPath();
+    ctx.arc(40, Math.max(top + 12, 70), 6, 0, Math.PI * 2);
+    ctx.fill();
+  }
   ctx.restore();
   sketch(ctx, s.line, 2.2, boil);
   ctx.lineWidth = 1.4;
@@ -567,26 +612,144 @@ function drawZombie(ctx: CanvasRenderingContext2D, z: Zombie, size: number, t: n
   ctx.restore();
 }
 
-/** A spinning sticky note: the Blaster's ammo. */
+/** A zombie sealed in egg: shell with speckles, the zombie's eye peeking through, cracks as it nears hatching. */
+function drawEgg(ctx: CanvasRenderingContext2D, z: Zombie, R: number, t: number, boil: number) {
+  const left = z.hatchAt - t;
+  const shake = z.state === "egg" && left < 2 ? Math.sin(t * 45) * (2 - left) * 1.6 : 0;
+  ctx.save();
+  ctx.translate(z.x + shake, z.y);
+  ctx.rotate(z.state === "roll" ? z.rot : shake * 0.02);
+  const shell = new Path2D();
+  shell.moveTo(0, -R * 1.1);
+  shell.bezierCurveTo(R * 0.85, -R * 1.1, R * 1.02, R * 0.15, R * 0.9, R * 0.55);
+  shell.bezierCurveTo(R * 0.72, R * 1.02, -R * 0.72, R * 1.02, -R * 0.9, R * 0.55);
+  shell.bezierCurveTo(-R * 1.02, R * 0.15, -R * 0.85, -R * 1.1, 0, -R * 1.1);
+  ctx.save();
+  ctx.translate(3, 2.4);
+  ctx.fillStyle = "#FFF9EC";
+  ctx.fill(shell);
+  ctx.restore();
+  ctx.save();
+  ctx.clip(shell);
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = ZOMBIE_FILL;
+  ctx.beginPath();
+  ctx.ellipse(0, R * 0.1, R * 0.62, R * 0.72, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  // The eye inside, still watching
+  ctx.fillStyle = "#FFF6D2";
+  ctx.beginPath();
+  ctx.arc(-R * 0.12, -R * 0.12, R * 0.2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 1.6;
+  ctx.stroke();
+  ctx.fillStyle = INK;
+  ctx.beginPath();
+  ctx.arc(-R * 0.08, -R * 0.1, R * 0.08, 0, Math.PI * 2);
+  ctx.fill();
+  // Speckles
+  ctx.fillStyle = "rgba(217,179,140,.7)";
+  for (const [sx, sy] of [
+    [0.4, -0.5],
+    [-0.5, 0.3],
+    [0.3, 0.5],
+    [0.55, 0.05],
+    [-0.3, -0.7],
+  ]) {
+    ctx.beginPath();
+    ctx.arc(sx * R, sy * R, R * 0.06, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  sketch(ctx, shell, 2.2, boil);
+  // Cracks as it's about to hatch
+  if (z.state === "egg" && left < 3) {
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.moveTo(-R * 0.6, -R * 0.2);
+    ctx.lineTo(-R * 0.3, R * 0.05);
+    ctx.lineTo(-R * 0.05, -R * 0.25);
+    if (left < 1.8) {
+      ctx.lineTo(R * 0.25, R * 0.02);
+      ctx.lineTo(R * 0.55, -R * 0.3);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/** An egg in flight: the Egg Blaster's ammo. */
 function drawShot(ctx: CanvasRenderingContext2D, b: Shot, size: number) {
+  const s = b.big ? size * 1.7 : size;
   ctx.save();
   ctx.translate(b.x, b.y);
   ctx.rotate(b.rot);
-  ctx.fillStyle = "#FFDE59";
-  ctx.fillRect(-size / 2 + 1.5, -size / 2 + 1.2, size, size);
-  ctx.strokeStyle = INK;
-  ctx.lineWidth = 1.6;
-  ctx.strokeRect(-size / 2, -size / 2, size, size);
-  ctx.globalAlpha = 0.5;
-  ctx.lineWidth = 1;
+  ctx.fillStyle = "#FFF9EC";
   ctx.beginPath();
-  ctx.moveTo(-size * 0.28, -size * 0.1);
-  ctx.lineTo(size * 0.28, -size * 0.1);
-  ctx.moveTo(-size * 0.28, size * 0.14);
-  ctx.lineTo(size * 0.12, size * 0.14);
+  ctx.ellipse(1.4, 1.1, s * 0.42, s * 0.54, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = b.big ? 2 : 1.5;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, s * 0.42, s * 0.54, 0, 0, Math.PI * 2);
   ctx.stroke();
+  ctx.fillStyle = "#FFDE59";
+  ctx.beginPath();
+  ctx.arc(0, s * 0.1, s * 0.16, 0, Math.PI * 2);
+  ctx.fill();
   ctx.restore();
 }
+
+/** Pip's cage: a round-topped birdcage with bars and a padlock; the bars lift away when she's freed. */
+function drawCage(ctx: CanvasRenderingContext2D, cx: number, bottom: number, w: number, h: number, lift: number, boil: number) {
+  const x0 = cx - w / 2, top = bottom - h;
+  ctx.save();
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  const base = new Path2D();
+  base.roundRect(x0 - 6, bottom - 8, w + 12, 10, 4);
+  ctx.save();
+  ctx.translate(2.4, 1.8);
+  ctx.fillStyle = "#C3A6FF";
+  ctx.fill(base);
+  ctx.restore();
+  sketch(ctx, base, 2, boil);
+  // Roof, hook and bars lift together like a lid when she's freed
+  ctx.save();
+  ctx.translate(0, -lift * h * 1.4);
+  ctx.globalAlpha = Math.max(0, 1 - lift);
+  const roof = new Path2D();
+  roof.moveTo(x0, top + w * 0.3);
+  roof.quadraticCurveTo(cx, top - w * 0.25, x0 + w, top + w * 0.3);
+  sketch(ctx, roof, 2.4, boil);
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(cx, top - w * 0.06 - 8, 6, Math.PI * 0.2, Math.PI * 1.8);
+  ctx.stroke();
+  for (let i = 0; i <= 5; i++) {
+    const x = x0 + (w * i) / 5;
+    const yTop = top + w * 0.3 - Math.sin((i / 5) * Math.PI) * w * 0.25;
+    ctx.beginPath();
+    ctx.moveTo(x, yTop);
+    ctx.lineTo(x + (i % 2 ? 0.8 : -0.6), bottom - 8);
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.moveTo(x0, top + h * 0.55);
+  ctx.lineTo(x0 + w, top + h * 0.55);
+  ctx.stroke();
+  const lx = cx, ly = bottom - 22;
+  ctx.fillStyle = "#FFDE59";
+  ctx.fillRect(lx - 7, ly, 14, 11);
+  ctx.strokeRect(lx - 7, ly, 14, 11);
+  ctx.beginPath();
+  ctx.arc(lx, ly, 4.5, Math.PI, 0);
+  ctx.stroke();
+  ctx.restore();
+  ctx.restore();
+}
+
 
 /** The Sticky-Note Blaster, held in front of Groowt (local coords, facing right). */
 function drawBlaster(ctx: CanvasRenderingContext2D, size: number, firing: boolean, powered: boolean) {
@@ -635,12 +798,33 @@ function drawBlaster(ctx: CanvasRenderingContext2D, size: number, firing: boolea
   ctx.restore();
 }
 
-/** The Megaphone power-up, bobbing where a zombie fell. */
+/** A power-up, bobbing where a zombie fell: a big egg (big shots) or a megaphone (triple shot). */
 function drawPickup(ctx: CanvasRenderingContext2D, p: Pickup, t: number) {
   const s = getZShapes();
   ctx.save();
   ctx.translate(p.x - 16, p.y - 13 + Math.sin((t - p.born) * 4) * 4);
   ctx.globalAlpha = t - p.born > 7 ? 0.5 + 0.5 * Math.sin(t * 20) : 1;
+  if (p.kind === "big") {
+    ctx.fillStyle = "#FFF9EC";
+    ctx.beginPath();
+    ctx.ellipse(17.4, 14.2, 11, 14, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+    ctx.ellipse(16, 13, 11, 14, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = "#FFDE59";
+    ctx.beginPath();
+    ctx.arc(16, 16, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = `bold 13px ${HAND}`;
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText("BIG", 16, -5);
+    ctx.restore();
+    return;
+  }
   ctx.save();
   ctx.translate(1.6, 1.2);
   ctx.fillStyle = "#FFBA7B";
@@ -676,7 +860,7 @@ export function GroowtGame() {
   const [passed, setPassed] = React.useState(0);
   const [zLeft, setZLeft] = React.useState(0);
   const [zBanner, setZBanner] = React.useState(false);
-  const [power, setPower] = React.useState(false);
+  const [powers, setPowers] = React.useState({ big: false, triple: false });
   // Held controls for the zombie stage (touch buttons and mouse write here; keys are tracked in the loop).
   const inputRef = React.useRef({ left: false, right: false, down: false, fire: false });
   const flapRef = React.useRef<() => void>(() => {});
@@ -773,7 +957,9 @@ export function GroowtGame() {
     // Zombie stage
     let px = W * 0.28, pvx = 0, onGround = false, flutter = true, facing: 1 | -1 = 1, dropUntil = 0, graceUntil = 0;
     let platforms: Platform[] = [], zombies: Zombie[] = [], shots: Shot[] = [], puffs: Puff[] = [], pickups: Pickup[] = [], floats: FloatText[] = [];
-    let zstage = 0, zToSpawn = 0, zSpawned = 0, kills = 0, nextSpawn = 0, nextShot = 0, muzzleAt = -1, powerUntil = 0, powerOn = false, clearAt = 0, platAlpha = 0;
+    let zstage = 0, zToSpawn = 0, zSpawned = 0, kills = 0, nextSpawn = 0, nextShot = 0, muzzleAt = -1, clearAt = 0, platAlpha = 0, autoUntil = 0;
+    let bigUntil = 0, tripleUntil = 0, powersShown = "";
+    let pip: { x: number; y: number; state: "caged" | "free" | "gone"; at: number } | null = null;
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random() * 0.6, r: 0.8 + Math.random() * 1.6, p: Math.random() * 6 }));
     const keys = new Set<string>();
     const onKeyDown = (e: KeyboardEvent) => {
@@ -799,57 +985,101 @@ export function GroowtGame() {
     const FOOT = () => size() * 0.41;
     const zSize = () => size() * 1.05;
     const ZFOOT = () => zSize() * 0.48;
+    const eggR = () => zSize() * 0.5;
     const jumpZ = () => -H * 1.0;
+    const rollSpeed = () => Math.max(520, W * 0.48);
+    const cagePos = () => {
+      const p = platforms[2];
+      return p ? { x: p.x + p.w / 2, bottom: p.y, w: size() * 1.25, h: size() * 1.45 } : null;
+    };
+
+    /** One-way landing for anything with feet: returns the surface y it lands on, or null. */
+    const landOn = (x: number, prevFeet: number, feet: number, v: number, half: number) => {
+      if (v < 0) return null;
+      for (const p of platforms) if (x > p.x - half && x < p.x + p.w + half && prevFeet <= p.y + 2 && feet >= p.y) return p.y;
+      if (feet >= H - groundH()) return H - groundH();
+      return null;
+    };
 
     const startZombies = () => {
       zstage += 1;
-      pillars = [];
       platforms = makePlatforms(W, H, H - groundH());
       zombies = [];
       shots = [];
       puffs = [];
       pickups = [];
       floats = [];
-      zToSpawn = Math.min(16, 4 + zstage * 2);
+      zToSpawn = Math.min(30, 10 + zstage * 4);
       zSpawned = 0;
       kills = 0;
-      nextSpawn = t + 1.8;
-      graceUntil = t + 1.5;
+      // A short auto-flight first, while night falls and the stage builds.
+      autoUntil = t + 3;
+      nextSpawn = autoUntil + 0.6;
+      graceUntil = autoUntil + 1.2;
       pvx = 0;
       vy = 0;
-      onGround = true;
+      onGround = false;
       flutter = true;
       facing = 1;
-      powerUntil = 0;
-      powerOn = false;
+      bigUntil = 0;
+      tripleUntil = 0;
+      powersShown = "";
       platAlpha = 0;
-      setPower(false);
+      const c = cagePos();
+      pip = c ? { x: c.x, y: c.bottom - size() * 0.8 * 0.45, state: "caged", at: t } : null;
+      setPowers({ big: false, triple: false });
       setZLeft(zToSpawn);
       setZBanner(true);
-      window.setTimeout(() => setZBanner(false), 3200);
+      window.setTimeout(() => setZBanner(false), 4200);
       go("zombies");
     };
 
     const shoot = () => {
       const S = size();
-      const ang = powerOn ? [-0.2, 0, 0.2] : [0];
+      const big = t < bigUntil;
+      const ang = t < tripleUntil ? [-0.22, 0, 0.22] : [0];
       const sp = Math.max(700, W * 0.75);
-      for (const a of ang) shots.push({ x: px + facing * S * 0.62, y: birdY + S * 0.11, vx: facing * sp * Math.cos(a), vy: sp * Math.sin(a) - 10, rot: Math.random(), life: 1.2 });
+      for (const a of ang) shots.push({ x: px + facing * S * 0.62, y: birdY + S * 0.11, vx: facing * sp * Math.cos(a), vy: sp * Math.sin(a) - 10, rot: Math.random(), life: 1.2, big });
       muzzleAt = t;
-      nextShot = t + 0.24;
+      nextShot = t + (big ? 0.3 : 0.22);
     };
 
-    const kill = (z: Zombie) => {
-      for (let i = 0; i < 16; i++) {
-        const a = Math.random() * Math.PI * 2, v = 80 + Math.random() * 220;
-        puffs.push({ x: z.x, y: z.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80, life: 0.5 + Math.random() * 0.4, color: [ZOMBIE_FILL, ZOMBIE_SHIRT, INK, "#FFDE59"][i % 4]!, r: 3 + Math.random() * 5 });
+    const burst = (x: number, y: number, colors: string[], n = 16) => {
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2, v = 80 + Math.random() * 240;
+        puffs.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 80, life: 0.5 + Math.random() * 0.4, color: colors[i % colors.length]!, r: 3 + Math.random() * 5 });
       }
-      floats.push({ x: z.x, y: z.y - zSize() * 0.5, life: 0.9, text: "+2" });
+    };
+
+    /** A zombie is gone for good: points (doubling down a rolling-egg combo), maybe a power-up. */
+    const kill = (z: Zombie, chain = 1) => {
+      z.dead = true;
+      burst(z.x, z.y, [ZOMBIE_FILL, "#FFF9EC", INK, "#FFDE59"]);
+      const gain = 2 * Math.pow(2, Math.min(4, chain - 1));
+      floats.push({ x: z.x, y: z.y - zSize() * 0.5, life: 1, text: chain > 1 ? `+${gain} combo!` : `+${gain}` });
       kills += 1;
-      pts += 2;
+      pts += gain;
       setScore(pts);
       setZLeft(zToSpawn - kills);
-      if (kills % 4 === 0) pickups.push({ x: z.x, y: Math.min(z.y, H - groundH() - 40), born: t });
+      if (Math.random() < 0.4) pickups.push({ x: z.x, y: Math.min(z.y, H - groundH() - 40), born: t, kind: Math.random() < 0.5 ? "big" : "triple" });
+    };
+
+    const seal = (z: Zombie) => {
+      const feet = z.y + ZFOOT();
+      z.state = "egg";
+      z.cover = EGG_FULL;
+      z.vx = 0;
+      z.hatchAt = t + 7;
+      z.y = feet - eggR() * 0.95;
+      floats.push({ x: z.x, y: z.y - eggR(), life: 0.8, text: "Egged!" });
+    };
+
+    const kick = (z: Zombie, dir: number, chain = 1) => {
+      z.state = "roll";
+      z.vx = Math.sign(dir || 1) * rollSpeed();
+      z.rollT = 0;
+      z.bounces = 0;
+      z.chain = chain;
     };
 
     const go = (p: Phase) => {
@@ -874,8 +1104,10 @@ export function GroowtGame() {
       puffs = [];
       pickups = [];
       floats = [];
-      powerOn = false;
-      setPower(false);
+      pip = null;
+      bigUntil = 0;
+      tripleUntil = 0;
+      setPowers({ big: false, triple: false });
       setPassed(0);
       setZLeft(0);
       setZBanner(false);
@@ -904,6 +1136,7 @@ export function GroowtGame() {
 
     flapRef.current = () => {
       if (state === "zombies" || state === "cleared") {
+        if (t < autoUntil) return;
         if (onGround) {
           vy = jumpZ();
           onGround = false;
@@ -928,6 +1161,11 @@ export function GroowtGame() {
     // Read-only peek for automated testing, only with ?groowt-debug in the URL.
     if (new URLSearchParams(window.location.search).has("groowt-debug")) {
       (window as unknown as { __groowtZombies?: () => void }).__groowtZombies = () => startZombies();
+      (window as unknown as { __groowtClear?: () => void }).__groowtClear = () => {
+        zSpawned = zToSpawn;
+        for (const z of zombies) kill(z);
+        zombies = [];
+      };
       (window as unknown as { __groowtFlies?: () => object }).__groowtFlies = () => {
         const next = pillars.find((p) => !p.scored);
         return { phase: state, y: birdY, vy, H, W, target: next ? next.gapY : H * 0.45, pts, passed: passedCount, px, zombies: zombies.map((z) => ({ x: z.x, y: z.y })), zLeft: zToSpawn - kills };
@@ -975,61 +1213,68 @@ export function GroowtGame() {
           startZombies();
         }
       } else if (zMode) {
-        // ---- the zombie stage: run, jump, drop, shoot ----
-        const inp = inputRef.current;
-        const left = keys.has("ArrowLeft") || keys.has("KeyA") || inp.left;
-        const right = keys.has("ArrowRight") || keys.has("KeyD") || inp.right;
-        const down = keys.has("ArrowDown") || keys.has("KeyS") || inp.down;
-        const fire = keys.has("KeyF") || keys.has("KeyJ") || keys.has("KeyX") || inp.fire;
-        pvx = ((right ? 1 : 0) - (left ? 1 : 0)) * Math.max(240, W * 0.26);
-        if (pvx) facing = pvx > 0 ? 1 : -1;
+        // ---- the zombie stage: Snow Bros rules. Egg them, then push or kick the egg. ----
         const gTop = H - GH;
-        const onLedge = onGround && birdY + FOOT() < gTop - 2;
-        if (down && onLedge) {
-          dropUntil = t + 0.28;
-          onGround = false;
+        const auto = t < autoUntil;
+        const zs = zSize(), R = eggR();
+        platAlpha = Math.min(1, platAlpha + dt * 0.55);
+        // The last stretch's pillars scroll away while night falls.
+        if (pillars.length) {
+          for (const p of pillars) p.x -= speed() * dt;
+          pillars = pillars.filter((p) => p.x > -S * 1.25 - 40);
         }
-        vy += gravity() * dt;
-        px = Math.max(r, Math.min(W - r, px + pvx * dt));
-        const prevFeet = birdY + FOOT();
-        birdY += vy * dt;
-        let feet = birdY + FOOT();
-        let landed = false;
-        if (vy >= 0 && t > dropUntil) {
-          for (const p of platforms) {
-            if (px > p.x - 8 && px < p.x + p.w + 8 && prevFeet <= p.y + 2 && feet >= p.y) {
-              birdY = p.y - FOOT();
-              landed = true;
-              break;
-            }
-          }
-        }
-        feet = birdY + FOOT();
-        if (feet >= gTop) {
-          birdY = gTop - FOOT();
-          landed = true;
-        }
-        if (landed) {
+        if (auto) {
+          // Auto-flight: no controls yet, just Groowt cruising while the stage builds.
+          groundOff = (groundOff + speed() * dt * 0.5) % 40;
+          birdY += (H * 0.32 + Math.sin(t * 3) * 10 - birdY) * Math.min(1, dt * 2.5);
+          px += (W * 0.24 - px) * Math.min(1, dt * 2.5);
           vy = 0;
-          onGround = true;
+          flap += dt * 22;
+          rot += (-0.1 - rot) * Math.min(1, dt * 5);
+          onGround = false;
           flutter = true;
-        } else if (vy > 0) onGround = false;
-        if (birdY - r < 0) {
-          birdY = r;
-          vy = Math.max(0, vy);
+        } else {
+          const inp = inputRef.current;
+          const left = keys.has("ArrowLeft") || keys.has("KeyA") || inp.left;
+          const right = keys.has("ArrowRight") || keys.has("KeyD") || inp.right;
+          const down = keys.has("ArrowDown") || keys.has("KeyS") || inp.down;
+          const fire = keys.has("KeyF") || keys.has("KeyJ") || keys.has("KeyX") || inp.fire;
+          pvx = ((right ? 1 : 0) - (left ? 1 : 0)) * Math.max(240, W * 0.26);
+          if (pvx) facing = pvx > 0 ? 1 : -1;
+          if (down && onGround && birdY + FOOT() < gTop - 2) {
+            dropUntil = t + 0.28;
+            onGround = false;
+          }
+          vy += gravity() * dt;
+          px = Math.max(r, Math.min(W - r, px + pvx * dt));
+          const prevFeet = birdY + FOOT();
+          birdY += vy * dt;
+          let landY: number | null = null;
+          if (t > dropUntil) landY = landOn(px, prevFeet, birdY + FOOT(), vy, 8);
+          else if (birdY + FOOT() >= gTop) landY = gTop;
+          if (landY !== null) {
+            birdY = landY - FOOT();
+            vy = 0;
+            onGround = true;
+            flutter = true;
+          } else if (vy > 0) onGround = false;
+          if (birdY - r < 0) {
+            birdY = r;
+            vy = Math.max(0, vy);
+          }
+          flap += dt * (onGround ? (pvx ? 9 : 2) : 22);
+          const targetRot = onGround ? 0 : Math.max(-0.2, Math.min(0.3, vy / (H * 2)));
+          rot += (targetRot - rot) * Math.min(1, dt * 8);
+          if (state === "zombies" && fire && t >= nextShot) shoot();
         }
-        flap += dt * (onGround ? (pvx ? 9 : 2) : 22);
-        const targetRot = onGround ? 0 : Math.max(-0.2, Math.min(0.3, vy / (H * 2)));
-        rot += (targetRot - rot) * Math.min(1, dt * 8);
-        platAlpha = Math.min(1, platAlpha + dt * 2.5);
 
-        if (state === "zombies") {
-          // Fire
-          if (fire && t >= nextShot) shoot();
-          // Spawn: in from the sides along the ground, or dropping from the sky onto a ledge
-          if (zSpawned < zToSpawn && t >= nextSpawn) {
+        if (state === "zombies" && !auto) {
+          // Spawn: in from the sides, or dropping from the sky onto a ledge, with a cap on how many are out at once
+          const alive = zombies.length;
+          const maxAlive = Math.min(11, 6 + zstage);
+          if (zSpawned < zToSpawn && alive < maxAlive && t >= nextSpawn) {
             zSpawned += 1;
-            const fromSky = platforms.length && Math.random() < 0.35;
+            const fromSky = Math.random() < 0.35;
             const p = platforms[Math.floor(Math.random() * platforms.length)]!;
             const side = zSpawned % 2 ? -1 : 1;
             zombies.push({
@@ -1037,60 +1282,111 @@ export function GroowtGame() {
               y: fromSky ? -80 : gTop - ZFOOT(),
               vx: 0,
               vy: 0,
-              hp: 2,
               onGround: !fromSky,
               dir: side < 0 ? 1 : -1,
               jumpAt: t + 1 + Math.random() * 2,
               flash: 0,
               wobble: Math.random() * 6,
-              speed: (Math.max(55, W * 0.045) + zstage * 9) * (0.85 + Math.random() * 0.3),
+              speed: (Math.max(55, W * 0.045) + zstage * 8) * (0.85 + Math.random() * 0.3),
+              state: "free",
+              cover: 0,
+              lastHit: 0,
+              hatchAt: 0,
+              rot: 0,
+              rollT: 0,
+              bounces: 0,
+              chain: 1,
+              dead: false,
             });
-            nextSpawn = t + Math.max(0.55, 1.5 - zstage * 0.12) + Math.random() * 0.5;
+            nextSpawn = t + Math.max(0.45, 1.3 - zstage * 0.12) + Math.random() * 0.5;
           }
         }
-        // Zombies: shamble toward Groowt, fall off edges, hop up to reach him
+
         for (const z of zombies) {
-          z.dir = px < z.x ? -1 : 1;
-          if (z.onGround) z.vx = z.dir * z.speed;
-          const above = birdY + FOOT() < z.y + ZFOOT() - 40;
-          if (z.onGround && above && Math.abs(px - z.x) < W * 0.28 && t > z.jumpAt) {
-            z.vy = jumpZ();
-            z.onGround = false;
-            z.jumpAt = t + 1.8 + Math.random() * 1.6;
+          if (z.dead) continue;
+          const foot = z.state === "free" ? ZFOOT() : R * 0.95;
+          if (z.state === "free") {
+            z.dir = px < z.x ? -1 : 1;
+            const slow = 1 - Math.min(1, z.cover / EGG_FULL) * 0.75;
+            if (z.onGround) z.vx = z.dir * z.speed * slow;
+            // Egg melts off if you stop hitting them.
+            if (z.cover > 0 && t - z.lastHit > 2.6) z.cover = Math.max(0, z.cover - dt * 0.9);
+            const above = birdY + FOOT() < z.y + ZFOOT() - 40;
+            if (z.cover < 2 && z.onGround && above && Math.abs(px - z.x) < W * 0.28 && t > z.jumpAt && !auto) {
+              z.vy = jumpZ();
+              z.onGround = false;
+              z.jumpAt = t + 1.8 + Math.random() * 1.6;
+            }
+          } else if (z.state === "egg") {
+            z.vx = 0;
+            if (t > z.hatchAt) {
+              // Left too long: it cracks open and the zombie climbs out, angrier.
+              const feet = z.y + R * 0.95;
+              z.state = "free";
+              z.cover = 0;
+              z.speed *= 1.15;
+              z.flash = 0.3;
+              z.y = feet - ZFOOT();
+              burst(z.x, z.y, ["#FFF9EC", "#FFDE59"], 10);
+              floats.push({ x: z.x, y: z.y - zs * 0.5, life: 0.9, text: "Grr!" });
+            }
+          } else {
+            z.rot += (z.vx / R) * dt;
+            z.rollT += dt;
           }
           z.vy += gravity() * dt;
-          const zPrev = z.y + ZFOOT();
+          const prev = z.y + foot;
           z.x += z.vx * dt;
           z.y += z.vy * dt;
-          let zLanded = false;
-          if (z.vy >= 0) {
-            for (const p of platforms) {
-              const zf = z.y + ZFOOT();
-              if (z.x > p.x - 4 && z.x < p.x + p.w + 4 && zPrev <= p.y + 2 && zf >= p.y) {
-                z.y = p.y - ZFOOT();
-                zLanded = true;
-                break;
-              }
-            }
-          }
-          if (z.y + ZFOOT() >= gTop) {
-            z.y = gTop - ZFOOT();
-            zLanded = true;
-          }
-          if (zLanded) {
+          const landY = landOn(z.x, prev, z.y + (z.state === "free" ? ZFOOT() : R * 0.95), z.vy, 4);
+          if (landY !== null) {
+            z.y = landY - (z.state === "free" ? ZFOOT() : R * 0.95);
             z.vy = 0;
             z.onGround = true;
           } else if (z.vy > 0) z.onGround = false;
+          if (z.state !== "free") z.x = Math.max(R, Math.min(W - R, z.x));
+          if (z.state === "roll") {
+            if (z.x <= R || z.x >= W - R) {
+              z.vx = z.x <= R ? Math.abs(z.vx) : -Math.abs(z.vx);
+              z.bounces += 1;
+            }
+            // Bowling: knock out everything it rolls into; sealed eggs get sent rolling too.
+            for (const o of zombies) {
+              if (o === z || o.dead || o.state === "roll") continue;
+              if (Math.abs(o.x - z.x) < R + zs * 0.3 && Math.abs(o.y - z.y) < R + zs * 0.35) {
+                if (o.state === "egg") kick(o, z.vx, z.chain + 1);
+                else {
+                  z.chain += 1;
+                  kill(o, z.chain);
+                }
+              }
+            }
+            if (z.bounces >= 3 || z.rollT > 5) kill(z, z.chain);
+          }
           z.flash -= dt;
-          // Touch him and he's out.
-          if (state === "zombies" && t > graceUntil && Math.abs(z.x - px) < r + zSize() * 0.22 && Math.abs(z.y - birdY) < r + zSize() * 0.32) die();
+          if (state !== "zombies" || auto) continue;
+          const dx = z.x - px, dy = z.y - birdY;
+          if (z.state === "free") {
+            // Touch a zombie and he's out (egg-coated or not).
+            if (t > graceUntil && Math.abs(dx) < r + zs * 0.22 && Math.abs(dy) < r + zs * 0.32) die();
+          } else if (z.state === "egg" && Math.abs(dy) < R + r * 0.5) {
+            // Push it: walk into a sealed egg and it slides along in front of him.
+            const overlap = R * 0.85 + r * 0.7 - Math.abs(dx);
+            if (overlap > 0) {
+              const side = Math.sign(dx) || facing;
+              if (pvx && Math.sign(pvx) === side) {
+                z.x = Math.max(R, Math.min(W - R, z.x + side * overlap));
+                if (z.x === R || z.x === W - R) px = z.x - side * (R * 0.85 + r * 0.7);
+              } else px -= side * overlap;
+            }
+          }
         }
-        // Shots
-        const zs = zSize();
+
+        // Shots: coat free zombies in egg; a shot into a sealed egg kicks it rolling.
         for (const b of shots) {
-          // Sticky notes home in, gently, on the nearest zombie ahead of them.
           let best: Zombie | null = null, bd = Infinity;
           for (const z of zombies) {
+            if (z.dead || z.state === "roll") continue;
             const ahead = (z.x - b.x) * Math.sign(b.vx);
             const d = Math.hypot(z.x - b.x, z.y - b.y);
             if (ahead > 0 && d < bd) {
@@ -1102,49 +1398,66 @@ export function GroowtGame() {
             const sp = Math.hypot(b.vx, b.vy);
             const want = Math.atan2(best.y - b.y, best.x - b.x);
             const cur = Math.atan2(b.vy, b.vx);
-            let diff = want - cur;
-            diff = Math.atan2(Math.sin(diff), Math.cos(diff));
-            const turn = Math.max(-3.2 * dt, Math.min(3.2 * dt, diff));
+            const diff = Math.atan2(Math.sin(want - cur), Math.cos(want - cur));
+            const turn = Math.max(-3 * dt, Math.min(3 * dt, diff));
             b.vx = Math.cos(cur + turn) * sp;
             b.vy = Math.sin(cur + turn) * sp;
           }
           b.x += b.vx * dt;
           b.y += b.vy * dt;
-          b.rot += 14 * dt * Math.sign(b.vx || 1);
+          b.rot += 12 * dt * Math.sign(b.vx || 1);
           b.life -= dt;
           for (const z of zombies) {
-            if (z.hp > 0 && b.life > 0 && Math.abs(b.x - z.x) < zs * 0.32 && Math.abs(b.y - z.y) < zs * 0.42) {
-              z.hp -= 1;
-              z.flash = 0.12;
-              z.x += Math.sign(b.vx) * 10;
+            if (z.dead || z.state === "roll" || b.life <= 0) continue;
+            const hitR = z.state === "egg" ? R : zs * 0.34;
+            if (Math.abs(b.x - z.x) < hitR + (b.big ? 8 : 0) && Math.abs(b.y - z.y) < (z.state === "egg" ? R : zs * 0.44) + (b.big ? 8 : 0)) {
               b.life = 0;
-              if (z.hp <= 0) kill(z);
+              burst(b.x, b.y, ["#FFF9EC", "#FFDE59"], 5);
+              if (z.state === "egg") kick(z, b.vx);
+              else {
+                z.cover += b.big ? 2 : 1;
+                z.lastHit = t;
+                z.flash = 0.1;
+                z.x += Math.sign(b.vx) * 6;
+                if (z.cover >= EGG_FULL) seal(z);
+              }
             }
           }
         }
-        shots = shots.filter((b) => b.life > 0 && b.x > -40 && b.x < W + 40);
-        zombies = zombies.filter((z) => z.hp > 0);
-        // Megaphone pickups
+        shots = shots.filter((b) => b.life > 0 && b.x > -40 && b.x < W + 40 && b.y < H);
+        zombies = zombies.filter((z) => !z.dead);
+
+        // Power-ups: Big Egg (bigger shots that coat twice as fast) or Triple Shot, 10s each
         for (const p of pickups) {
-          if (Math.hypot(p.x - px, p.y - birdY) < r + 22) {
-            powerUntil = t + 8;
+          if (Math.hypot(p.x - px, p.y - birdY) < r + 24) {
+            if (p.kind === "big") bigUntil = t + 10;
+            else tripleUntil = t + 10;
+            floats.push({ x: p.x, y: p.y - 30, life: 1, text: p.kind === "big" ? "Big eggs!" : "Triple shot!" });
             p.born = -999;
           }
         }
         pickups = pickups.filter((p) => p.born > -999 && t - p.born < 9);
-        if (!powerOn && t < powerUntil) {
-          powerOn = true;
-          setPower(true);
-        } else if (powerOn && t >= powerUntil) {
-          powerOn = false;
-          setPower(false);
+        const shown = `${t < bigUntil ? 1 : 0}${t < tripleUntil ? 1 : 0}`;
+        if (shown !== powersShown) {
+          powersShown = shown;
+          setPowers({ big: t < bigUntil, triple: t < tripleUntil });
         }
-        // Every zombie gone: all clear, then back to the sky.
-        if (state === "zombies" && zSpawned >= zToSpawn && zombies.length === 0) {
+
+        // Every zombie gone: the cage opens and Pip is free.
+        if (state === "zombies" && !auto && zSpawned >= zToSpawn && zombies.length === 0) {
           clearAt = t;
+          if (pip) {
+            pip.state = "free";
+            pip.at = t;
+          }
+          if (pip) floats.push({ x: pip.x, y: pip.y - S * 0.7, life: 1.4, text: copy.zombies.thanks });
           go("cleared");
         }
-        if (state === "cleared" && t - clearAt > 1.6) {
+        if (pip && pip.state === "free" && state === "cleared" && t - pip.at > 0.5) {
+          pip.x += (px - facing * S * 1.1 - pip.x) * Math.min(1, dt * 3);
+          pip.y += (birdY - S * 0.4 - pip.y) * Math.min(1, dt * 3);
+        }
+        if (state === "cleared" && t - clearAt > 2.8) {
           shots = [];
           pickups = [];
           go("takeoff");
@@ -1156,11 +1469,16 @@ export function GroowtGame() {
         flap += dt * 24;
         rot += (-0.15 - rot) * Math.min(1, dt * 6);
         platAlpha = Math.max(0, platAlpha - dt * 2);
+        if (pip) {
+          pip.x += (px - S * 1.15 - pip.x) * Math.min(1, dt * 4);
+          pip.y += (birdY - S * 0.35 - pip.y) * Math.min(1, dt * 4);
+        }
         if (Math.abs(H * 0.45 - birdY) < 8 && Math.abs(birdX() - px) < 8) {
           platforms = [];
           spawned = 0;
-          vy = jumpV() * 0.6;
-          go("playing");
+          vy = 0;
+          // Hover until the player flaps, so the switch back to pillars is never a surprise.
+          go("ready");
         }
       } else if (state === "rest") {
         birdY = restY();
@@ -1216,7 +1534,7 @@ export function GroowtGame() {
         }
         pillars = pillars.filter((p) => p.x > -pw - 40);
         // The stretch is done once every pillar of it is behind him: land.
-        if (state === "playing" && spawned >= REST_EVERY && pillars.every((p) => p.scored)) go("landing");
+        if (state === "playing" && spawned >= REST_EVERY && pillars.every((p) => p.scored)) startZombies();
       }
 
       for (const f of puffs) {
@@ -1231,6 +1549,12 @@ export function GroowtGame() {
         f.life -= dt;
       }
       floats = floats.filter((f) => f.life > 0);
+
+      if (pip && pip.state === "free" && !zMode && state !== "takeoff") {
+        pip.x += 380 * dt;
+        pip.y -= 70 * dt;
+        if (pip.x > W + 120) pip = null;
+      }
 
       // ---- draw ----
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1303,6 +1627,27 @@ export function GroowtGame() {
         for (const p of platforms) drawPlatform(ctx, p, boil, t);
         ctx.restore();
       }
+      const cage = cagePos();
+      if (cage && (zMode || state === "takeoff")) {
+        ctx.save();
+        ctx.globalAlpha = platAlpha;
+        drawCage(ctx, cage.x, cage.bottom, cage.w, cage.h, pip && pip.state !== "caged" ? Math.min(1, (t - pip.at) / 0.7) : 0, boil);
+        ctx.restore();
+      }
+      if (pip) {
+        ctx.save();
+        ctx.globalAlpha = pip.state === "caged" ? platAlpha : 1;
+        const bob = pip.state === "caged" ? Math.sin(t * 2.4) * 2 : 0;
+        drawGroowt(ctx, pip.x, pip.y + bob, S * 0.8, pip.state === "caged" ? Math.sin(t * 3) * 0.06 : -0.12, t * (pip.state === "caged" ? 6 : 24), "fly", boil, { x: pip.state === "caged" ? Math.sin(t) * 1.6 : 1.4, y: 0 }, PIP_PAL);
+        ctx.restore();
+        // Bars over her while she's still locked in
+        if (cage && pip.state === "caged") {
+          ctx.save();
+          ctx.globalAlpha = platAlpha;
+          drawCage(ctx, cage.x, cage.bottom, cage.w, cage.h, 0, boil);
+          ctx.restore();
+        }
+      }
       for (const p of pickups) drawPickup(ctx, p, t);
       for (const z of zombies) drawZombie(ctx, z, zSize(), t, boil, { x: px, y: birdY });
       for (const b of shots) drawShot(ctx, b, Math.max(12, S * 0.2));
@@ -1321,7 +1666,7 @@ export function GroowtGame() {
       ctx.translate(bx, birdY);
       if (zMode && facing < 0) ctx.scale(-1, 1);
       drawGroowt(ctx, 0, 0, S, rot, flap, face, boil, { x: 1.4, y: state === "playing" ? Math.max(-1.6, Math.min(1.6, vy / (H * 0.8))) : 0 });
-      if (zMode) drawBlaster(ctx, S, t - muzzleAt < 0.07, powerOn);
+      if (zMode && t >= autoUntil) drawBlaster(ctx, S, t - muzzleAt < 0.07, t < bigUntil || t < tripleUntil);
       ctx.restore();
       for (const f of floats) {
         ctx.save();
@@ -1415,16 +1760,25 @@ export function GroowtGame() {
                 {copy.zombies.left}: {zLeft}
               </span>
               <span className="rounded-md border-2 border-[#2a2a2e] bg-[#F2C4FF] px-3 py-1 text-sm font-bold text-[#2a2a2e]">{copy.zombies.weapon}</span>
-              {power && (
-                <motion.span
-                  initial={{ scale: 0.6 }}
-                  animate={{ scale: [1, 1.08, 1] }}
-                  transition={{ duration: 0.6, repeat: Infinity }}
-                  className="inline-flex items-center gap-1.5 rounded-md border-2 border-[#2a2a2e] bg-[#FFBA7B] px-3 py-1 text-sm font-bold text-[#2a2a2e]"
-                >
-                  <Megaphone aria-hidden className="size-4" />
-                  {copy.zombies.power}
-                </motion.span>
+              {(
+                [
+                  [powers.big, Egg, copy.zombies.powerBig, "#FFF9EC"],
+                  [powers.triple, Megaphone, copy.zombies.power, "#FFBA7B"],
+                ] as const
+              ).map(([on, Icon, label, bg]) =>
+                on ? (
+                  <motion.span
+                    key={label}
+                    initial={{ scale: 0.6 }}
+                    animate={{ scale: [1, 1.08, 1] }}
+                    transition={{ duration: 0.6, repeat: Infinity }}
+                    className="inline-flex items-center gap-1.5 rounded-md border-2 border-[#2a2a2e] px-3 py-1 text-sm font-bold text-[#2a2a2e]"
+                    style={{ background: bg }}
+                  >
+                    <Icon aria-hidden className="size-4" />
+                    {label}
+                  </motion.span>
+                ) : null,
               )}
             </div>
           )}
@@ -1442,6 +1796,9 @@ export function GroowtGame() {
                 <p className="max-w-lg rounded-md border-2 border-[#2a2a2e] bg-white px-4 py-2 text-lg font-bold text-[#2a2a2e] shadow-[3px_3px_0_0_#86B86A]" style={hand}>
                   <span className="[@media(hover:none)]:hidden">{copy.zombies.controls}</span>
                   <span className="hidden [@media(hover:none)]:inline">{copy.zombies.controlsTouch}</span>
+                </p>
+                <p className="max-w-lg rounded-md border-2 border-[#2a2a2e] bg-[#F2C4FF] px-4 py-2 text-lg font-bold text-[#2a2a2e]" style={hand}>
+                  {copy.zombies.howTo}
                 </p>
               </motion.div>
             )}
