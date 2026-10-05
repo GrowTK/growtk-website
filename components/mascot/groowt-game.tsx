@@ -73,8 +73,14 @@ function sketch(ctx: CanvasRenderingContext2D, path: Path2D, width: number, boil
 
 type Palette = { wing: string; tail: string; body: [string, string, string, string]; belly: string; beak: string };
 const GROOWT_PAL: Palette = { wing: "#FFB25C", tail: "#F59E5B", body: ["#FFF3B0", "#FFDE59", "#FFC46E", "#FFA867"], belly: "#FFF6D2", beak: "#FF9F43" };
-/** Pip, Groowt's pink friend. */
-const PIP_PAL: Palette = { wing: "#E7A6F5", tail: "#D98BEA", body: ["#FFF0FA", "#F9D2F6", "#F2C4FF", "#E3A3F2"], belly: "#FFF0FA", beak: "#FF9F43" };
+/** Groowt's friends, one caged per zombie stage, in order (names in content/groowt.ts, game.zombies.friends). */
+const FRIEND_PALS: Palette[] = [
+  { wing: "#E7A6F5", tail: "#D98BEA", body: ["#FFF0FA", "#F9D2F6", "#F2C4FF", "#E3A3F2"], belly: "#FFF0FA", beak: "#FF9F43" },
+  { wing: "#9CC8F5", tail: "#7DB2EE", body: ["#EEF7FF", "#CDE6FF", "#A6D2FF", "#86BDF5"], belly: "#F3F9FF", beak: "#FF9F43" },
+  { wing: "#8FD7A2", tail: "#6FC487", body: ["#F0FFF4", "#CFF3DA", "#A8E6B8", "#86D69C"], belly: "#F2FFF6", beak: "#FF9F43" },
+  { wing: "#B9A2E8", tail: "#A28BDE", body: ["#F6F1FF", "#E2D6FF", "#C9B6F7", "#B39CEB"], belly: "#F7F3FF", beak: "#FF9F43" },
+  { wing: "#FFA494", tail: "#F58A78", body: ["#FFF1EE", "#FFD6CE", "#FFBDB1", "#FFA494"], belly: "#FFF3F0", beak: "#FF9F43" },
+];
 
 function drawGroowt(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, rot: number, flap: number, face: "fly" | "panic" | "dead", boil: number, look: { x: number; y: number }, pal: Palette = GROOWT_PAL) {
   const s = getShapes();
@@ -875,6 +881,7 @@ export function GroowtGame() {
   const [zLeft, setZLeft] = React.useState(0);
   const [zBanner, setZBanner] = React.useState(false);
   const [powers, setPowers] = React.useState({ big: false, triple: false });
+  const [friend, setFriend] = React.useState("");
   // Held controls for the zombie stage (touch buttons and mouse write here; keys are tracked in the loop).
   const inputRef = React.useRef({ left: false, right: false, down: false, fire: false });
   const flapRef = React.useRef<() => void>(() => {});
@@ -1011,7 +1018,10 @@ export function GroowtGame() {
     let platforms: Platform[] = [], zombies: Zombie[] = [], shots: Shot[] = [], puffs: Puff[] = [], pickups: Pickup[] = [], floats: FloatText[] = [];
     let zstage = 0, zToSpawn = 0, zSpawned = 0, kills = 0, nextSpawn = 0, nextShot = 0, muzzleAt = -1, clearAt = 0, platAlpha = 0, autoUntil = 0;
     let bigUntil = 0, tripleUntil = 0, powersShown = "";
-    let pip: { x: number; y: number; state: "caged" | "free" | "gone"; at: number } | null = null;
+    type Friend = { x: number; y: number; state: "caged" | "free" | "gone"; at: number; pal: Palette };
+    let pip: Friend | null = null;
+    // Birds already rescued: they fly with Groowt from then on.
+    let flock: Friend[] = [];
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random() * 0.6, r: 0.8 + Math.random() * 1.6, p: Math.random() * 6 }));
     const keys = new Set<string>();
     const onKeyDown = (e: KeyboardEvent) => {
@@ -1078,7 +1088,9 @@ export function GroowtGame() {
       powersShown = "";
       platAlpha = 0;
       const c = cagePos();
-      pip = c ? { x: c.x, y: c.bottom - size() * 0.8 * 0.45, state: "caged", at: t } : null;
+      const fi = (zstage - 1) % FRIEND_PALS.length;
+      pip = c ? { x: c.x, y: c.bottom - size() * 0.8 * 0.45, state: "caged", at: t, pal: FRIEND_PALS[fi]! } : null;
+      setFriend(copy.zombies.friends[fi % copy.zombies.friends.length]!);
       setPowers({ big: false, triple: false });
       setZLeft(zToSpawn);
       setZBanner(true);
@@ -1157,6 +1169,7 @@ export function GroowtGame() {
       pickups = [];
       floats = [];
       pip = null;
+      flock = [];
       bigUntil = 0;
       tripleUntil = 0;
       setPowers({ big: false, triple: false });
@@ -1213,6 +1226,23 @@ export function GroowtGame() {
     // Read-only peek for automated testing, only with ?groowt-debug in the URL.
     if (new URLSearchParams(window.location.search).has("groowt-debug")) {
       (window as unknown as { __groowtZombies?: () => void }).__groowtZombies = () => startZombies();
+      // Test-only: a sealed egg on the ground beside Groowt, with no other zombies coming.
+      (window as unknown as { __groowtEggTest?: (offset: number) => void }).__groowtEggTest = (offset: number) => {
+        zSpawned = zToSpawn;
+        zombies = [];
+        const gTop = H - groundH();
+        px = W * 0.5;
+        birdY = gTop - FOOT();
+        const z: Zombie = { x: px + offset, y: gTop - ZFOOT(), vx: 0, vy: 0, onGround: true, dir: -1, jumpAt: 1e9, flash: 0, wobble: 0, speed: 0, state: "free", cover: 0, lastHit: t, hatchAt: 0, rot: 0, rollT: 0, bounces: 0, chain: 1, dead: false };
+        zombies.push(z);
+        seal(z);
+        z.hatchAt = t + 60;
+        // a second zombie farther along, to check the rolling egg knocks it out
+        zombies.push({ ...z, x: px + offset * 3, y: gTop - ZFOOT(), state: "free", cover: 0, hatchAt: 0, speed: 0, jumpAt: 1e9 });
+        zToSpawn = zSpawned = 2;
+        kills = 0;
+        graceUntil = t + 1e9;
+      };
       (window as unknown as { __groowtClear?: () => void }).__groowtClear = () => {
         zSpawned = zToSpawn;
         for (const z of zombies) kill(z);
@@ -1399,8 +1429,8 @@ export function GroowtGame() {
           if (z.state !== "free") z.x = Math.max(R, Math.min(W - R, z.x));
           if (z.state === "roll") {
             if (z.x <= R || z.x >= W - R) {
-              z.vx = z.x <= R ? Math.abs(z.vx) : -Math.abs(z.vx);
-              z.bounces += 1;
+              kill(z, z.chain);
+              continue;
             }
             // Bowling: knock out everything it rolls into; sealed eggs get sent rolling too.
             for (const o of zombies) {
@@ -1413,7 +1443,7 @@ export function GroowtGame() {
                 }
               }
             }
-            if (z.bounces >= 3 || z.rollT > 5) kill(z, z.chain);
+            if (z.rollT > 6) kill(z, z.chain);
           }
           z.flash -= dt;
           if (state !== "zombies" || auto) continue;
@@ -1426,10 +1456,9 @@ export function GroowtGame() {
             const overlap = R * 0.85 + r * 0.7 - Math.abs(dx);
             if (overlap > 0) {
               const side = Math.sign(dx) || facing;
-              if (pvx && Math.sign(pvx) === side) {
-                z.x = Math.max(R, Math.min(W - R, z.x + side * overlap));
-                if (z.x === R || z.x === W - R) px = z.x - side * (R * 0.85 + r * 0.7);
-              } else px -= side * overlap;
+              // Pushing into it starts it rolling (Snow Bros style); otherwise it's just in the way.
+              if (pvx && Math.sign(pvx) === side) kick(z, side);
+              else px -= side * overlap;
             }
           }
         }
@@ -1465,8 +1494,9 @@ export function GroowtGame() {
             if (Math.abs(b.x - z.x) < hitR + (b.big ? 8 : 0) && Math.abs(b.y - z.y) < (z.state === "egg" ? R : zs * 0.44) + (b.big ? 8 : 0)) {
               b.life = 0;
               burst(b.x, b.y, ["#FFF9EC", "#FFDE59"], 5);
-              if (z.state === "egg") kick(z, b.vx);
-              else {
+              if (z.state === "egg") {
+                // Splat: shots don't move a sealed egg. Only pushing does.
+              } else {
                 z.cover += b.big ? 2 : 1;
                 z.lastHit = t;
                 z.flash = 0.1;
@@ -1616,10 +1646,18 @@ export function GroowtGame() {
       floats = floats.filter((f) => f.life > 0);
 
       if (pip && pip.state === "free" && !zMode && state !== "takeoff") {
-        pip.x += 380 * dt;
-        pip.y -= 70 * dt;
-        if (pip.x > W + 120) pip = null;
+        flock.push(pip);
+        if (flock.length > 6) flock.shift();
+        pip = null;
       }
+      // The flock trails Groowt through the pillars, and watches from the top during a zombie stage.
+      flock.forEach((f, i) => {
+        const tx = zMode ? W * (0.34 + i * 0.065) : px - S * (1.15 + i * 0.8);
+        const ty = zMode ? H * 0.1 + Math.sin(t * 2 + i) * 6 : birdY - S * 0.25 + Math.sin(t * 3 + i * 1.3) * 8;
+        const k = Math.min(1, dt * Math.max(1.4, 3.2 - i * 0.3));
+        f.x += (tx - f.x) * k;
+        f.y += (ty - f.y) * k;
+      });
 
       // ---- draw ----
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1729,7 +1767,7 @@ export function GroowtGame() {
         ctx.save();
         ctx.globalAlpha = pip.state === "caged" ? platAlpha : 1;
         const bob = pip.state === "caged" ? Math.sin(t * 2.4) * 2 : 0;
-        drawGroowt(ctx, pip.x, pip.y + bob, S * 0.8, pip.state === "caged" ? Math.sin(t * 3) * 0.06 : -0.12, t * (pip.state === "caged" ? 6 : 24), "fly", boil, { x: pip.state === "caged" ? Math.sin(t) * 1.6 : 1.4, y: 0 }, PIP_PAL);
+        drawGroowt(ctx, pip.x, pip.y + bob, S * 0.8, pip.state === "caged" ? Math.sin(t * 3) * 0.06 : -0.12, t * (pip.state === "caged" ? 6 : 24), "fly", boil, { x: pip.state === "caged" ? Math.sin(t) * 1.6 : 1.4, y: 0 }, pip.pal);
         ctx.restore();
         // Bars over her while she's still locked in
         if (cage && pip.state === "caged") {
@@ -1739,6 +1777,7 @@ export function GroowtGame() {
           ctx.restore();
         }
       }
+      flock.forEach((f, i) => drawGroowt(ctx, f.x, f.y, S * 0.7, -0.1, t * 24 + i, "fly", boil, { x: 1.4, y: 0 }, f.pal));
       for (const p of pickups) drawPickup(ctx, p, t);
       for (const z of zombies) drawZombie(ctx, z, zSize(), t, boil, { x: px, y: birdY });
       for (const b of shots) drawShot(ctx, b, Math.max(12, S * 0.2));
@@ -1890,7 +1929,7 @@ export function GroowtGame() {
                   <span className="hidden [@media(hover:none)]:inline">{copy.zombies.controlsTouch}</span>
                 </p>
                 <p className="max-w-lg rounded-md border-2 border-[#2a2a2e] bg-[#F2C4FF] px-4 py-2 text-lg font-bold text-[#2a2a2e]" style={hand}>
-                  {copy.zombies.howTo}
+                  {copy.zombies.howTo.replace("{name}", friend)}
                 </p>
               </motion.div>
             )}
