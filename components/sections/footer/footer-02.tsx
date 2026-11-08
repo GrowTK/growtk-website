@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/magic/reveal";
 import { SocialIcon } from "@/components/sections/footer/social-icon";
@@ -52,7 +53,7 @@ export function Footer02({
             ) : null}
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3">
+          <div className={cn("grid gap-10", columns.length > 3 ? "sm:grid-cols-2 xl:grid-cols-4" : "sm:grid-cols-3")}>
             {columns.map((col) => (
               <div key={col.title}>
                 <p className="eyebrow text-background/50">{col.title}</p>

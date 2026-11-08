@@ -1,0 +1,51 @@
+/* Ultra Modern Rails: shared tokens.
+   Signature: hairlines are stainless cable runs; posts are the rail posts. */
+:root{
+  --paper:#FAFAF9;
+  --paper-2:#F2F1EF;
+  --ink:#161616;
+  --ink-2:#4A4A4A;
+  --steel:#9A9EA2;
+  --hair:#D9D8D5;
+  --terra:#C55B3E;
+  --terra-d:#A9472D;
+  --blush:#FCE3DD;
+  --glass:#A9D6E5;
+  --plum:#3B2560;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Inter Tight",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:4px}
+
+/* Wordmark: rebuilt as type so it stays crisp at any size */
+.wm{display:inline-flex;flex-direction:column;align-items:center;line-height:1;position:relative}
+.wm b{font-family:var(--serif);font-weight:400;letter-spacing:.09em;font-size:1em;color:var(--ink)}
+.wm i{display:flex;align-items:center;gap:.25em;width:100%;justify-content:center;margin-top:-.08em;padding-left:22%}
+.wm i::before{content:"";height:1px;flex:0 0 46%;background:var(--ink)}
+.wm i img{height:.62em;width:auto;mix-blend-mode:multiply}
+
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel)}
+
+/* Device frames */
+.laptop{position:relative}
+.laptop .lid{background:#0E0E0E;border-radius:22px 22px 6px 6px;padding:2.4% 2.4% 3%;box-shadow:0 0 0 1px #2a2a2a inset}
+.laptop .scr{background:#fff;border-radius:4px;overflow:hidden;position:relative;aspect-ratio:16/10}
+.laptop .base{height:14px;margin:0 -6%;background:linear-gradient(#e3e3e1,#c9c9c6);border-radius:0 0 14px 14px;position:relative}
+.laptop .base::after{content:"";position:absolute;left:50%;top:0;width:14%;height:6px;transform:translateX(-50%);background:#b7b7b3;border-radius:0 0 8px 8px}
+.phone{background:#0E0E0E;border-radius:42px;padding:10px;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+.phone .scr{background:#fff;border-radius:33px;overflow:hidden;position:relative;height:100%}
+.phone .scr::before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:32%;height:22px;background:#0E0E0E;border-radius:20px;z-index:5}
+.tablet{background:#3d3536;border-radius:30px;padding:18px}
+.tablet .scr{background:#fff;border-radius:14px;overflow:hidden;position:relative;height:100%}
+
+.coin{position:absolute;pointer-events:none;user-select:none;filter:drop-shadow(0 30px 40px rgba(197,91,62,.18))}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-14px) rotate(calc(var(--r,0deg) + 4deg))}}
+.coin.f{animation:float 9s ease-in-out infinite}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}}

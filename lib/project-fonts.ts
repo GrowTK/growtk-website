@@ -3,7 +3,7 @@
  * client product's own UI. Kept out of lib/fonts.ts on purpose: that file is
  * rewritten by `npm run brand`, and these are not Growtk's fonts.
  */
-import { Geist, Lato, Plus_Jakarta_Sans } from "next/font/google";
+import { Anybody, Geist, Lato, Plus_Jakarta_Sans } from "next/font/google";
 
 /** Corvinn's dashboard face (its next/font Lato, 300/400/700/900). */
 export const corvinnLato = Lato({
@@ -28,6 +28,16 @@ export const jerrysJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
   variable: "--font-jerrys",
+  display: "swap",
+  preload: false,
+});
+
+/** Jerry's brand display face (its website's Anybody, heavy and compressed). */
+export const jerrysAnybody = Anybody({
+  subsets: ["latin"],
+  weight: "variable",
+  axes: ["wdth"],
+  variable: "--font-jerrys-display",
   display: "swap",
   preload: false,
 });

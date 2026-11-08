@@ -22,6 +22,10 @@ export type Link = {
 /** A nav entry, optionally with a dropdown / mega-menu group. */
 export type NavItem = Link & {
   children?: Link[];
+  /** Dropdown style: "thumbs" shows industry figure thumbnails (default), "list" shows icon tiles and labels. */
+  menu?: "thumbs" | "list";
+  /** Label of the "see all" row at the bottom of the dropdown. */
+  seeAll?: string;
 };
 
 /** A call to action. `variant` maps to the button styles. */
@@ -141,6 +145,12 @@ export type Project = {
   thumbnailClassName: string;
   /** The project's own brand colour, as a hex value. Never substitute Growtk's own brand colour here. */
   accentHex: string;
+  /** Short label on the card, e.g. "Our product" or "Client build". */
+  kind?: string;
+  /** Three or four short tags under the card: what was built. */
+  tags?: string[];
+  /** A real screenshot of the product, shown in a window on the homepage card. */
+  preview?: Img & { width: number; height: number };
 };
 
 /** Per-page metadata. Feeds the Next.js `metadata` export. */

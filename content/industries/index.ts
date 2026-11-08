@@ -153,11 +153,13 @@ export const industryPageLabels = {
     /** "Service 2 of 5" above the open service. */
     counter: "Service {n} of {total}",
     link: "How we build this",
+    /** Link text when a row points at its own page (service pages). */
+    ownLink: "Learn more",
   },
   strip: {
     eyebrow: "Built from these services",
-    title: "The same six building blocks, set up for your trade",
-    body: "Everything on this page is assembled from them. Open any one for the detail.",
+    title: "The services behind this page",
+    body: "Everything on this page is delivered through them. Open any one for the detail.",
   },
   faq: {
     /** Shown under the FAQ title when an industry's heading has no body of its own. */

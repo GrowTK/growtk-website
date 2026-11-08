@@ -1,9 +1,10 @@
 /**
- * Home page copy. Growtk redesigns websites and builds SEO, custom widgets,
- * workflow automation, voice agents and integrations for trade and service
- * businesses: HVAC, plumbing, electrical, roofing, railing and fencing,
- * landscaping, pest control, cleaning and healthcare, with more industries
- * added over time.
+ * Home page copy. Growtk runs customer operations for businesses, AI first:
+ * AI agents answer, qualify, resolve and follow up across voice, chat, email
+ * and messaging, automation clears the back office, and a person steps in on
+ * escalation. Page structure follows the outsourcing site the founder chose
+ * as the reference; every line here is Growtk's own and only claims what
+ * Growtk builds and runs.
  *
  * Keep every string free of em dashes and en dashes.
  */
@@ -14,67 +15,67 @@ import type { TabItem } from "@/components/sections/features/feature-05";
 
 export const home = {
   meta: {
-    title: "Growtk: websites, SEO, widgets and automation for service businesses",
+    title: "Growtk: AI-first contact center, lead generation and back office outsourcing",
     description:
-      "Growtk builds websites, SEO, custom widgets, automation and voice agents for HVAC, plumbing, electrical, roofing, fencing, landscaping, pest control, cleaning and healthcare businesses.",
+      "Growtk runs your contact center, customer support, lead generation and back office with AI agents and automation, with a person on hand for every escalation. Scale without adding headcount.",
     path: "/",
   },
 
   hero: {
-    eyebrow: "Websites, widgets and automation",
-    title: "More calls. More jobs. Less busywork.",
-    body: "We rebuild your website and wire in the automation behind it: quote widgets, booking flows, follow-up sequences and a voice agent that answers, so leads stop going cold while you're out on the job.",
+    eyebrow: "AI-first outsourcing",
+    title: "Customer operations that never clock out.",
+    body: "Growtk runs your customer operations with AI agents that answer every call, chat and email, qualify every lead and clear the back office, with a person stepping in whenever a human should. Scale support and sales without adding headcount.",
     ctas: [
-      { label: "Get a free audit", href: "/contact", variant: "primary" },
-      { label: "See what we build", href: "/services", variant: "secondary" },
+      { label: "Explore services", href: "/services", variant: "primary" },
+      { label: "Talk to us", href: "/contact", variant: "secondary" },
     ] as Cta[],
     /** Accessible name for the animated line figure on the hero's right. */
-    figureLabel: "A lead machine: a call rings, the lead rides into automation, books a day on the calendar and prints a paid receipt",
+    figureLabel: "A call rings, an AI agent answers and qualifies it, the request moves through automation, books on the calendar and closes with a receipt",
     video: {
       src: "/brand/blob-animation.mp4",
       poster: "/brand/blob-poster.jpg",
     },
     stats: [
-      { value: "6", label: "services under one roof: web, SEO, widgets, automation, voice, integrations" },
-      { value: "9", label: "industries with a dedicated playbook, and growing" },
-      { value: "1", label: "free audit call to scope exactly what you need" },
-      { value: "24/7", label: "a voice agent can pick up the phone even after hours" },
+      { value: "24/7", label: "AI agents answer calls, chats and email around the clock" },
+      { value: "13", label: "outsourcing services, from inbound support to back office" },
+      { value: "4", label: "systems we build in: knowledge base, helpdesk, quality and surveys" },
+      { value: "1", label: "free audit to scope what to automate first" },
     ] as Stat[],
   },
 
-  /** Centered about copy with four parallax sticky notes, one per step from first click to booked job. */
+  /** Centered about copy with four parallax sticky notes, one per moment a customer reaches you. */
   about: {
-    eyebrow: "About us",
-    title: "One team, from first\nclick to booked job.",
-    body: "Most trade businesses juggle a web designer, a booking tool and a CRM that never talk to each other. Growtk builds it all as one system, so every call, form and quote lands in the same place and gets followed up without you chasing it.",
+    eyebrow: "Who we are",
+    title: "Customer operations,\nrun around the clock.",
+    body: "We combine AI agents with human judgment to run your contact center, support desk, lead pipeline and back office. Every call, chat and form gets answered, logged in your CRM and followed up, so you grow without hiring a floor of agents.",
     ctas: [
-      { label: "Get a free audit", href: "/contact", variant: "primary" },
+      { label: "Explore services", href: "/services", variant: "primary" },
       { label: "About us", href: "/about", variant: "secondary" },
     ] as Cta[],
     /**
-     * Sticky notes around the copy, read clockwise from top left as the path a
-     * customer takes. `doodle` picks the ink drawing; `lines` is the handwriting.
+     * Sticky notes around the copy, read clockwise from top left as the moments
+     * a customer reaches you. `doodle` picks the ink drawing; `lines` is the handwriting.
      */
     notes: [
       {
         color: "#FFDE59",
-        lines: ["First click", "lands on a fast site"],
-        doodle: "browser",
+        lines: ["Call answered", "on the first ring"],
+        doodle: "phone",
         position: "left-[7%] top-[11%]",
         rotate: "-rotate-6",
         speed: 0.7,
       },
       {
         color: "#F2C4FF",
-        lines: ["Missed call?", "Texted back in minutes"],
-        doodle: "phone",
+        lines: ["Chat resolved,", "or handed to a person"],
+        doodle: "browser",
         position: "right-[7%] top-[12%]",
         rotate: "rotate-5",
         speed: 1.2,
       },
       {
         color: "#FFBA7B",
-        lines: ["Quote follow-up", "day 1, 3 and 7"],
+        lines: ["Lead qualified", "and booked in seconds"],
         doodle: "calendar",
         position: "left-[11%] bottom-[11%]",
         rotate: "rotate-3",
@@ -82,7 +83,7 @@ export const home = {
       },
       {
         color: "#A8E6B8",
-        lines: ["Job booked.", "Review asked for you"],
+        lines: ["Ticket closed.", "Survey sent for you"],
         doodle: "star",
         position: "right-[9%] bottom-[9%]",
         rotate: "-rotate-4",
@@ -91,12 +92,12 @@ export const home = {
     ] as { color: string; lines: string[]; doodle: "browser" | "phone" | "calendar" | "star"; position: string; rotate: string; speed: number }[],
   },
 
-  /** Heading plus a single centered voice demo blob. */
+  /** Heading plus a single centered voice demo blob: where AI agents meet human judgment. */
   voice: {
     heading: {
-      eyebrow: "Day to day",
-      title: "Hear a voice agent in action",
-      body: "This is the same voice agent service we build into a live phone line: it answers, qualifies and books.",
+      eyebrow: "AI plus people",
+      title: "Where AI agents meet human judgment",
+      body: "AI agents take the volume: answering, qualifying, booking and following up, day and night. People take the moments that need a human, with the whole conversation already in front of them.",
     } as SectionHeading,
     src: "/brand/blob-animation.mp4",
     poster: "/brand/blob-poster.jpg",
@@ -108,10 +109,10 @@ export const home = {
   integrations: {
     heading: {
       eyebrow: "Works with your stack",
-      title: "Plugs into the CRM you already run",
-      body: "No rip and replace. We wire the new automation into the tools you already use instead of asking you to switch.",
+      title: "Plugs into the CRM and helpdesk you already run",
+      body: "We connect AI agents and automation to the tools your team already uses: CRMs, helpdesks, phone lines and calendars. No rip and replace.",
     } as SectionHeading,
-    cta: { label: "See all integrations", href: "/services#integrations" } as Cta,
+    cta: { label: "See our technology", href: "/technology" } as Cta,
     logos: [
       { name: "GoHighLevel", src: "/brand/logo-ghl.png" },
       { name: "Jobber", src: "/brand/logo-jobber.png" },
@@ -120,25 +121,9 @@ export const home = {
     ],
   },
 
-  /** Plain icon-list capability grid, Feature06. */
-  capabilitiesGrid: {
-    heading: {
-      eyebrow: "Why it works",
-      title: "Everything a slow website is costing you, fixed",
-    } as SectionHeading,
-    items: [
-      { icon: "Zap", title: "Launched in weeks, not months", body: "A scoped build with a real deadline, not an open-ended project that drags on." },
-      { icon: "Smartphone", title: "Mobile-first, built to convert", body: "Fast enough to hold a job-site visitor's attention long enough to request a quote." },
-      { icon: "Workflow", title: "Automation wired into what you use", body: "Lead routing, follow-up and scheduling connected to your existing CRM and calendar." },
-      { icon: "Mic", title: "A voice agent that never misses a call", body: "Answers, qualifies and books jobs after hours, when the phone would otherwise go to voicemail." },
-      { icon: "Plug", title: "Connected, not another silo", body: "Built to fit the tools you already run, from Jobber and ServiceTitan to Stripe and Google Calendar." },
-      { icon: "Users", title: "Built and supported by the same people", body: "The person who built it is the person who answers when something needs to change." },
-    ] as Feature[],
-  },
-
-  /** Full bleed brand-colour band, Quote01. */
+  /** Full bleed brand-colour band, Quote01: the about statement. */
   quote: {
-    text: "Every claim on this site is something we can show you running, not just tell you about.",
+    text: "We run customer operations the way we build software: every step tracked, every call answered, and every claim something we can show you running.",
     author: "Growtk",
   },
 
@@ -208,155 +193,125 @@ export const home = {
     cta: { label: "See all industries", href: "/industries" } as Cta,
   },
 
-  /** Tabbed capabilities: Feature05. Six services, same order and names as content/services.ts. */
+  /** Tabbed solutions: Feature05. The four systems Growtk builds, same order and slugs as content/solutions.ts. */
   capabilities: {
     heading: {
-      eyebrow: "What we build",
-      title: "Six services, wired together, not six separate vendors",
-      body: "Start with one and add the rest once you see it working, or bring us in for all six from day one.",
+      eyebrow: "Our solutions",
+      title: "Four systems we build into your operation",
+      body: "Off the shelf tools rarely fit how a team actually works. We build these four around your channels, your CRM and your data, and run them for you if you want us to.",
     } as SectionHeading,
     items: [
       {
-        icon: "LayoutTemplate",
-        tab: "Website redesign",
-        title: "A site built to turn visits into calls, not just page views",
-        meta: "Launch, from $3,500",
-        body: "We replace outdated or DIY sites with a fast, mobile-first site built around the one thing that matters: turning a visitor into a quote request or a booked job.",
+        icon: "BookOpen",
+        tab: "Knowledge base",
+        title: "Answers customers find themselves, and agents find instantly",
+        meta: "Self service",
+        body: "A searchable help center for your customers and an internal knowledge base for your AI and human agents, written from your real tickets so the answers match the questions people actually ask.",
         image: {
-          src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-          alt: "A laptop on a desk showing code beside a second monitor displaying a website",
+          src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+          alt: "Two people pointing at an article on a laptop screen",
         },
         bullets: [
-          "Built and launched in weeks, not months",
-          "Mobile-first, fast enough to keep a job-site visitor from bouncing",
-          "Written and structured to actually rank for your services and area",
+          "Public help center with search",
+          "The same answers power your AI agents",
+          "Gaps flagged from questions it could not answer",
         ],
-        cta: { label: "See website redesign", href: "/services#website-redesign" },
+        cta: { label: "See knowledge base system", href: "/solutions/knowledge-base-system" },
       },
       {
-        icon: "TrendingUp",
-        tab: "SEO and content",
-        title: "Get found, then convert once you are",
-        meta: "Included in every build",
-        body: "Technical SEO, local SEO and content written to rank for your services and service area, all connected to a widget or voice agent so the traffic it earns actually turns into a call.",
+        icon: "LifeBuoy",
+        tab: "Helpdesk",
+        title: "One queue for every call, chat, email and message",
+        meta: "Ticketing",
+        body: "Every request becomes a ticket, routed by topic and priority, tracked against a response time, and resolved without anything slipping through, whether an AI agent or a person picks it up.",
         image: {
-          src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-          alt: "A laptop on a dark desk displaying a traffic and analytics dashboard",
+          src: "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?auto=format&fit=crop&w=1200&q=80",
+          alt: "A laptop on an office desk next to a desk phone",
         },
         bullets: [
-          "Technical SEO: fast Core Web Vitals, structured data, clean sitemaps",
-          "Local SEO: Google Business Profile and service-area pages",
-          "Content written to rank, not filler",
+          "Calls, chats, email and social in one queue",
+          "Routing and response targets by topic and priority",
+          "AI drafts the reply, a person approves when it matters",
         ],
-        cta: { label: "See SEO and content", href: "/services#seo" },
+        cta: { label: "See helpdesk system", href: "/solutions/help-desk-software" },
       },
       {
-        icon: "Blocks",
-        tab: "Custom widgets",
-        title: "Tools built for your business, not a generic plugin",
-        meta: "Included in every build",
-        body: "Instant quote calculators, booking widgets, live chat and review displays, built for exactly how your business quotes and books work, not squeezed into a generic plugin.",
+        icon: "ClipboardCheck",
+        tab: "Quality management",
+        title: "Every conversation scored, not one in fifty",
+        meta: "Assurance",
+        body: "AI reviews every call and chat against your own scorecard, flags the conversations that need a coach, and shows trends by agent, topic and channel so quality stops being a guess.",
         image: {
-          src: "https://images.unsplash.com/photo-1554672408-730436b60dde?auto=format&fit=crop&w=1200&q=80",
-          alt: "A hand holding a phone showing a booking confirmation screen",
+          src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+          alt: "A laptop showing charts and metrics on an analytics dashboard",
         },
         bullets: [
-          "Instant quote or estimate calculators",
-          "Booking and scheduling widgets",
-          "Live chat and review display widgets",
+          "Scorecards built around your standards",
+          "AI scoring on every conversation",
+          "A coaching queue for the ones that need a human eye",
         ],
-        cta: { label: "See custom widgets", href: "/services#widgets" },
+        cta: { label: "See quality management system", href: "/solutions/quality-management-system" },
       },
       {
-        icon: "Workflow",
-        tab: "Workflow automation",
-        title: "The busywork between a lead and a booked job, automated",
-        meta: "Automate, from $1,200/mo",
-        body: "We build automations, using workflow tooling like n8n, that connect the tools you already run: lead routing, follow-up sequences, scheduling, invoicing and review requests, so nothing falls through the cracks.",
+        icon: "MessageSquareHeart",
+        tab: "Surveys",
+        title: "Feedback at every touchpoint, turned into action",
+        meta: "Voice of the customer",
+        body: "CSAT, NPS and post-call surveys sent by text, email or chat at the right moment, with low scores routed to a person the same day and results rolled up into decisions.",
         image: {
-          src: "https://images.unsplash.com/photo-1591381287254-b3349c60bf9b?auto=format&fit=crop&w=1200&q=80",
-          alt: "A laptop screen showing a node-based workflow automation diagram",
+          src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
+          alt: "A person holding a phone with a chat open beside a laptop",
         },
         bullets: [
-          "Lead routing and instant follow-up",
-          "Scheduling, invoicing and review requests on autopilot",
-          "Built to fit the tools you already use, not replace them",
+          "CSAT, NPS and custom surveys",
+          "Sent after calls, chats, deliveries or visits",
+          "Low scores alert a manager right away",
         ],
-        cta: { label: "See workflow automation", href: "/services#automation" },
-      },
-      {
-        icon: "Mic",
-        tab: "Voice agents",
-        title: "A voice on the phone that never misses a call",
-        meta: "Automate, from $1,200/mo",
-        body: "AI voice agents that answer calls, book jobs, qualify leads and run follow-up calls, so repetitive phone work stops eating a business owner's day, even after hours.",
-        image: {
-          src: "https://images.unsplash.com/photo-1553775282-20af80779df7?auto=format&fit=crop&w=1200&q=80",
-          alt: "A headset with a microphone resting on a desk beside a laptop",
-        },
-        bullets: [
-          "Answers and books jobs after hours and on weekends",
-          "Qualifies leads before they reach your team",
-          "Runs follow-up calls your team doesn't have time for",
-        ],
-        cta: { label: "See voice agents", href: "/services#voice-agents" },
-      },
-      {
-        icon: "Plug",
-        tab: "Integrations",
-        title: "Connected to almost any tool you already run",
-        meta: "Included in every build",
-        body: "CRMs, payments, scheduling, comms and lead ads, wired together so information moves on its own instead of getting copied between tabs by hand.",
-        image: {
-          src: "https://images.unsplash.com/photo-1667264501379-c1537934c7ab?auto=format&fit=crop&w=1200&q=80",
-          alt: "Four charging cable connectors bundled together against a blue background",
-        },
-        bullets: [
-          "CRMs like Jobber, ServiceTitan and HubSpot",
-          "Payments, scheduling and calendar tools",
-          "Forms, lead ads and comms platforms",
-        ],
-        cta: { label: "See integrations", href: "/services#integrations" },
+        cta: { label: "See survey software", href: "/solutions/survey-software" },
       },
     ] as TabItem[],
   },
 
-  /** How we work, numbered cards: Feature07. */
+  /** What we do, numbered cards: Feature07. Four featured services; all thirteen live on /services. */
   process: {
     heading: {
-      eyebrow: "How we work",
-      title: "From audit call to live automation",
-      body: "The same four steps whether it's a website, a voice agent, or all six services together.",
+      eyebrow: "What we do",
+      title: "Outsourcing that scales with your business",
+      body: "From the first customer call to a qualified pipeline, our AI agents and specialists plug into your operation and deliver results without the overhead of building it in house.",
     } as SectionHeading,
-    cta: { label: "Book a free audit call", href: "/contact" } as Cta,
+    cta: { label: "See all services", href: "/services" } as Cta,
     items: [
       {
-        title: "Audit",
-        body: "A free call to map out where your site and back office are actually costing you jobs and hours.",
+        title: "Inbound contact center",
+        body: "Every call, chat and email answered fast and resolved right, day or night, with a person on hand for anything an AI should not handle.",
+        href: "/services/inbound-contact-center",
         image: {
           src: "/brand/process-audit.webp",
           alt: "Soft yellow to peach gradient wash",
         },
       },
       {
-        title: "Scope",
-        body: "A clear, written plan: what gets built, what it connects to, and what it costs, before anything starts.",
+        title: "Technical support",
+        body: "Tier 1 troubleshooting from your knowledge base, clean handoffs to your engineers for the rest, and a backlog that stops growing.",
+        href: "/services/technical-support",
         image: {
           src: "/brand/industry-5.webp",
           alt: "Soft neutral gradient wash",
         },
       },
       {
-        title: "Build and launch",
-        body: "Your site, widgets, automations or voice agent, built and launched in weeks, not months.",
+        title: "E-commerce customer support",
+        body: "Order status, returns and pre-sale questions answered in seconds across chat, email and phone, so shoppers buy and come back.",
+        href: "/services/ecommerce-customer-support",
         image: {
           src: "/brand/industry-6.webp",
           alt: "Warm to cool gradient wash",
         },
       },
       {
-        title: "Optimize",
-        body: "We keep tuning what's live: more automation, better conversion, fewer manual steps, as your business grows.",
+        title: "Lead generation",
+        body: "Every inquiry captured, qualified and routed to the right rep in seconds, with follow-up that keeps going until the lead decides.",
+        href: "/services/lead-generation",
         image: {
           src: "/brand/industry-7.webp",
           alt: "Warm sunset gradient wash",
@@ -366,62 +321,63 @@ export const home = {
   },
 
   /**
-   * Testimonial09. Illustrative copy: no specific company is named or
-   * misrepresented as a verified client. Swap for real quotes as they come in.
+   * Testimonial09, used for outcomes, not testimonials: each line states what
+   * a real Growtk build does today, attributed to the project, not to a person.
+   * Swap in real client quotes as they come in.
    */
   testimonials: {
     heading: {
-      eyebrow: "What business owners say",
-      title: "The kind of thing we hear back after launch",
+      eyebrow: "Outcomes",
+      title: "What runs today for the businesses we built for",
     } as SectionHeading,
     items: [
       {
-        quote: "Our new site paid for itself in the first month just from quote requests that used to go to voicemail.",
-        name: "Roofing owner",
-        role: "Roofing contractor",
+        quote: "Every quote request now lands in GoHighLevel as a tracked lead, gets an email and a text within seconds, and goes to the next rep in line.",
+        name: "Ultra Modern Rails",
+        role: "Lead generation and sales support",
       },
       {
-        quote: "The voice agent books more inspections after hours than our front desk ever did during the day.",
-        name: "Office manager",
-        role: "Railing and fencing company",
+        quote: "Guests ask on WhatsApp, Instagram or email, and the AI front desk checks availability, books the trip and takes the payment.",
+        name: "Yetti",
+        role: "Inbound contact center",
       },
       {
-        quote: "Patients stopped playing phone tag with us for reminders. The automation just handles it now.",
-        name: "Practice manager",
-        role: "Healthcare front office",
+        quote: "Every sale takes its recipe out of stock, and low stock, drawer counts and the day's sales reach the owner on WhatsApp.",
+        name: "Jerry's",
+        role: "Back office automation",
       },
       {
-        quote: "They didn't just build a site, they wired it into everything we already use.",
-        name: "Business owner",
-        role: "Home services business",
+        quote: "A request from the clinic website becomes a lead on the board, gets an automated reply and books straight onto the calendar.",
+        name: "Dentavanta",
+        role: "Customer experience platform, pre-launch",
       },
     ] as Testimonial[],
   },
 
-  /** Full screen image band between testimonials and the FAQ, ImageStatement. */
+  /** Full screen image band, ImageStatement: why Growtk. */
   statement: {
-    eyebrow: "How we build",
-    title: "Every build starts with your business, not our template",
-    body: "We map how your leads actually move, by phone, by form, by walk-in, before we touch a single page, so what launches fits the way you already win jobs.",
-    secondaryBody: "That mapping happens on the free audit call, before anything is scoped or priced. It answers three questions.",
+    eyebrow: "Why Growtk",
+    title: "Scale without adding headcount",
+    body: "With the right mix of AI agents, automation and people, you handle more calls, more leads and more back office work without growing the team at the same rate.",
+    secondaryBody: "Every engagement starts with a free audit that answers three questions before anything is scoped or priced.",
     steps: [
       {
         icon: "visit",
-        title: "What visitors actually do",
-        body: "We walk your current site the way a customer does and note where they click, scroll and stop.",
+        title: "Where your volume comes from",
+        body: "We map every channel customers use to reach you, and how many calls, chats, emails and forms each one brings in.",
       },
       {
         icon: "leak",
-        title: "Where calls and forms go cold",
-        body: "We trace each lead path, phone, form or walk-in, to the exact step where people drop off.",
+        title: "Where customers wait or drop off",
+        body: "We trace each request to the exact step where it waits too long, gets dropped or needs a person who is not there.",
       },
       {
         icon: "fix",
-        title: "The one fix to make first",
-        body: "You leave the call knowing which single change would move the needle most, before any price is set.",
+        title: "What to automate first",
+        body: "You leave knowing which single change would free the most hours and save the most revenue, before any price is set.",
       },
     ] as StatementStep[],
-    cta: { label: "See how we work", href: "/services" } as Cta,
+    cta: { label: "Why Growtk", href: "/why-growtk" } as Cta,
     image: {
       src: "/brand/8.jpg",
       alt: "Warm abstract gradient of coral, amber and violet light streaks",
@@ -432,28 +388,28 @@ export const home = {
   faq: {
     heading: {
       eyebrow: "Before you book",
-      title: "What business owners ask us first",
+      title: "What teams ask us first",
     } as SectionHeading,
     items: [
       {
-        q: "How long does a new website take?",
-        a: "Most Launch projects go from kickoff to live in three to six weeks depending on scope. You get an exact timeline after the free audit call, not a guess.",
+        q: "Do you use real people, or only AI?",
+        a: "Both. AI agents answer, qualify and resolve the routine work around the clock. Anything an AI should not handle goes to a person with the full conversation attached, on the escalation path you choose.",
       },
       {
-        q: "Do you work with businesses outside these nine industries?",
-        a: "Those are the industries we've built a dedicated playbook for so far, but the same website, SEO, widget and automation work applies to most local service businesses. Tell us about yours on the audit call.",
+        q: "Which channels can you cover?",
+        a: "Phone, text, live chat, email, WhatsApp and social messages. Most teams start with the channel that carries the most volume and add the rest once it is running.",
       },
       {
-        q: "What tools do you integrate with?",
-        a: "Most CRMs, scheduling tools, payment processors and lead ad platforms a service business already runs, including tools like Jobber, ServiceTitan, HubSpot, Stripe and Google Calendar. If you use something specific, ask us directly.",
+        q: "Will it work with our CRM and helpdesk?",
+        a: "Yes. We work inside the tools you already run, including GoHighLevel, HubSpot and Salesforce, and connect phone lines, calendars and payments to them. If you use something specific, ask us directly.",
       },
       {
-        q: "Can a voice agent actually book a real job?",
-        a: "Yes. It can qualify a caller, check availability against your real calendar, and book the job or hand it off, then a real person picks up from there.",
+        q: "How fast can we go live?",
+        a: "A first channel is usually live in weeks, not months. The exact timeline is set on the free audit call and written into the proposal before any work starts.",
       },
       {
-        q: "Do I have to buy everything at once?",
-        a: "No. Most businesses start with Launch or Automate and add the rest once they see it working.",
+        q: "How do you keep customer data safe?",
+        a: "Customer data stays in your own systems wherever possible, access is limited by role, and every automated action is logged. Our security page covers how we build.",
       },
     ] as FaqItem[],
     cta: { label: "Ask us anything", href: "/contact" } as Cta,
@@ -462,11 +418,11 @@ export const home = {
   /** Closing CTA, Cta12 (full bleed photo, dark scrim). */
   cta: {
     heading: {
-      eyebrow: "Free audit call",
-      title: "See exactly where your site and back office are costing you jobs",
-      body: "Thirty minutes. We will show you what we would build first and what it costs, no obligation.",
-    } as SectionHeading,
-    primary: { label: "Book your free audit call", href: "/contact" } as Cta,
+      eyebrow: "Free audit",
+      title: "See where your customer operations are losing time and revenue",
+      body: "Thirty minutes. We map your channels and volume and show you what we would automate first, no obligation.",
+    },
+    primary: { label: "Book your free audit", href: "/contact" } as Cta,
     image: {
       src: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1920&q=80",
       alt: "Two people working at laptops in a modern office, photographed in black and white",

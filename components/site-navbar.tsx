@@ -109,31 +109,49 @@ export function SiteNavbar() {
                   <ChevronDown aria-hidden className="size-3.5 transition-transform duration-200 group-hover/nav:rotate-180" />
                 </Link>
                 <div
-                  className="invisible absolute top-full left-1/2 z-50 w-[40rem] -translate-x-1/2 pt-3 opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
+                  className={cn("invisible absolute top-full left-1/2 z-50 -translate-x-1/2 pt-3", item.menu === "list" && item.children.length <= 6 ? "w-[30rem]" : "w-[44rem]", " opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100")}
                 >
                   <div className="rounded-2xl border border-black/6 bg-card p-4 shadow-xl">
-                    <ul className="grid grid-cols-3 gap-2">
-                      {item.children.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            className="group/item flex cursor-pointer flex-col items-start gap-2 rounded-xl p-2 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                          >
-                            <IndustryThumb
+                    {item.menu === "list" ? (
+                      <ul className="grid grid-cols-2 gap-1 lg:grid-cols-3">
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
                               href={child.href}
-                              live={menu === item.label}
-                              className="transition-transform duration-200 ease-out group-hover/item:scale-[1.03]"
-                            />
-                            <span className="px-1">{child.label}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                              className="group/item flex cursor-pointer items-center gap-3 rounded-xl p-2 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            >
+                              <span className="grid size-9 shrink-0 place-items-center rounded-xl text-[#26262a] transition-transform duration-200 ease-out group-hover/item:scale-105" style={{ backgroundImage: toneGradient(themeFor(child.href).tone) }}>
+                                {child.icon ? <Icon name={child.icon} className="size-4" /> : null}
+                              </span>
+                              <span className="leading-snug">{child.label}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <ul className="grid grid-cols-3 gap-2">
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              className="group/item flex cursor-pointer flex-col items-start gap-2 rounded-xl p-2 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            >
+                              <IndustryThumb
+                                href={child.href}
+                                live={menu === item.label}
+                                className="transition-transform duration-200 ease-out group-hover/item:scale-[1.03]"
+                              />
+                              <span className="px-1">{child.label}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     <Link
                       href={item.href}
                       className="mt-2 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition-colors duration-150 hover:bg-accent"
                     >
-                      See all industries
+                      {item.seeAll ?? `See all ${item.label.toLowerCase()}`}
                       <ArrowRight aria-hidden className="size-4" />
                     </Link>
                   </div>

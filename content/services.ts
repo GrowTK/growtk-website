@@ -1,17 +1,16 @@
 /**
- * Services page copy. Growtk is a service agency, not a SaaS product: it
- * redesigns outdated websites and builds custom software for small and
- * mid-size trade and service businesses. Six services, always in this
- * order, always with these anchor ids so the footer's /services#<id> links
- * actually land on the right section.
+ * Services hub copy (/services). Thirteen services in four groups, each with
+ * its own page under /services/<slug> (content/service-pages.ts). Growtk
+ * delivers them AI first: AI agents and automation do the work around the
+ * clock, and a person steps in on escalation.
  *
  * No em dashes or en dashes. No invented stats or client counts.
  */
 import type { PageContent, Cta, Img, SectionHeading, Step, FaqItem } from "./types";
 
-/** One of the six service sections rendered by ServicesList. */
+/** Row shape for the ServiceRows / ServicesList components (kept for the section library; the hub no longer uses them). */
 export type ServiceItem = {
-  id: "website-redesign" | "seo" | "widgets" | "automation" | "voice-agents" | "integrations";
+  id: string;
   eyebrow: string;
   title: string;
   body: string;
@@ -23,207 +22,97 @@ export const services = {
   meta: {
     title: "Services",
     description:
-      "Growtk builds website redesigns, custom widgets, workflow automation, voice agents and integrations for trade and service businesses, so more visitors and calls turn into booked jobs.",
+      "Thirteen AI-first outsourcing services from Growtk: contact center, inbound and outbound, customer and technical support, e-commerce support, lead generation, telemarketing, sales support, back office, CX, workforce management and process reengineering.",
     path: "/services",
   },
 
   hero: {
-    eyebrow: "What we build",
-    title: "Software that turns visitors and phone calls into booked jobs",
-    body: "Growtk designs and builds the website, tools and automation that trade and service businesses run on day to day: a redesigned site, custom widgets, workflow automation, voice agents and integrations, each one built around how your business actually takes and closes work.",
-    ctas: [{ label: "Book a free audit call", href: "/contact", variant: "primary" }] as Cta[],
+    eyebrow: "Services",
+    title: "Outsourcing that scales with your business",
+    body: "From the first customer call to a qualified pipeline and a cleared back office, our AI agents plug into your operation and do the work around the clock, with a person stepping in whenever a human should. Pick one service or run them together.",
+    ctas: [{ label: "Book a free audit", href: "/contact", variant: "primary" }] as Cta[],
   },
+
+  /** One strip per group on the hub; the group copy itself lives in content/service-pages.ts. */
+  groupsEyebrow: "Service group",
 
   process: {
     heading: {
       eyebrow: "How we work",
       title: "Four steps, no guesswork",
-      body: "Every engagement starts with a free audit call and ends with something live you can point customers to, not a slide deck.",
+      body: "Every engagement starts with a free audit and ends with something live, answering real customers, not a slide deck.",
     } as SectionHeading,
     steps: [
       {
         n: 1,
         title: "Audit",
-        body: "We look at your current site, your phone and booking workflow, and the tools you already use, then map out exactly what would move the needle first.",
+        body: "We map your channels, your volume and the tools you already run, and find where requests wait, get dropped or need a person who is not there.",
       },
       {
         n: 2,
-        title: "Build",
-        body: "We design and build the site, widget, automation or voice agent, working in short rounds so you see real progress every week, not just at the end.",
+        title: "Design",
+        body: "A written plan: what the AI agents handle, what goes to a person and how, which systems they connect to, and what it costs.",
       },
       {
         n: 3,
         title: "Launch",
-        body: "We ship it, connect it to the tools you already run, and make sure it is actually live and taking leads, not sitting in a staging environment.",
+        body: "We build inside your own tools, test on real conversations and go live one channel at a time, so nothing breaks on day one.",
       },
       {
         n: 4,
-        title: "Optimize",
-        body: "We keep tuning it after launch: adjusting automation rules, voice agent scripts and the site itself as we see what is actually working.",
+        title: "Improve",
+        body: "We review conversations every week, tune scripts and rules, and add channels and services once the first one runs clean.",
       },
     ] as Step[],
-  },
-
-  /** The sticky row of anchor pills above the six services. */
-  jump: { label: "Jump to" },
-
-  /** Section intro above the six alternating service rows. */
-  list: {
-    heading: {
-      eyebrow: "Six services",
-      title: "Pick one, or let them work together",
-      body: "Each one stands on its own. Most clients start with one, then add the next once the first is already bringing in work.",
-    } as SectionHeading,
-    included: "What you get",
-    ask: "Ask about this",
   },
 
   industries: {
     heading: {
       eyebrow: "Built for your industry",
-      title: "Set up for the trade you actually run",
-      body: "The same six services, worked out for how each trade takes calls, quotes and books jobs.",
+      title: "Set up for the business you actually run",
+      body: "The same services, worked out for how each industry takes calls, quotes and bookings.",
     } as SectionHeading,
     cta: { label: "See all industries", href: "/industries" } as Cta,
   },
 
-  services: [
-    {
-      id: "website-redesign",
-      eyebrow: "01. Website redesign",
-      title: "Website redesign",
-      body: "If your site was built years ago, or built by whoever was cheapest, it is probably costing you jobs. We design and build modern, fast, mobile-first websites for trade and service businesses, built to turn visitors into calls and quote requests instead of just sitting there.",
-      bullets: [
-        "A design built around your services and service area, not a generic template",
-        "Fast load times and a mobile-first layout, since most calls start on a phone",
-        "Clear calls to action: request a quote, call now, or book a job",
-        "Launched in weeks, not months",
-      ],
-      image: {
-        src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-        alt: "A laptop displaying a website mockup on a busy workspace desk",
-      },
-    },
-    {
-      id: "seo",
-      eyebrow: "02. SEO and content",
-      title: "SEO and content",
-      body: "A redesigned site that does not rank is only half built. We handle the technical SEO (fast Core Web Vitals, clean structured data, a sitemap that actually gets crawled), the local SEO that gets a trade business into the map pack (Google Business Profile, citation consistency, service-area pages per city), and the content that ranks for what your customers actually search, not a generic blog post. Every page we write is built to convert the traffic it earns, not just attract it.",
-      bullets: [
-        "Technical SEO: fast load times, structured data, clean URLs and sitemaps",
-        "Local SEO: Google Business Profile, citations and service-area pages",
-        "Content written to rank for your services and service area, not filler",
-        "Every ranked page connects to a widget, form or voice agent that captures the lead",
-      ],
-      image: {
-        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-        alt: "A laptop on a dark desk displaying a traffic and analytics dashboard",
-      },
-    },
-    {
-      id: "widgets",
-      eyebrow: "03. Custom widgets",
-      title: "Custom widgets, led by Power Agent",
-      body: "Widgets are small, embeddable tools built for exactly what your business does. The flagship is Power Agent, Growtk's own chat widget: it holds a conversation using images and video, redirects a visitor straight to the right page or booking flow, sends an email inquiry on their behalf, reports live status on an existing job or project, and generates a QR code for a quote, a warranty registration or a review request. Alongside it we build instant quote calculators, booking widgets, review displays and service-area checkers, all built for exactly how your business quotes and books, not squeezed into a generic plugin.",
-      bullets: [
-        "Power Agent: images, video, internal redirects, email inquiries, live status and QR codes in one chat widget",
-        "Instant quote calculators built around your actual pricing",
-        "Booking widgets connected to your real calendar",
-        "Service-area checkers that stop unqualified leads before they call",
-      ],
-      image: {
-        src: "https://images.unsplash.com/photo-1617106400337-66e7d72a466e?auto=format&fit=crop&w=1200&q=80",
-        alt: "A person holding a phone with a booking and scheduling interface open",
-      },
-    },
-    {
-      id: "automation",
-      eyebrow: "04. Workflow automation",
-      title: "Workflow automation",
-      body: "We build the automation that connects the tools you already run, using n8n-style workflow tooling, comparable to what Zapier or Make do, but built and maintained by us for your specific business. We build the automation. We are not asking you to become a workflow engineer.",
-      bullets: [
-        "Lead routing, so a new lead reaches the right person immediately",
-        "Follow-up sequences that fire automatically after a quote or a missed call",
-        "Scheduling, invoicing and review request automations",
-        "CRM syncing so your systems agree with each other",
-      ],
-      image: {
-        src: "https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1200&q=80",
-        alt: "A person writing out a workflow plan on a whiteboard during a planning session",
-      },
-    },
-    {
-      id: "voice-agents",
-      eyebrow: "05. Voice agents",
-      title: "Voice agents",
-      body: "AI voice agents answer calls, book jobs, qualify leads and run follow-up calls, so repetitive phone work stops eating your day. A voice agent picks up when your team can't, asks the right questions, and gets the job on your calendar, linked to your real-time booking workflow. When a call needs a real person, it escalates and forwards the call instead of guessing.",
-      bullets: [
-        "Answers incoming calls day and night, not just business hours",
-        "Books jobs directly onto your calendar in real time",
-        "Qualifies leads before a human ever picks up the phone",
-        "Escalates and forwards the call to your team when it should not handle something alone",
-      ],
-      image: {
-        src: "https://images.unsplash.com/photo-1712159018726-4564d92f3ec2?auto=format&fit=crop&w=1200&q=80",
-        alt: "A man wearing a headset while working at a computer, handling a call",
-      },
-    },
-    {
-      id: "integrations",
-      eyebrow: "06. Integrations",
-      title: "Integrations",
-      body: "We connect with almost any tool your business already uses: CRMs like Jobber, ServiceTitan or HubSpot, payments through Stripe, scheduling through Calendly, communication through Twilio, WhatsApp, email and SMS, forms, Google and Meta lead ads, QuickBooks, and Google Calendar or Workspace. If you already have tools you like, we connect to them rather than asking you to replace them.",
-      bullets: [
-        "CRM connections: Jobber, ServiceTitan, HubSpot and more",
-        "Payments and scheduling: Stripe, Calendly",
-        "Communication: Twilio, WhatsApp, email and SMS",
-        "Lead capture and accounting: Google and Meta lead ads, QuickBooks",
-      ],
-      image: {
-        src: "https://images.unsplash.com/photo-1667264501379-c1537934c7ab?auto=format&fit=crop&w=1200&q=80",
-        alt: "Four charging cable connectors bundled together against a blue background",
-      },
-    },
-  ] as ServiceItem[],
-
   faq: {
     heading: {
       eyebrow: "Before you book",
-      title: "What people ask before they call",
-      body: "Scope, timing and cost, answered plainly. Anything else, ask us on the audit call.",
+      title: "What teams ask before they outsource",
+      body: "Scope, timing, people and data, answered plainly. Anything else, ask us on the audit call.",
     } as SectionHeading,
     items: [
       {
-        q: "Do I need all six services?",
-        a: "No. Most clients start with one, usually a website redesign or a voice agent, and add the others once the first one is working. The Grow tier bundles all of them together for businesses that want the full build at once.",
+        q: "Do I need more than one service?",
+        a: "No. Most teams start with the service that carries the most volume, usually inbound support or lead response, and add the next once the first is running clean.",
       },
       {
-        q: "How long does a project take?",
-        a: "A website redesign typically launches in weeks, not months. Automation and voice agent builds vary depending on how many tools and workflows are involved. We will give you a real timeline on the audit call.",
+        q: "Who handles what the AI cannot?",
+        a: "A person, on the escalation path you choose: your own team, a specific role, or an on-call rota. Every handoff arrives with a summary and the full conversation.",
       },
       {
         q: "Will this replace the tools we already use?",
-        a: "Usually not. Most of what we build connects to the CRM, calendar and payment tools you already run, rather than asking you to switch to something new.",
+        a: "Usually not. We build inside the CRM, helpdesk, phone line and calendar you already run, and only build new systems where you do not have one.",
       },
       {
-        q: "Do you work outside the industries on your site?",
-        a: "The trades on our industries page are where we work most today, and we are adding more over time. If your business is not listed, get in touch and we will tell you honestly whether it is a good fit.",
+        q: "How long until we are live?",
+        a: "A first channel is usually live in weeks, not months. The timeline is set on the free audit call and written into the proposal before work starts.",
       },
       {
         q: "What does it cost?",
-        a: "It depends on scope. Website redesigns start at a fixed price, and automation or voice agent work is typically ongoing. Book a free audit call and we will give you a real number, not a guess.",
+        a: "It depends on the services, channels and volume. Book a free audit and we will give you a real number in a written proposal, not a guess.",
       },
     ] as FaqItem[],
-    cta: { label: "Book a free audit call", href: "/contact" } as Cta,
+    cta: { label: "Book a free audit", href: "/contact" } as Cta,
   },
 
   cta: {
     heading: {
-      eyebrow: "Ready to start",
-      title: "Tell us what's slowing your business down",
-      body: "Book a free audit call and we will tell you exactly which service would move the needle first.",
+      eyebrow: "Not sure which service fits?",
+      title: "Tell us where your team is stretched",
+      body: "Book a free audit and we will tell you which service would take the most work off your plate first.",
     } as SectionHeading,
-    primary: { label: "Book a free audit call", href: "/contact" } as Cta,
+    primary: { label: "Book a free audit", href: "/contact" } as Cta,
   },
 } satisfies PageContent & Record<string, unknown>;
 

@@ -49,9 +49,9 @@ export default function IndustriesPage() {
         eyebrow="See what we build"
         links={[
           { label: "All services", href: "/services" },
-          { label: "Website redesign", href: "/services#website-redesign" },
-          { label: "Automation", href: "/services#automation" },
-          { label: "Voice agents", href: "/services#voice-agents" },
+          { label: "Inbound contact center", href: "/services/inbound-contact-center" },
+          { label: "Lead generation", href: "/services/lead-generation" },
+          { label: "Back office support", href: "/services/back-office-support" },
         ]}
       />
 

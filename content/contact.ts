@@ -9,7 +9,7 @@ export const contact = {
   meta: {
     title: "Contact Growtk",
     description:
-      "Tell Growtk about your business and what you want redesigned or automated. We reply directly within one business day, no automated sequence.",
+      "Tell Growtk about your customer operations and what you want AI agents to take on. We reply directly within one business day, no automated sequence.",
     path: "/contact",
   },
 
@@ -32,8 +32,8 @@ export const contact = {
     title: "Start with the basics",
     servicesLabel: "What do you need help with?",
     notSure: "Not sure yet",
-    tradeLabel: "Your trade",
-    tradePlaceholder: "Pick your trade",
+    tradeLabel: "Your industry",
+    tradePlaceholder: "Pick your industry",
     tradeOther: "Something else",
     phoneLabel: "Phone (optional)",
     phonePlaceholder: "(555) 010-0199",
@@ -88,11 +88,11 @@ export const contact = {
     items: [
       {
         q: "Do I need to know exactly what I want?",
-        a: "No. Tell us what is eating your time or losing you jobs, and we will work out on the audit call which of the six services, if any, would actually fix it.",
+        a: "No. Tell us where your team is stretched or customers are waiting, and we will work out on the audit call which services, if any, would actually fix it.",
       },
       {
         q: "Is the audit call really free?",
-        a: "Yes. It is a conversation about your current site, calls and tools, and what we would fix first. You are not signing anything on it.",
+        a: "Yes. It is a conversation about your channels, volume and tools, and what we would automate first. You are not signing anything on it.",
       },
       {
         q: "What if my business is not a good fit?",

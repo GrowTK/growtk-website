@@ -16,6 +16,7 @@ import { SalesScreen } from "./screen-sales";
 import { StockScreen } from "./screen-stock";
 import { DrawerScreen } from "./screen-drawer";
 import { AutomationsScreen } from "./screen-automations";
+import { BrandSlide, WebsiteSlide } from "./showcase-slides";
 
 const MODULE_ICONS: Record<string, LucideIcon> = { Printer, ChefHat, Truck, Wallet, Award, LayoutGrid, Shield, ListChecks };
 
@@ -97,7 +98,7 @@ function PlatformSlide({ project }: { project: Project }) {
             <h3 className="mt-6 font-display text-2xl leading-tight font-bold">{featured!.title}</h3>
             <p className="mt-3 text-[15px] leading-relaxed text-white">{featured!.body}</p>
             <div className="relative mt-auto -mx-6 -mb-6 h-40 overflow-hidden">
-              <Image src="/ingested/jerrys/counter.jpg" alt="A bright restaurant floor with a counter, pendant lights and wooden tables" fill sizes="20rem" quality={70} className="object-cover" />
+              <Image src={jerrysDeck.brand.hero.src} alt={jerrysDeck.brand.hero.alt} fill sizes="20rem" quality={70} className="object-cover" />
             </div>
           </div>
           {rest.map((m, i) => {
@@ -156,7 +157,7 @@ function ClosingSlide({ project }: { project: Project }) {
   );
 }
 
-/** Every Jerry's slide after the cover. The five product slides share one live app frame (group "app"). */
+/** Every Jerry's slide after the cover. The five product slides share one live app frame (group "app"); the website and brand slides follow. */
 export function jerrysSlides(project: Project): DeckSlide[] {
   const s = jerrysDeck.slides;
   return [
@@ -173,6 +174,8 @@ export function jerrysSlides(project: Project): DeckSlide[] {
         ),
       }),
     ),
+    { ...s.website, tone: "brand", render: () => <WebsiteSlide project={project} /> },
+    { ...s.brand, tone: "brand", surface: "light", duration: 14000, render: () => <BrandSlide project={project} /> },
     { ...s.platform, tone: "brand", surface: "light", render: () => <PlatformSlide project={project} /> },
     { ...s.closing, tone: "brand", render: () => <ClosingSlide project={project} /> },
   ];

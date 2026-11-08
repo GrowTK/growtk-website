@@ -5,15 +5,25 @@ import { ViewTransition } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, LayoutList } from "lucide-react";
+import { ArrowLeft, ArrowRight, LayoutList, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/content/types";
 import { corvinnCover, corvinnSlides, CorvinnProvider } from "./corvinn/corvinn-deck";
 import { yettiCover, yettiSlides, YettiProvider } from "./yetti/yetti-deck";
 import { jerrysCover, jerrysSlides, JerrysProvider } from "./jerrys/jerrys-deck";
+import { umrCover, umrSlides, UmrProvider } from "./umr/umr-deck";
+import { autotalentCover, autotalentSlides, AutotalentProvider } from "./autotalent/autotalent-deck";
+import { dentavantaCover, dentavantaSlides, DentavantaProvider } from "./dentavanta/dentavanta-deck";
 import { ContentsDrawer } from "./contents-drawer";
 
-export type DeckApi = { go: (id: string) => void };
+export type DeckApi = {
+  go: (id: string) => void;
+  /** Move by a number of slides (clamped), for keys pressed inside an embedded deck. */
+  step: (delta: number) => void;
+  /** Whether autoplay is running, and a way to stop it once the viewer starts exploring. */
+  autoplay: boolean;
+  pause: () => void;
+};
 
 /**
  * One slide in a project deck. `tone` drives the nav styling: "brand" slides
@@ -34,6 +44,8 @@ export type DeckSlide = {
   /** "light" when the slide's own background is white, so the glass nav buttons switch to dark. */
   surface?: "light";
   group?: string;
+  /** Autoplay time on this slide in ms. 0 stops autoplay here. Defaults by tone, see AUTOPLAY_MS. */
+  duration?: number;
   render: (api: DeckApi) => React.ReactNode;
 };
 
@@ -45,7 +57,13 @@ const DECKS: Record<
   corvinn: { slides: corvinnSlides, Provider: CorvinnProvider, cover: corvinnCover },
   yetti: { slides: yettiSlides, Provider: YettiProvider, cover: yettiCover },
   jerrys: { slides: jerrysSlides, Provider: JerrysProvider, cover: jerrysCover },
+  umr: { slides: umrSlides, Provider: UmrProvider, cover: umrCover },
+  autotalent: { slides: autotalentSlides, Provider: AutotalentProvider, cover: autotalentCover },
+  dentavanta: { slides: dentavantaSlides, Provider: DentavantaProvider, cover: dentavantaCover },
 };
+
+/** Default autoplay time per slide when a slide sets no `duration`. App slides get longer, there is more to watch. */
+const AUTOPLAY_MS = { cover: 6000, brand: 10000, app: 15000 };
 
 function PassThrough({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
@@ -125,6 +143,28 @@ function ChromeArrow({ onClick, disabled, label, children }: { onClick: () => vo
   );
 }
 
+/** Play or pause autoplay. `glass` is the round mobile variant that sits beside the menu button. */
+function AutoplayButton({ on, onToggle, accent, glass, dark }: { on: boolean; onToggle: () => void; accent: string; glass?: boolean; dark?: boolean }) {
+  const Icon = on ? Pause : Play;
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={on ? "Pause autoplay" : "Play autoplay"}
+      aria-pressed={on}
+      className={cn(
+        "flex cursor-pointer items-center justify-center rounded-full transition focus-visible:outline-none focus-visible:ring-2",
+        glass
+          ? cn("size-10 border backdrop-blur-md focus-visible:ring-white", dark ? "border-black/10 bg-black/70 text-white" : "border-white/30 bg-white/20 text-white")
+          : "size-8 hover:bg-accent focus-visible:ring-ring",
+      )}
+      style={!glass && on ? { color: accent } : undefined}
+    >
+      <Icon aria-hidden className={glass ? "size-4" : "size-3.5"} fill="currentColor" strokeWidth={0} />
+    </button>
+  );
+}
+
 function isTyping(target: EventTarget | null) {
   const el = target as HTMLElement | null;
   return !!el && (el.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName) || !!el.closest("[role=menu],[role=dialog]"));
@@ -180,6 +220,40 @@ export function ProjectSlides({ project }: { project: Project }) {
   );
   const goId = React.useCallback((id: string) => goTo(slides.findIndex((s) => s.id === id)), [goTo, slides]);
 
+  // Autoplay: each slide runs for its duration, shown as a progress bar along the top of the window.
+  // Clicking or dragging inside a slide means the viewer is exploring, so it pauses.
+  const [autoplay, setAutoplay] = React.useState(true);
+  const pause = React.useCallback(() => setAutoplay(false), []);
+  const step = React.useCallback((delta: number) => setIndex((current) => {
+    const next = Math.max(0, Math.min(last, current + delta));
+    if (next !== current) setDirection(next > current ? 1 : -1);
+    return next;
+  }), [last]);
+  const duration = index === last ? 0 : (slide.duration ?? (index === 0 ? AUTOPLAY_MS.cover : AUTOPLAY_MS[slide.tone]));
+  const fillRef = React.useRef<HTMLSpanElement>(null);
+  const elapsed = React.useRef(0);
+  React.useEffect(() => {
+    elapsed.current = 0;
+  }, [index]);
+  React.useEffect(() => {
+    let raf = 0;
+    let prev = performance.now();
+    const tick = (now: number) => {
+      // Capped so a background tab or a long frame never skips a slide.
+      if (autoplay && duration && !contentsOpen && !document.hidden) elapsed.current += Math.min(100, now - prev);
+      prev = now;
+      if (fillRef.current) fillRef.current.style.width = duration ? `${Math.min(100, (elapsed.current / duration) * 100)}%` : "0%";
+      if (autoplay && duration && elapsed.current >= duration) {
+        elapsed.current = 0;
+        goTo(index + 1);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [autoplay, duration, contentsOpen, goTo, index]);
+  const api = React.useMemo<DeckApi>(() => ({ go: goId, step, autoplay, pause }), [goId, step, autoplay, pause]);
+
   // Deep links: /work/corvinn#dispatch opens straight on that slide.
   React.useEffect(() => {
     const fromHash = () => {
@@ -218,6 +292,19 @@ export function ProjectSlides({ project }: { project: Project }) {
   return (
     <Provider>
       <div className="flex h-dvh flex-col bg-background p-0 sm:px-3 sm:pt-4 sm:pb-3">
+        {/* Autoplay progress along the very top, in the project's colour. Grey while paused, hidden on the last slide. */}
+        <div
+          aria-hidden
+          className={cn("fixed inset-x-0 top-0 z-[60] h-1 transition-opacity duration-300", !duration && "opacity-0")}
+          style={{ backgroundColor: `${project.accentHex}1f` }}
+        >
+          <span
+            ref={fillRef}
+            className="block h-full w-0 transition-colors duration-300"
+            style={autoplay ? { backgroundColor: project.accentHex, boxShadow: `0 0 10px ${project.accentHex}8c` } : { backgroundColor: "var(--muted-foreground)" }}
+          />
+        </div>
+
         {/* Desktop chrome row, lives in the white gap above the card. */}
         <div className="hidden shrink-0 items-center gap-6 px-3 pb-3 sm:flex">
           <div className="flex flex-1 items-center">
@@ -235,6 +322,7 @@ export function ProjectSlides({ project }: { project: Project }) {
               <ChromeArrow label="Previous slide" onClick={() => goTo(index - 1)} disabled={index === 0}>
                 <ArrowLeft aria-hidden className="size-4" />
               </ChromeArrow>
+              <AutoplayButton on={autoplay} onToggle={() => setAutoplay((on) => !on)} accent={project.accentHex} />
               {/* Contents: opens the slide drawer. Counter plus a progress track. */}
               <button
                 type="button"
@@ -282,9 +370,17 @@ export function ProjectSlides({ project }: { project: Project }) {
         >
           <LayoutList aria-hidden className="size-5" />
         </button>
+        <div className="absolute top-3 left-15 z-40 sm:hidden">
+          <AutoplayButton glass dark={isApp} on={autoplay} onToggle={() => setAutoplay((on) => !on)} accent={project.accentHex} />
+        </div>
 
         <ViewTransition name={`project-${project.slug}`} share="morph" default="none">
-          <div className={cn("relative flex flex-1 overflow-hidden rounded-none sm:rounded-3xl", slide.surface === "light" ? "bg-background" : project.thumbnailClassName)}>
+          <div
+            onPointerDownCapture={(e) => {
+              if (e.isTrusted && !(e.target as HTMLElement).closest("[data-deck-nav]")) pause();
+            }}
+            className={cn("relative flex flex-1 overflow-hidden rounded-none sm:rounded-3xl", slide.surface === "light" ? "bg-background" : project.thumbnailClassName)}
+          >
             <AnimatePresence custom={direction} mode="wait" initial={false}>
               <motion.div
                 key={slide.group ?? slide.id}
@@ -295,13 +391,13 @@ export function ProjectSlides({ project }: { project: Project }) {
                 exit="exit"
                 className="absolute inset-0"
               >
-                {slide.render({ go: goId })}
+                {slide.render(api)}
               </motion.div>
             </AnimatePresence>
 
             {/* Brand slides: glass prev/next over the card, bottom right. */}
             {!isApp && (
-              <div className="absolute right-6 bottom-6 z-20 flex items-center gap-3 sm:right-8 sm:bottom-8">
+              <div data-deck-nav className="absolute right-6 bottom-6 z-20 flex items-center gap-3 sm:right-8 sm:bottom-8">
                 <GlassButton dark={slide.surface === "light"} label="Previous slide" onClick={() => goTo(index - 1)} disabled={index === 0}>
                   <ArrowLeft aria-hidden className="size-5" />
                 </GlassButton>
@@ -312,7 +408,7 @@ export function ProjectSlides({ project }: { project: Project }) {
             )}
             {/* App slides on phones: a dark pill that stays legible over the UI. */}
             {isApp && (
-              <div className="absolute bottom-4 left-1/2 z-[90] flex -translate-x-1/2 items-center gap-2 sm:hidden">
+              <div data-deck-nav className="absolute bottom-4 left-1/2 z-[90] flex -translate-x-1/2 items-center gap-2 sm:hidden">
                 <GlassButton dark label="Previous slide" onClick={() => goTo(index - 1)} disabled={index === 0}>
                   <ArrowLeft aria-hidden className="size-5" />
                 </GlassButton>

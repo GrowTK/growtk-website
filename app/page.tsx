@@ -111,7 +111,11 @@ export default function Home() {
         </div>
       </section>
 
-      <IndustriesCarousel heading={home.industries.heading} items={home.industries.items} cta={home.industries.cta} />
+      <ProjectsShowcase heading={projectsShowcase.heading} items={projectsShowcase.items} />
+
+      <Testimonial09 heading={home.testimonials.heading} testimonials={home.testimonials.items} />
+
+      <Feature05 heading={home.capabilities.heading} features={home.capabilities.items} />
 
       <FeatureVoiceBlob
         heading={home.voice.heading}
@@ -121,17 +125,13 @@ export default function Home() {
         subtitle={home.voice.subtitle}
       />
 
-      <LogoMarqueeBand heading={home.integrations.heading} cta={home.integrations.cta} logos={home.integrations.logos} />
-
-      <Feature05 heading={home.capabilities.heading} features={home.capabilities.items} />
-
       <Quote01 quote={home.quote} />
 
       <Feature07 heading={home.process.heading} cta={home.process.cta} features={home.process.items} />
 
-      <Testimonial09 heading={home.testimonials.heading} testimonials={home.testimonials.items} />
+      <IndustriesCarousel heading={home.industries.heading} items={home.industries.items} cta={home.industries.cta} />
 
-      <ProjectsShowcase heading={projectsShowcase.heading} items={projectsShowcase.items} />
+      <LogoMarqueeBand heading={home.integrations.heading} cta={home.integrations.cta} logos={home.integrations.logos} />
 
       <ImageStatement
         eyebrow={home.statement.eyebrow}

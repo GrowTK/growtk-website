@@ -9,6 +9,9 @@ a shared demo dataset the visitor can click through and change.
 Corvinn (`/work/corvinn`) was the first. Yetti (`/work/yetti`) follows the same
 pattern. This file is the recipe, so the third project looks like the first two.
 
+Ultra Modern Rails (`/work/umr`) is the exception: a client project whose deck
+was already built as a standalone presentation. See section 6.
+
 ---
 
 ## 1. The moving parts
@@ -88,3 +91,38 @@ generic: adding to `content/projects.ts` is enough for them.
 8. `npm run build`, then click through `/work/<slug>` on desktop and phone width.
 9. Screenshot each slide into `public/ingested/<slug>/slides/<id>.jpg` (about 480px
    wide) and point each slide's `thumb` at it for the contents drawer.
+
+## 6. Autoplay and the progress bar (every deck)
+
+`ProjectSlides` autoplays every deck. Each slide runs for its `duration` (ms) and
+a 4px bar in the project's `accentHex` fills along the top of the window; the
+deck moves on when it is full. Paused, the bar turns grey. The chrome row has a
+play/pause button (phones get a round one beside the menu button).
+
+- Clicking or dragging inside the card pauses autoplay: the viewer is exploring.
+  Mark nav controls inside the card with `data-deck-nav` so they don't pause it.
+- It also holds while the contents drawer is open or the tab is hidden, and
+  stops on the last slide.
+- A slide without `duration` gets `AUTOPLAY_MS` by tone (cover 6s, brand 10s,
+  app 15s). Set `duration` on a slide when its demo needs longer.
+- Slide renderers get `DeckApi`: `go(id)`, `step(delta)`, `autoplay`, `pause()`.
+
+## 7. Hosting an existing HTML presentation (UMR)
+
+When the project's deck already exists as plain HTML (UMR's lives in
+`umr-platform/umr-presentation/site/`), host it instead of rebuilding it:
+
+1. Copy the site to `public/ingested/<slug>/deck/`. Recompress anything over
+   ~400KB, and strip em and en dashes and all caps sentences from its copy.
+2. Give the page an `?embed` mode: hide its own chrome, nav, progress bar and
+   contents drawer, and stop its own autoplay timer. It listens for
+   `{ target: "umr-deck", slide, autoplay }` messages from the host and posts
+   `{ source: "umr-deck", type: "ready" | "interact" | "key" }` back.
+3. List its slides in `content/<slug>.ts` with the same ids as the page's
+   `data-id`s and its `data-dur` values as `duration`.
+4. Render them as `tone: "app"` slides in one `group`, so one iframe stays
+   mounted and slides change by message (see `umr/umr-deck.tsx`). Keep the
+   Growtk cover and closing slides around it.
+
+The copy in this repo has the embed patch and the copy fixes, so when the
+source presentation changes, re-copy it and re-apply both.

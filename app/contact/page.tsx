@@ -5,7 +5,7 @@ import { IndustryFaq } from "@/components/sections/industries/industry-faq";
 import { washTone } from "@/components/sections/company/wash";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { contact } from "@/content/contact";
-import { services } from "@/content/services";
+import { serviceGroups } from "@/content/service-pages";
 import { industries } from "@/content/industries";
 import type { FaqItem } from "@/content/types";
 
@@ -29,7 +29,7 @@ export default function ContactPage() {
       <ContactStudio
         heading={contact.header}
         copy={{ direct: contact.direct, form: contact.form }}
-        services={services.services.map((s) => ({ id: s.id, title: s.title.split(",")[0]! }))}
+        services={serviceGroups.map((g) => ({ id: g.id, title: g.name }))}
         trades={industries.map((i) => i.name)}
       />
       <ContactSteps heading={contact.expect.heading} items={contact.expect.items} />

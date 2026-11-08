@@ -12,14 +12,14 @@ import { toneGlow, toneGradient, type IndustryTone } from "@/components/sections
 import { industryPageLabels } from "@/content/industries";
 import type { Feature, SectionHeading } from "@/content/types";
 
-/** Which /services section each kind of service figure belongs to. */
-const SERVICE_ANCHOR: Record<string, string> = {
-  site: "website-redesign",
-  estimate: "widgets",
-  schedule: "automation",
-  voice: "voice-agents",
-  connect: "integrations",
-  rank: "seo",
+/** Which service page each kind of service figure belongs to. */
+const SERVICE_HREF: Record<string, string> = {
+  site: "/services/customer-support",
+  estimate: "/services/lead-generation",
+  schedule: "/services/sales-support",
+  voice: "/services/inbound-contact-center",
+  connect: "/services/back-office-support",
+  rank: "/services/customer-experience-management",
 };
 
 /** The trade-coloured panel with one Hairline figure. Its direct child is the figure, so plates take the panel's gradient. */
@@ -38,7 +38,11 @@ export function FigurePanel({ kind, tone, className, children }: { kind: string;
  * Hairline figure right, then flipped, so the eye zigzags down the page. Below
  * lg every row stacks figure first, copy second.
  */
-export function IndustryServices({ heading, features, tone }: { heading: SectionHeading; features: Feature[]; tone: IndustryTone }) {
+/**
+ * `ownLinks`: each row links only to its feature's own `href` (service pages),
+ * instead of the /services section its figure belongs to (industry pages).
+ */
+export function IndustryServices({ heading, features, tone, ownLinks = false }: { heading: SectionHeading; features: Feature[]; tone: IndustryTone; ownLinks?: boolean }) {
   const labels = industryPageLabels.services;
 
   return (
@@ -67,13 +71,15 @@ export function IndustryServices({ heading, features, tone }: { heading: Section
                   </div>
                   <h3 className="mt-6 font-display text-3xl leading-[1.08] font-bold tracking-tight text-balance text-foreground sm:text-4xl">{f.title}</h3>
                   <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">{f.body}</p>
+                  {(!ownLinks || f.href) && (
                   <Link
-                    href={`/services#${SERVICE_ANCHOR[kind]}`}
+                    href={ownLinks ? f.href! : SERVICE_HREF[kind]!}
                     className="group/link mt-7 inline-flex cursor-pointer items-center gap-1.5 rounded-full text-sm font-semibold text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    {labels.link}
+                    {ownLinks ? labels.ownLink : labels.link}
                     <ArrowUpRight aria-hidden className="size-4 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                   </Link>
+                  )}
                 </Reveal>
 
                 <Reveal y={16} delay={0.08} className={cn("order-1", flip ? "lg:order-1" : "lg:order-2")}>

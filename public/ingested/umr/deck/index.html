@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ultra Modern Rails · System Deck</title>
+<meta name="description" content="How we connected Ultra Modern Rails' Shopify quote tool to GoHighLevel, Slack and Zapier, then built the UMR Widget platform.">
+<link rel="icon" href="assets/rails.webp">
+<!-- ?embed: the Growtk site's /work/umr deck hosts this page in an iframe and owns the chrome, autoplay and navigation -->
+<script>if (new URLSearchParams(location.search).has("embed")) document.documentElement.classList.add("embed");</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/demos.css">
+<link rel="stylesheet" href="assets/ghl.css">
+<link rel="stylesheet" href="assets/slack.css">
+<style>
+html,body{height:100%;overflow:hidden;background:var(--paper)}
+.deck{height:100dvh;display:flex;flex-direction:column;padding:14px 12px 12px}
+/* chrome row (window bar) */
+.bar{display:flex;align-items:center;gap:20px;padding:0 10px 12px;flex:none}
+.bar .l,.bar .r{flex:1;display:flex;align-items:center}
+.bar .r{justify-content:flex-end;gap:14px}
+.lights{display:flex;gap:8px}.lights span{width:12px;height:12px;border-radius:50%}
+.lights span:nth-child(1){background:#FF5F57}.lights span:nth-child(2){background:#FEBC2E}.lights span:nth-child(3){background:#28C840}
+.ttl{text-align:center;min-width:0}
+.ttl p{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ttl p span{color:var(--steel)}
+.ttl small{display:block;font-size:12px;color:var(--steel);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arw{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;transition:background .2s}
+.arw:hover{background:var(--paper-2)}
+.arw:disabled{opacity:.3;cursor:default}
+.cpill{height:38px;display:flex;align-items:center;gap:10px;border:1px solid var(--hair);background:#fff;border-radius:999px;padding:0 14px 0 6px;transition:border-color .2s,box-shadow .2s}
+.cpill:hover{border-color:#bdbcb8;box-shadow:0 4px 14px -8px rgba(0,0,0,.2)}
+.cpill .dot{width:26px;height:26px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center}
+.cpill .ct{display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.cpill .ct b{white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums;line-height:1}
+.cpill .ct b span{font-weight:400;color:var(--steel)}
+.cable{width:64px;height:1px;background:var(--hair);position:relative}
+.cable i{position:absolute;top:-2.5px;width:6px;height:6px;border-radius:50%;background:var(--terra);transition:left .45s var(--ease);margin-left:-3px}
+.cpill .lb{font-size:12px;color:var(--steel)}
+.bar .wm{font-size:17px}
+/* the card */
+.card{position:relative;flex:1;border-radius:28px;overflow:hidden;background:var(--paper-2);transition:background .5s}
+.slide{position:absolute;inset:0;display:flex;padding:16px;gap:16px;opacity:0;visibility:hidden;transform:translateX(48px);transition:opacity .3s var(--ease),transform .45s var(--ease),visibility 0s .45s}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--ease) .08s,transform .45s var(--ease) .08s}
+.slide.prev{transform:translateX(-48px)}
+.copy{background:#fff;border-radius:24px;padding:clamp(28px,3.6vw,56px);display:flex;flex-direction:column;justify-content:center;width:42%;flex:none;position:relative;z-index:2;overflow:auto}
+.copy::-webkit-scrollbar{width:0}
+.vis{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-width:0;padding:2% 3%}
+.eb{font-size:12.5px;letter-spacing:.2em;color:var(--terra);font-weight:500;line-height:1}
+h2{font-weight:700;letter-spacing:-.04em;line-height:1.02;font-size:clamp(34px,3.9vw,62px);margin-top:16px;text-wrap:balance}
+h2 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.lede{font-size:clamp(15px,1.15vw,18.5px);line-height:1.6;color:var(--ink-2);margin-top:18px;max-width:34em}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin-top:28px;padding-top:22px;border-top:1px solid var(--hair)}
+.facts dt{font-size:12px;color:var(--steel)}.facts dd{font-size:15px;font-weight:500;margin-top:4px;line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips li{list-style:none;background:var(--paper-2);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:500}
+/* slide 1: the real site, scrolling inside the device screens */
+.site-scr{display:flex;flex-direction:column}
+.urlbar{flex:none;height:26px;background:#F1F1EF;border-bottom:1px solid #e3e3e0;display:flex;align-items:center;gap:5px;padding:0 10px}
+.urlbar i{width:7px;height:7px;border-radius:50%;background:#d3d3cf}
+.urlbar span{margin-left:10px;background:#fff;border-radius:5px;padding:2px 10px;font-family:var(--mono);font-size:10.5px;color:#666;flex:1;max-width:46%}
+.live{display:block;flex:1;min-height:0;height:100%;overflow-y:auto;scrollbar-width:none;cursor:pointer}
+.live::-webkit-scrollbar{display:none}
+.live img{width:100%;height:auto}
+.phone .live{border-radius:0 0 33px 33px;margin-top:30px;height:calc(100% - 30px)}
+[data-id="ov"] .phone .scr{background:#fff}
+.livechip{position:absolute;right:9%;bottom:15%;background:rgba(255,255,255,.92);color:var(--ink);text-decoration:none;font-family:var(--mono);font-size:11.5px;border-radius:999px;padding:7px 14px;box-shadow:0 8px 24px -12px rgba(0,0,0,.35);transition:background .2s}
+.livechip:hover{background:#fff}
+.stack{margin-top:26px}
+.stack-l{font-size:12px;color:var(--steel)}
+.logos{list-style:none;display:grid;grid-template-columns:repeat(4,auto);justify-content:start;align-items:center;margin-top:14px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.logos li{display:flex;align-items:center;justify-content:center;height:62px;padding:0 clamp(12px,1.3vw,22px)}
+.logos li:first-child{padding-left:0}
+.logos li+li{border-left:1px solid var(--hair)}
+.logos img{height:calc(var(--h) * .82);width:auto;max-width:100%}
+@media (min-width:1500px){.logos img{height:var(--h)}}
+@media (max-width:1180px){.logos{grid-template-columns:1fr 1fr}.logos li{justify-content:flex-start}.logos li:nth-child(3){padding-left:0;border-left:0}.logos li:nth-child(n+3){border-top:1px solid var(--hair)}}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:11px 20px;font-weight:600;font-size:14px;background:var(--ink);color:#fff;transition:transform .2s,background .2s;text-decoration:none}
+.btn:hover{transform:translateY(-1px);background:#000}
+.btn.o{background:transparent;color:var(--ink);border:1px solid var(--hair)}
+.btn.o:hover{border-color:var(--ink)}
+.btn.t{background:var(--terra)}.btn.t:hover{background:var(--terra-d)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);background:#fff;border-radius:999px;padding:8px 14px;font-size:12.5px;color:var(--ink-2);box-shadow:0 6px 20px -10px rgba(0,0,0,.25);white-space:nowrap;z-index:3}
+.hint::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--terra);margin-right:8px;vertical-align:1px;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.nav-glass{position:absolute;right:26px;bottom:26px;display:flex;gap:10px;z-index:20}
+.nav-glass button{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .2s,opacity .2s}
+.nav-glass button:hover{background:#fff}
+.nav-glass button:disabled{opacity:0;pointer-events:none}
+.terra .nav-glass button{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.35);color:#fff}
+/* staged entrance inside the active slide */
+.slide [data-in]{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.slide.on [data-in]{opacity:1;transform:none}
+.slide.on [data-in="2"]{transition-delay:.18s}.slide.on [data-in="3"]{transition-delay:.3s}.slide.on [data-in="4"]{transition-delay:.42s}
+/* contents drawer */
+.drawer{position:fixed;inset:0;z-index:50;pointer-events:none}
+.drawer .shade{position:absolute;inset:0;background:rgba(20,20,20,.25);backdrop-filter:blur(4px);opacity:0;transition:opacity .3s}
+.drawer aside{position:absolute;top:10px;right:10px;bottom:10px;width:min(400px,calc(100% - 20px));background:#fff;border-radius:28px;padding:26px 18px;transform:translateX(105%);transition:transform .4s var(--ease);overflow:auto;display:flex;flex-direction:column}
+.drawer.on{pointer-events:auto}.drawer.on .shade{opacity:1}.drawer.on aside{transform:none}
+.drawer h3{font-size:13px;font-weight:500;color:var(--steel);padding:0 10px 14px;letter-spacing:.2em}
+.drawer ol{list-style:none;position:relative}
+.drawer ol::before{content:"";position:absolute;left:24px;top:16px;bottom:16px;width:1px;background:var(--hair)}
+.drawer li button{width:100%;display:flex;gap:16px;align-items:center;text-align:left;padding:10px;border-radius:14px;transition:background .15s}
+.drawer li button:hover{background:var(--paper-2)}
+.drawer li .pst{width:29px;flex:none;display:grid;place-items:center;position:relative}
+.drawer li .pst i{width:9px;height:9px;border-radius:50%;background:#fff;border:1px solid var(--steel)}
+.drawer li.on .pst i{background:var(--terra);border-color:var(--terra);box-shadow:0 0 0 4px var(--blush)}
+.drawer li b{font-size:14.5px;font-weight:600;display:block}
+.drawer li small{font-size:12.5px;color:var(--steel)}
+.drawer .grp{font-size:11.5px;color:var(--terra);letter-spacing:.2em;padding:16px 10px 6px 55px}
+
+/* ---- slide-specific ---- */
+.s-terra{background:var(--terra)}
+.mk-site{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff;font-family:Inter}
+.qform{width:980px;height:880px;background:#fff;font-family:"Inter",sans-serif;color:#222;position:relative}
+.qform header{height:70px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:center;position:relative}
+.qform header .wm{font-size:26px}
+.qform .box{margin:24px 40px;border:1px solid #e8e8e8;border-radius:4px;padding:26px 30px;box-shadow:0 4px 18px -12px rgba(0,0,0,.2)}
+.qform h4{font-size:19px;font-weight:600}
+.qform .intro{font-size:13.5px;color:#666;margin:8px 0 18px;line-height:1.6}
+.qform .g{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.qform .f{border:1px solid #ddd;border-radius:3px;height:46px;padding:0 14px;display:flex;align-items:center;font-size:13.5px;color:#888;transition:border-color .2s}
+.qform .f.v{color:#111;border-color:#bbb}
+.qform .f.typing{border-color:var(--terra)}
+.tabvis{flex:1;padding:clamp(10px,3vh,32px) 0;container-type:size;min-height:0}
+.tabvis .tablet{width:min(100cqw,calc(100cqh * 1000 / 901.3));aspect-ratio:1000/901.3;padding:1.6%;border-radius:clamp(16px,2.4cqw,30px)}
+.tabvis .tablet .scr{border-radius:clamp(8px,1.2cqw,14px)}
+/* realistic iPhone (frame scales with its width; screen content is laid out at 390x844 pt) */
+.iph{position:relative;border-radius:15.5%/7.4%;aspect-ratio:1/2.085;
+  background:linear-gradient(150deg,#55555a 0%,#1e1e20 16%,#2c2c2f 50%,#18181a 84%,#55555a 100%);
+  box-shadow:inset 0 0 0 1.2px rgba(255,255,255,.22),inset 0 0 0 3.5px #0b0b0c,0 44px 70px -34px rgba(0,0,0,.6),0 14px 26px -14px rgba(0,0,0,.4)}
+.iph::before{content:"";position:absolute;left:-2.5px;top:17%;width:3px;height:27%;border-radius:2px 0 0 2px;
+  background:linear-gradient(#3a3a3d 0 15%,transparent 15% 27%,#3a3a3d 27% 58%,transparent 58% 66%,#3a3a3d 66% 97%,transparent 97%)}
+.iph::after{content:"";position:absolute;right:-2.5px;top:27%;width:3px;height:13%;border-radius:0 2px 2px 0;background:#3a3a3d}
+.iph .scr{border-radius:12.6%/5.8%;background:#000;overflow:hidden;position:absolute;inset:1.63% 3.4%}
+.iph .scr::before{content:"";position:absolute;top:1.3%;left:50%;transform:translateX(-50%);width:32%;height:3.7%;background:#000;border-radius:999px;z-index:6}
+.ios{width:390px;height:844px;background:#fff;font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;color:#000;position:relative;overflow:hidden;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+.ios .sbar{height:54px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:8px 30px 0 46px;font-weight:600;font-size:17px;letter-spacing:-.02em;position:relative;z-index:2}
+.ios .sbar span{display:flex;gap:6px;align-items:center}
+.ios .home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:139px;height:5px;border-radius:3px;background:#000;z-index:3}
+.ios .blue{color:#007AFF}
+/* iMessage */
+.im-h{flex:none;display:flex;flex-direction:column;align-items:center;padding:2px 16px 10px;background:rgba(246,246,246,.96);border-bottom:.5px solid #d1d1d6;position:relative}
+.im-h .bk{position:absolute;left:10px;top:16px;display:flex;align-items:center;gap:2px;font-size:17px}
+.im-av{width:56px;height:56px;border-radius:50%;background:linear-gradient(#f1f1f3,#dcdce0);display:grid;place-items:center;overflow:hidden;border:.5px solid #d1d1d6}
+.im-av img{width:80%;mix-blend-mode:multiply}
+.im-h .nm{font-size:12px;margin-top:5px;display:flex;align-items:center;gap:3px}
+.im-b{flex:1;padding:14px 16px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.im-ts{text-align:center;font-size:12px;color:#8e8e93;margin:6px 0 8px;line-height:1.35}
+.im-ts b{font-weight:600}
+.bub{background:#E9E9EB;color:#000;font-size:17px;line-height:22px;letter-spacing:-.015em;padding:7px 13px;border-radius:18px;max-width:76%;align-self:flex-start;position:relative;margin-left:4px;animation:bubIn .45s cubic-bezier(.2,.8,.2,1) both}
+.bub::before{content:"";position:absolute;bottom:0;left:-7px;width:20px;height:20px;background:#E9E9EB;border-bottom-right-radius:16px}
+.bub::after{content:"";position:absolute;bottom:0;left:-10px;width:10px;height:20px;background:#fff;border-bottom-right-radius:10px}
+@keyframes bubIn{from{opacity:0;transform:translateY(10px) scale(.96);transform-origin:0 100%}}
+.im-c{flex:none;display:flex;align-items:center;gap:8px;padding:8px 12px 36px}
+.im-c .pl{width:34px;height:34px;border-radius:50%;background:#e9e9eb;display:grid;place-items:center;color:#7c7c80;font-size:24px;font-weight:300;line-height:1}
+.im-c .in{flex:1;height:36px;border:1px solid #c7c7cc;border-radius:18px;display:flex;align-items:center;justify-content:space-between;padding:0 10px 0 14px;color:#b0b0b5;font-size:17px}
+/* iOS Mail */
+.ml-n{flex:none;display:flex;justify-content:space-between;align-items:center;padding:4px 14px 8px;font-size:17px}
+.ml-n span{display:flex;align-items:center;gap:2px}
+.ml-h{flex:none;padding:6px 18px 14px;border-bottom:.5px solid #d1d1d6}
+.ml-h .r{display:flex;gap:11px;align-items:center}
+.ml-h .av{width:40px;height:40px;border-radius:50%;background:#fff;border:.5px solid #d1d1d6;display:grid;place-items:center;overflow:hidden;flex:none}
+.ml-h .av img{width:82%;mix-blend-mode:multiply}
+.ml-h .fr{flex:1;min-width:0}
+.ml-h .fr b{font-size:17px;font-weight:600;display:block;letter-spacing:-.02em}
+.ml-h .fr small{font-size:14px;color:#8e8e93}
+.ml-h time{font-size:14px;color:#8e8e93;align-self:flex-start;margin-top:3px}
+.ml-h h6{font-size:21px;font-weight:700;letter-spacing:-.025em;margin-top:14px;line-height:1.2}
+.ml-b{flex:1;overflow:hidden;background:#f2f2f2;position:relative}
+.ml-b .sc{padding:16px;transition:transform 7s cubic-bezier(.45,0,.25,1)}
+.ml-b .cd{background:#fff;border-radius:12px;padding:24px 22px;font-size:15px;line-height:1.55;color:#1d2433}
+.ml-b .cd h5{font-size:20px;font-weight:700;letter-spacing:-.02em;margin:18px 0 12px;line-height:1.25}
+.ml-b .cd p{margin-bottom:10px}
+.ml-b .cd .cap{font-size:11px;letter-spacing:.08em;color:#888;margin:14px 0 8px}
+.ml-b .cd ul{list-style:none}.ml-b .cd li{padding:3px 0}.ml-b .cd li::before{content:"✓";margin-right:9px}
+.ml-b .cd table{width:100%;border-collapse:collapse;background:#f6f6f6;border-radius:8px;font-size:13.5px;margin-top:4px}
+.ml-b .cd td{padding:6px 10px}.ml-b .cd td:first-child{color:#777}
+.ml-t{flex:none;display:flex;justify-content:space-around;align-items:center;padding:10px 20px 38px;border-top:.5px solid #d1d1d6;background:#f9f9f9}
+/* shorter screens: keep the white copy panels inside the slide */
+.copy{justify-content:safe center}
+@media (max-height:860px){
+  .copy{padding:clamp(22px,3.2vh,40px) clamp(24px,2.6vw,44px)}
+  h2{font-size:clamp(30px,6vh,52px);margin-top:12px}
+  .lede{font-size:clamp(14px,1.9vh,17px);margin-top:12px;line-height:1.55}
+  .acts{margin-top:16px}
+  .btn{padding:9px 18px;font-size:13.5px}
+}
+/* slide 6 workflow box: compact rows that never spill */
+.wf{min-height:0;padding:14px 16px;margin-top:18px}
+.wf li{padding:4px 0;font-size:13.5px;line-height:1.35}
+.wf li small{font-size:11.5px}
+@media (max-height:860px){
+  .wf{padding:12px 14px;margin-top:14px}
+  .wf-t{font-size:12.5px;margin:6px 0 6px}
+  .wf li{padding:3px 0;font-size:12.5px}
+  .wf li small{display:none}
+  .wf li .d{width:20px;height:20px;font-size:10px}
+  .wf ol::before{left:9.5px}
+}
+/* slide 8: only the active point shows its description */
+.co8 small{max-height:0;overflow:hidden;opacity:0;transition:max-height .3s var(--ease),opacity .3s,margin .3s;margin-top:0}
+.co8 button.on small{max-height:80px;opacity:1;margin-top:4px}
+.co8 button{padding:12px 0}
+@media (max-height:860px){.co8{margin-top:14px}.co8 button{padding:9px 0}}
+@media (max-width:1180px){
+  [data-id="form"] .flowlist{margin-top:14px}
+  [data-id="form"] .flowlist li{padding:7px 0;font-size:13px}
+  [data-id="form"] .flowlist li small{display:none}
+  [data-id="form"] h2{font-size:clamp(28px,3.4vw,40px)}
+}
+/* slide 6: the workflow box takes the space left in the panel and scrolls inside it */
+[data-id="pl"] .copy{overflow:hidden}
+[data-id="pl"] .copy>*{flex-shrink:0}
+[data-id="pl"] .copy>.wf{flex:0 1 auto;min-height:96px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--hair) transparent}
+[data-id="pl"] .wf-h{position:sticky;top:-14px;background:#fff;padding:2px 0 4px;margin-top:-2px;z-index:1}
+/* slide 10: guided demo */
+.browser.real .wmount{transform:scale(1.17);transform-origin:100% 100%}
+.dcap{margin-top:20px;border-left:3px solid var(--terra);padding:4px 0 4px 14px;min-height:92px}
+.dcap .n{font-family:var(--mono);font-size:11px;color:var(--terra);letter-spacing:.08em;text-transform:uppercase}
+.dcap b{display:block;font-size:clamp(16px,1.35vw,20px);letter-spacing:-.015em;margin-top:4px;line-height:1.25}
+.dcap p{font-size:14px;color:var(--ink-2);margin-top:5px;line-height:1.5}
+.dcap.swap{animation:uwIn .4s both}
+.landed{margin-top:16px}
+.dcur{position:absolute;left:0;top:0;width:26px;height:26px;z-index:20;pointer-events:none;opacity:0;transition:opacity .3s;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
+.dcur.on{opacity:1}
+.dcur::after{content:"";position:absolute;left:-10px;top:-10px;width:20px;height:20px;border-radius:50%;background:rgba(197,91,62,.45);transform:scale(0);opacity:0}
+.dcur.tap::after{animation:tap .45s ease-out}
+@keyframes tap{0%{transform:scale(.3);opacity:1}100%{transform:scale(2.2);opacity:0}}
+/* autoplay: primary-colour progress along the very top */
+.autobar{position:fixed;left:0;right:0;top:0;height:4px;z-index:60;background:rgba(197,91,62,.12)}
+.autobar i{display:block;height:100%;width:0;background:var(--terra);box-shadow:0 0 10px rgba(197,91,62,.55)}
+.autobar.paused i{background:var(--steel);box-shadow:none}
+.autobar.off{opacity:0}
+.arw.play .pl{display:none}
+.arw.play[aria-pressed="false"] .ps{display:none}
+.arw.play[aria-pressed="false"] .pl{display:block}
+.arw.play[aria-pressed="true"]{color:var(--terra)}
+/* slide 6: workflow log beside the GHL board */
+.wf{border:1px solid var(--hair);border-radius:16px;background:#fff}
+.wf-h{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--steel)}
+.wf-h i{width:8px;height:8px;border-radius:50%;background:var(--hair);flex:none}
+.wf.run .wf-h i{background:#12B76A;box-shadow:0 0 0 4px rgba(18,183,106,.18);animation:pulse 1.2s infinite}
+.wf-h b{color:var(--ink);font-weight:600}
+.wf-t{font-size:13.5px;color:var(--ink-2);margin:8px 0 10px;line-height:1.5}
+.wf-t b{color:var(--ink)}
+.wf ol{list-style:none;position:relative}
+.wf ol::before{content:"";position:absolute;left:11px;top:12px;bottom:12px;width:1px;background:var(--hair)}
+.wf li{display:flex;gap:12px;align-items:flex-start;padding:6px 0;font-size:14px;color:var(--steel);transition:color .3s;position:relative}
+.wf li .d{width:23px;height:23px;border-radius:50%;border:1px solid var(--hair);background:#fff;display:grid;place-items:center;flex:none;font-size:11px;transition:all .3s}
+.wf li.ok{color:var(--ink)}
+.wf li.ok .d{background:var(--terra);border-color:var(--terra);color:#fff}
+.wf li small{display:block;font-size:12px;color:var(--steel);margin-top:1px}
+.wf .empty{font-size:14px;color:var(--steel);line-height:1.55}
+.wonpop{position:absolute;right:2%;top:4%;width:min(420px,46%);z-index:6;transform:translateY(-14px) scale(.97);opacity:0;transition:all .45s var(--ease);pointer-events:none}
+.wonpop.on{transform:none;opacity:1}
+/* slide 7: Slack fills the full height, channel list beside it */
+.slvis{flex:none;height:100%;aspect-ratio:1080/1000;max-width:64%;padding:0;align-items:stretch}
+.chs7{list-style:none;margin-top:22px;border-top:1px solid var(--hair)}
+.chs7 button{width:100%;text-align:left;padding:15px 0;border-bottom:1px solid var(--hair);display:block;transition:opacity .25s;opacity:.55}
+.chs7 button.on{opacity:1}
+.chs7 b{display:block;font-size:clamp(16px,1.3vw,19px);letter-spacing:-.015em;font-weight:600}
+.chs7 b span{font-family:var(--mono);font-size:.78em;font-weight:500;color:var(--terra);margin-right:6px}
+.chs7 small{display:block;font-size:14px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+/* slide 8: iPad at full height */
+.tabvis8{flex:1;padding:clamp(10px,3vh,32px) 0;container-type:size;min-height:0}
+.tabvis8 .tablet{width:min(100cqw,calc(100cqh * 1000 / 758));aspect-ratio:1000/758;max-height:100cqh;padding:1.6%;border-radius:clamp(16px,2.4cqw,30px)}
+.tabvis8 .tablet{margin-left:-8px}
+.tabvis8 .tablet .scr{background:#283244}
+.tabvis8 .tablet .scr>.fit{margin-left:-2px;width:calc(100% + 2px)}
+.tabvis8 .tablet .scr{border-radius:clamp(8px,1.2cqw,14px)}
+.co8{list-style:none;margin-top:22px;border-top:1px solid var(--hair)}
+.co8 button{width:100%;text-align:left;padding:14px 0;border-bottom:1px solid var(--hair);display:block;opacity:.55;transition:opacity .25s}
+.co8 button.on{opacity:1}
+.co8 b{font-size:clamp(15px,1.2vw,18px);font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.co8 b::before{content:"";width:8px;height:8px;border-radius:50%;background:#F79009;flex:none}
+.co8 small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+/* slide 9: how the website chat routes each request */
+.rtw{width:1200px;height:580px;position:relative;font-family:var(--sans)}
+.rtw .nd{position:absolute;transform:translate(-50%,-50%);background:#fff;border:1px solid var(--hair);border-radius:14px;padding:12px 16px;width:220px;transition:all .3s;cursor:pointer}
+.rtw .nd b{display:block;font-size:16px;letter-spacing:-.02em}
+.rtw .nd small{display:block;font-size:12.5px;color:var(--steel);margin-top:2px;line-height:1.4}
+.rtw .nd.src{width:200px;background:var(--ink);color:#fff;border-color:var(--ink);cursor:default}
+.rtw .nd.src small{color:#bdbdbd}
+.rtw .nd.hot{border-color:var(--terra);box-shadow:0 0 0 4px rgba(197,91,62,.14)}
+.rtw .nd .kind{font-family:var(--mono);font-size:11px;color:var(--terra)}
+.rtw .bead{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--terra);margin:-6px 0 0 -6px;opacity:0;box-shadow:0 0 0 5px rgba(197,91,62,.2);z-index:3}
+.rtw path.on{stroke:var(--terra)}
+/* slide 10: where a widget case landed */
+.landed{margin-top:22px;min-height:200px}
+.landed .lph{font-size:14px;color:var(--steel);border:1px dashed var(--hair);border-radius:14px;padding:22px;line-height:1.55}
+.landed .lbl{font-size:12px;color:var(--steel);margin-bottom:8px}
+.landed .skmini{animation:uwIn .4s both}
+.repmail{background:#fff;border:1px solid var(--hair);border-radius:14px;overflow:hidden;font-family:Inter,sans-serif;animation:uwIn .4s both;box-shadow:0 20px 50px -24px rgba(0,0,0,.35)}
+.repmail .h{padding:10px 14px;border-bottom:1px solid var(--hair);font-size:12.5px;color:#555;line-height:1.6}
+.repmail .h b{color:#111}
+.repmail .bd{padding:14px;font-size:13.5px;line-height:1.55;color:#1d2433}
+.repmail table{width:100%;font-size:13px;margin-top:8px;background:#f6f6f6;border-radius:8px}
+.repmail td{padding:4px 10px}.repmail td:first-child{color:#777;width:34%}
+.qform .ups{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.qform .dz{border:1.5px dashed #cfcfcf;border-radius:4px;height:212px;display:flex;align-items:center;gap:16px;padding:12px;cursor:pointer;transition:border-color .25s,background .25s}
+.qform .dz:hover{border-color:#999}
+.qform .dz.up{border-color:var(--terra);background:#fdf7f5}
+.qform .dz.ok{border-style:solid;border-color:#d8d8d8;background:#fff}
+.qform .dz-ph{width:186px;height:186px;flex:none;border-radius:4px;background:#f6f6f6;position:relative;overflow:hidden;display:grid;place-items:center;color:#aaa}
+.qform .dz-ph>img,.qform .dz-ph>svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .45s,transform .6s}
+.qform .dz.ok .dz-ph>img,.qform .dz.ok .dz-ph>svg{opacity:1;transform:none}
+.qform .dz.ok .dz-ph .ico{opacity:0}
+.qform .dz-t{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.qform .dz-t b{font-size:13.5px;font-weight:600;color:#222}
+.qform .dz-s{font-size:12.5px;color:#888}.qform .dz-s u{color:#222}
+.qform .dz-f{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:#555;display:none}
+.qform .dz.up .dz-f,.qform .dz.ok .dz-f{display:block}
+.qform .dz.up .dz-s,.qform .dz.ok .dz-s{display:none}
+.qform .dz-bar{height:4px;border-radius:4px;background:#eee;overflow:hidden;display:none}
+.qform .dz.up .dz-bar{display:block}
+.qform .dz-bar i{display:block;height:100%;width:0;background:var(--terra);transition:width .12s linear}
+.qform .dz-ok{display:none;font-size:12px;color:#15803D;font-weight:600}
+.qform .dz.ok .dz-ok{display:block}
+.qform .sub{margin-top:16px;background:#111;color:#fff;border-radius:3px;padding:13px;width:100%;font-weight:600;font-size:14px}
+.qform .done{position:absolute;inset:0;background:rgba(255,255,255,.96);display:grid;place-items:center;text-align:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.qform .done.on{opacity:1}
+.flowlist{list-style:none;margin-top:22px;border-top:1px solid var(--hair)}
+.flowlist li{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--hair);font-size:14.5px;color:var(--steel);transition:color .3s}
+.flowlist li i{width:9px;height:9px;border-radius:50%;border:1px solid var(--steel);flex:none;transition:all .3s}
+.flowlist li.ok{color:var(--ink)}.flowlist li.ok i{background:var(--terra);border-color:var(--terra)}
+.flowlist li small{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--steel)}
+.chan{list-style:none;margin-top:26px;border-top:1px solid var(--hair)}
+.chan li button{width:100%;display:flex;align-items:baseline;gap:14px;padding:15px 0;border-bottom:1px solid var(--hair);text-align:left;font-size:clamp(16px,1.35vw,21px);font-weight:500;letter-spacing:-.01em;color:var(--steel);transition:color .25s}
+.chan li button small{font-family:var(--mono);font-size:11.5px;width:56px;flex:none;color:var(--steel)}
+.chan li button.on{color:var(--ink)}.chan li button.on small{color:var(--terra)}
+.sms{display:flex;flex-direction:column;gap:8px;padding:52px 12px 12px;height:100%;background:#fff;font-family:Inter;font-size:11.5px}
+.sms .who{text-align:center;font-size:11px;color:#888;margin-bottom:6px}
+.sms .b{background:#E9E9EB;border-radius:18px;padding:9px 13px;max-width:86%;animation:uwIn .35s both;line-height:1.4}
+.mail{font-family:Inter;padding:56px 16px 16px;font-size:12px;line-height:1.5;background:#f3f3f3;height:100%}
+.mail .in{background:#fff;border-radius:12px;padding:14px}
+.em{width:1100px;height:690px;background:#f0f0f0;overflow:hidden;font-family:Inter;color:#1d2433}
+.em .sc{transition:transform 6s cubic-bezier(.45,0,.2,1)}
+.em .paper{width:760px;margin:36px auto;background:#fff;border-radius:14px;padding:44px 56px 40px}
+.em h3{font-size:28px;font-weight:700;letter-spacing:-.02em;margin:34px 0 18px}
+.em p{font-size:16.5px;line-height:1.7;margin-bottom:14px}
+.em .cap{font-size:13.5px;letter-spacing:.08em;color:#888;margin:22px 0 12px}
+.em ul{list-style:none}.em li{font-size:16px;padding:6px 0}.em li::before{content:"✓";margin-right:12px}
+.em table{width:100%;border-collapse:collapse;background:#f6f6f6;border-radius:10px;font-size:14.5px}
+.em td{padding:9px 16px}.em td:first-child{color:#666;width:42%}
+.tag{position:absolute;background:var(--terra);color:#fff;border-radius:6px;padding:22px 24px;font-weight:700;font-size:clamp(18px,1.7vw,28px);letter-spacing:-.02em;line-height:1.15;max-width:290px;z-index:3;box-shadow:0 18px 40px -16px rgba(169,71,45,.6)}
+/* round robin */
+.rr{width:900px;height:620px;position:relative}
+.rr .lead{position:absolute;left:50%;top:30px;transform:translateX(-50%);width:330px;background:var(--blush);border-radius:16px;padding:20px 24px;transition:transform .3s}
+.rr .lead b{font-size:22px;letter-spacing:-.02em;display:block;text-align:center}
+.rr .lead div{color:var(--terra);font-size:17px;margin-top:8px;line-height:1.45}
+.rr svg{position:absolute;left:0;top:0}
+.rr .rep{position:absolute;top:360px;width:200px;text-align:center;transform:translateX(-50%)}
+.rr .av{width:150px;height:150px;border-radius:50%;margin:0 auto;background:var(--blush);display:grid;place-items:center;font-weight:800;font-size:48px;color:var(--terra);letter-spacing:-.04em;position:relative;transition:box-shadow .3s,transform .3s;
+  background-image:repeating-radial-gradient(circle at 30% 30%,transparent 0 9px,rgba(197,91,62,.13) 9px 10px)}
+.rr .rep.hit .av{box-shadow:0 0 0 6px #fff,0 0 0 7px var(--terra);transform:scale(1.04)}
+.rr .rep b{display:block;font-size:22px;letter-spacing:-.03em;margin-top:16px}
+.rr .rep small{font-family:var(--mono);font-size:12px;color:var(--steel)}
+.rr .cnt{position:absolute;top:4px;right:10px;background:var(--ink);color:#fff;border-radius:999px;min-width:30px;height:30px;font-size:13px;font-weight:700;display:grid;place-items:center;padding:0 8px}
+.rr .tok{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--terra);margin:-8px 0 0 -8px;box-shadow:0 0 0 5px rgba(197,91,62,.2);opacity:0}
+/* pipeline */
+/* slack */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:26px 30px;margin-top:30px}
+.feat b{display:flex;gap:10px;align-items:center;font-size:clamp(16px,1.3vw,20px);letter-spacing:-.02em}
+.feat b i{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--plum);color:var(--plum);display:grid;place-items:center;font-style:normal;font-size:12px;flex:none}
+.feat p{font-size:14px;color:var(--ink-2);margin-top:6px;line-height:1.55}
+/* hotspots */
+/* system rail */
+/* widget slide */
+.browser{width:1100px;height:720px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.35);position:relative}
+.browser .ch{height:44px;background:#F1F1EF;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid #e5e5e2}
+.browser .ch i{width:11px;height:11px;border-radius:50%;background:#d6d6d3}
+.browser .ch span{margin-left:16px;background:#fff;border-radius:7px;padding:5px 14px;font-size:12.5px;color:#777;font-family:var(--mono);flex:1;max-width:420px}
+.browser .pg{position:absolute;top:44px;left:0;right:0;bottom:0;background:url(assets/site.webp) top left/cover}
+.browser .pg::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.18)}
+.browser.real{width:1060px;height:800px}
+.browser .pg.live10{background:#fff;overflow-y:auto;scrollbar-width:none}
+.browser .pg.live10::-webkit-scrollbar{display:none}
+.browser .pg.live10::after{display:none}
+.browser .pg.live10 img{width:100%;height:auto;display:block}
+.browser.real .wmount{right:22px;bottom:18px}
+.browser .wmount{position:absolute;right:26px;bottom:24px;z-index:2}
+/* bento */
+/* close */
+.closing{flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.closing .wm{font-size:clamp(46px,6.5vw,104px)}
+.closing .panel{background:#fff;border-radius:28px;padding:34px 40px;margin-top:40px;max-width:640px}
+@media (max-width:900px){
+  .deck{padding:0}.bar{padding:10px 12px}.bar .ttl,.bar .wm,.cpill .lb,.cable{display:none}
+  .card{border-radius:0}
+  .slide{flex-direction:column;overflow-y:auto;padding:12px}
+  .copy{width:auto!important;flex:none!important;padding:28px 22px;overflow:visible}
+  .vis{min-height:56vh;flex:none}
+  .facts{grid-template-columns:1fr}
+  .feat{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr;grid-template-rows:none}.bento>div{min-height:200px}.bento>div.big{grid-row:auto}
+  .hint{display:none}
+  .nav-glass{right:14px;bottom:14px}
+}
+/* embed: the host deck draws the chrome, nav, progress bar and contents */
+html.embed .bar,html.embed .nav-glass,html.embed .autobar,html.embed .drawer{display:none}
+html.embed .deck{padding:0}
+html.embed .card{border-radius:0}
+/* phones: clear the host deck's menu buttons (top) and slide arrows (bottom) */
+@media (max-width:639px){html.embed .slide{padding-top:64px;padding-bottom:76px}}
+</style>
+</head>
+<body>
+<div class="autobar" id="autobar" aria-hidden="true"><i id="autofill"></i></div>
+<div class="deck">
+  <div class="bar">
+    <div class="l"><div class="lights" aria-hidden="true"><span></span><span></span><span></span></div></div>
+    <div class="ttl"><p>Ultra Modern Rails<span> / <span id="stitle"></span></span></p><small id="shint"></small></div>
+    <div class="r">
+      <button class="arw" id="pv" aria-label="Previous slide"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="arw play" id="autoplay" aria-label="Pause autoplay" aria-pressed="true"><svg class="ps" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="pl" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+      <button class="arw" id="nx" aria-label="Next slide"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button class="cpill" id="openc" aria-label="Open contents">
+        <span class="dot"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+        <span class="ct"><b id="cnt">01<span> / 14</span></b><span class="cable"><i id="bead"></i></span></span>
+        <span class="lb">Contents</span>
+      </button>
+      <span class="wm"><b>ultramodern</b><i><img src="assets/rails.webp" alt="rails"></i></span>
+    </div>
+  </div>
+
+  <main class="card" id="card">
+
+  <!-- 1 · Overview -->
+  <section class="slide" data-title="Overview" data-dur="11000" data-hint="A quote tool wired straight into the CRM" data-bg="var(--terra)" data-group="The UMR system" data-id="ov">
+    <div class="copy">
+      <span class="wm" data-in style="font-size:clamp(40px,4.4vw,72px);align-self:flex-start"><b>ultramodern</b><i><img src="assets/rails.webp" alt="rails"></i></span>
+      <p class="lede" data-in="2" style="font-size:clamp(17px,1.45vw,23px);color:var(--ink);margin-top:30px">For Ultra Modern Rails, we connected their custom Shopify quote tool directly to GoHighLevel, turning every quote request into an automated, fully tracked lead the moment it's submitted.</p>
+      <dl class="facts" data-in="3">
+        <div><dt>Client</dt><dd>Ultra Modern Rails, Westfield, MA</dd></div>
+        <div><dt>What they sell</dt><dd>Custom cable &amp; glass railing systems</dd></div>
+        <div><dt>Lead source</dt><dd>Custom Shopify quote form</dd></div>
+        <div><dt>Where leads land</dt><dd>GoHighLevel, Slack, rep inboxes</dd></div>
+      </dl>
+      <div class="stack" data-in="4"><span class="stack-l">One connected setup</span>
+        <ul class="logos" aria-label="Shopify, GoHighLevel, Zapier and Slack, connected">
+          <li><img src="assets/logos/shopify.webp" alt="Shopify" style="--h:30px"></li>
+          <li><img src="assets/logos/highlevel.webp" alt="GoHighLevel" style="--h:27px"></li>
+          <li><img src="assets/logos/zapier.svg" alt="Zapier" style="--h:40px;margin-top:-7px"></li>
+          <li><img src="assets/logos/slack.svg" alt="Slack" style="--h:25px"></li>
+        </ul></div>
+    </div>
+    <div class="vis">
+      <img class="coin f" src="assets/coin.webp" alt="" style="width:34%;top:-6%;left:2%;--r:-12deg">
+      <div class="laptop" data-in="2" style="width:92%;margin-left:6%;margin-top:6%">
+        <div class="lid"><div class="scr site-scr">
+          <div class="urlbar"><i></i><i></i><i></i><span>ultramodernrails.com</span></div>
+          <a class="live" href="https://ultramodernrails.com" target="_blank" rel="noopener" aria-label="ultramodernrails.com desktop homepage (opens the live site)"><img src="assets/live/site-desktop.webp" alt="The ultramodernrails.com homepage on desktop, from the hero through the Caesar's Casino installation, featured railing systems, gallery and customer reviews"></a>
+        </div></div><div class="base"></div>
+      </div>
+      <div class="phone" data-in="3" style="position:absolute;left:2%;bottom:6%;width:23%;aspect-ratio:9/19.2">
+        <div class="scr">
+          <a class="live" href="https://ultramodernrails.com" target="_blank" rel="noopener" aria-label="ultramodernrails.com mobile homepage (opens the live site)"><img src="assets/live/site-mobile.webp" alt="The ultramodernrails.com homepage on a phone"></a>
+        </div>
+      </div>
+      <a class="livechip" href="https://ultramodernrails.com" target="_blank" rel="noopener" data-in="4">ultramodernrails.com · open live ↗</a>
+    </div>
+  </section>
+
+  <!-- 2 · Quote form -->
+  <section class="slide" data-title="The Quote Form" data-dur="14000" data-hint="Fill a sample quote and submit it" data-group="The UMR system" data-id="form">
+    <div class="vis tabvis">
+      <div class="tablet" data-in>
+        <div class="scr"><div class="fit" data-w="980" data-h="880" data-by="contain" style="height:100%">
+          <div class="qform">
+            <header><span class="wm"><b>ultramodern</b><i><img src="assets/rails.webp" alt=""></i></span></header>
+            <div class="box">
+              <h4>Get A Free Quote</h4>
+              <p class="intro">Fill out the form below and we will get back to you with a quote in 24 hours or less. (We may text you at the number provided to provide more details on your quote.)</p>
+              <div class="g" id="qf"></div>
+              <div class="ups">
+                <div class="dz" data-file="back-deck-lake.jpg · 2.4 MB" role="button" tabindex="0" aria-label="Upload a photo of your project area">
+                  <div class="dz-ph"><svg class="ico" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><img src="assets/upload-deck.webp" alt="Uploaded photo: a deck with cable railing overlooking a lake"></div>
+                  <div class="dz-t"><b>Photo of your project area</b><span class="dz-s">Drag a photo here or <u>browse</u></span><span class="dz-f"></span><span class="dz-bar"><i></i></span><span class="dz-ok">✓ Uploaded</span></div>
+                </div>
+                <div class="dz" data-file="railing-drawing.jpg · 1.1 MB" role="button" tabindex="0" aria-label="Upload a photo of a drawing with measurements">
+                  <div class="dz-ph"><svg class="ico" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><svg viewBox="0 0 146 146" aria-hidden="true">
+                    <defs><pattern id="gp" width="7.3" height="7.3" patternUnits="userSpaceOnUse"><path d="M7.3 0H0V7.3" fill="none" stroke="#bcd3e6" stroke-width=".35"/></pattern></defs>
+                    <rect width="146" height="146" fill="#fbfdff"/><rect width="146" height="146" fill="url(#gp)"/>
+                    <g fill="none" stroke="#2f3a44" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 46.5 C40 45.8 90 46.6 132 45.9" stroke-width="2.2"/>
+                      <path d="M16 46v57M51.5 46.3v56.6M88 46.1v57M130 45.9v57.2" stroke-width="2.4"/>
+                      <path d="M16 54h114M16 59.6h114M16 65.2h114M16 70.8h114M16 76.4h114M16 82h114M16 87.6h114M16 93.2h114M16 98.6h114" stroke-width=".55" stroke="#4d5a66"/>
+                      <path d="M8 103.3 C50 102.6 100 103.8 139 103" stroke-width="1.4"/>
+                      <path d="M10 103.5l-4 5M20 103.5l-4 5M30 103.5l-4 5M40 103.5l-4 5M50 103.5l-4 5M60 103.5l-4 5M70 103.5l-4 5M80 103.5l-4 5M90 103.5l-4 5M100 103.5l-4 5M110 103.5l-4 5M120 103.5l-4 5M130 103.5l-4 5M140 103.5l-4 5" stroke-width=".5" stroke="#6b7782"/>
+                    </g>
+                    <g fill="none" stroke="#C55B3E" stroke-width=".8" stroke-linecap="round">
+                      <path d="M16 119.5H130M16 116v7M130 116v7M19 117l-3 2.5 3 2.5M127 117l3 2.5-3 2.5"/>
+                      <path d="M16 36H51.5M16 33v6M51.5 33v6"/>
+                      <path d="M139 46v57M136.5 46h5M136.5 103h5M137 49l2-3 2 3M137 100l2 3 2-3"/>
+                    </g>
+                    <g font-family="Caveat, 'Bradley Hand', cursive" fill="#C55B3E" font-weight="600">
+                      <text x="73" y="131" font-size="10.5" text-anchor="middle">12'-0" overall</text>
+                      <text x="33.7" y="31" font-size="8.5" text-anchor="middle">4'-0" o.c.</text>
+                      <text x="141" y="78" font-size="9" transform="rotate(-90 141 78)" text-anchor="middle" dy="-3.5">36" H</text>
+                    </g>
+                    <g font-family="Caveat, 'Bradley Hand', cursive" fill="#2f3a44" font-weight="600">
+                      <text x="9" y="17" font-size="10">Back deck railing</text>
+                      <text x="9" y="142" font-size="7.5" fill="#4d5a66">SS cable @ 3" · bronze posts · on concrete</text>
+                    </g>
+                  </svg></div>
+                  <div class="dz-t"><b>Photo of a Drawing with Measurements</b><span class="dz-s">Drag a photo here or <u>browse</u></span><span class="dz-f"></span><span class="dz-bar"><i></i></span><span class="dz-ok">✓ Uploaded</span></div>
+                </div>
+              </div>
+              <button class="sub" id="qsub">Get A Free Quote</button>
+            </div>
+            <div class="done" id="qdone"><div><div style="font-size:40px">✓</div><b style="font-size:22px;display:block;margin-top:8px">Thanks, John. Your quote request is in.</b><p style="color:#666;margin-top:6px">Check your email and texts for a confirmation.</p></div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="copy" style="width:33%">
+      <span class="eb" data-in>The lead source</span>
+      <h2 data-in="2">One form. <em>Every</em> detail.</h2>
+      <p class="lede" data-in="3">Their custom Shopify quote form is the sole lead source. Every submission flows straight into GHL, capturing full project details (budget, style, timeline, measurements, photos and drawings) as a ready-to-work lead, not just a name and email.</p>
+      <div class="acts" data-in="4"><button class="btn t" id="qfill">Fill a sample quote</button><button class="btn o" id="qreset">Reset</button></div>
+      <ul class="flowlist" data-in="4" id="qflow">
+        <li><i></i>Shopify form submitted<small>+0.0s</small></li>
+        <li><i></i>Contact created in GoHighLevel<small>+0.4s</small></li>
+        <li><i></i>Photos &amp; drawing attached to the lead<small>+0.6s</small></li>
+        <li><i></i>Opportunity opened in “New Quote”<small>+0.8s</small></li>
+        <li><i></i>Rep assigned by round robin<small>+1.1s</small></li>
+        <li><i></i>Posted to Slack #quoterequests<small>+1.6s</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · Instant lead response -->
+  <section class="slide" data-title="Instant Lead Response" data-dur="11000" data-hint="Tap a channel or replay the sequence" data-group="The UMR system" data-id="resp">
+    <div class="copy" style="width:34%">
+      <span class="eb" data-in>Seconds, not hours</span>
+      <h2 data-in="2">Instant lead response</h2>
+      <p class="lede" data-in="3">The customer hears back before they've closed the tab, and their rep follows up on two channels without typing a word.</p>
+      <ul class="chan" data-in="4" id="chan">
+        <li><button data-c="0"><small>+0s</small>Email confirmation</button></li>
+        <li><button data-c="1"><small>+0s</small>SMS confirmation</button></li>
+        <li><button data-c="2"><small>+1 min</small>Representative follow-up on email</button></li>
+        <li><button data-c="3"><small>+1 min</small>Representative follow-up on SMS</button></li>
+      </ul>
+      <div class="acts" data-in="4"><button class="btn o" id="replay">Replay sequence</button></div>
+    </div>
+    <div class="vis">
+      <img class="coin f" src="assets/coin.webp" alt="" style="width:20%;top:4%;right:4%;--r:20deg">
+      <div class="laptop" data-in="2" id="rlap" style="width:96%;margin-right:4%;margin-bottom:6%;transition:opacity .4s,transform .4s">
+        <div class="lid"><div class="scr"><img src="assets/gmail.webp" alt="Rep follow-up email in Gmail from Anique McIntosh at Ultra Modern Rails" style="width:100%;height:100%;object-fit:cover;object-position:top left"></div></div><div class="base"></div>
+      </div>
+      <div class="iph" data-in="3" id="rphone" style="position:absolute;right:2%;bottom:11%;width:min(28%,calc((100% - 20px) * .28));transition:transform .45s var(--ease)">
+        <div class="scr"><div class="fit" data-w="390" data-h="844" data-by="contain" style="height:100%"><div class="ios" id="rscr"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Confirmation email -->
+  <section class="slide" data-title="Confirmation Email" data-dur="10000" data-hint="The email scrolls to show what the customer submitted" data-group="The UMR system" data-id="mail">
+    <div class="vis" style="padding:2% 6%">
+      <img class="coin f" src="assets/coin.webp" alt="" style="width:14%;left:1%;top:6%;--r:-18deg">
+      <img class="coin f" src="assets/coin.webp" alt="" style="width:8%;left:4%;top:34%;--r:24deg;animation-delay:-3s">
+      <img class="coin" src="assets/coin.webp" alt="" style="width:30%;right:-12%;top:8%;transform:rotate(-30deg);opacity:.9">
+      <div class="laptop" data-in style="width:min(100%,calc((100dvh - 150px) * 1.5))">
+        <div class="lid"><div class="scr"><div class="fit" data-w="1100" data-h="690" data-by="contain" style="height:100%">
+          <div class="em"><div class="sc" id="emsc"><div class="paper">
+            <div style="text-align:center"><span class="wm" style="font-size:34px"><b>ultramodern</b><i><img src="assets/rails.webp" alt=""></i></span></div>
+            <h3>Thank you for your quote request!</h3>
+            <p>Hi Test,</p>
+            <p>Thanks for sending in your project details. We've received your information and we've already begun building your custom railing quote.</p>
+            <div class="cap">Here's what happens now</div>
+            <ul><li>Our team reviews your measurements, drawings, or photos</li><li>We map out your layout and determine your post count</li><li>We calculate materials, glass, hardware, and freight</li><li>We prepare your accurate quote</li></ul>
+            <p style="margin-top:16px">You'll typically receive your full estimate within 24 hours. If we need anything else to finalize it, we'll reach out directly.</p>
+            <p>Talk soon,<br><b>Ultra Modern Rails</b></p>
+            <div class="cap">What you submitted</div>
+            <table><tr><td>I am a</td><td>Contractor</td></tr><tr><td>Project Type</td><td>Residential</td></tr><tr><td>Indoor / Outdoor</td><td>Indoor</td></tr><tr><td>Budget</td><td><b>$5,000 to $10,000</b></td></tr><tr><td>Desired Style</td><td>Spigot</td></tr><tr><td>Handrail Style</td><td>Still Deciding</td></tr><tr><td>Glass Height</td><td>36" All Sections</td></tr><tr><td>Rail System Installed On</td><td>Wood</td></tr></table>
+          </div></div></div>
+        </div></div></div><div class="base"></div>
+      </div>
+      <div class="tag" data-in="3" style="left:3%;bottom:8%">Confirmation email to the customer</div>
+    </div>
+  </section>
+
+  <!-- 5 · Round robin -->
+  <section class="slide" data-title="Round Robin" data-dur="9000" data-hint="Send leads and watch them rotate" data-group="The UMR system" data-id="rr">
+    <div class="copy" style="width:36%">
+      <span class="eb" data-in>Fair by design</span>
+      <h2 data-in="2">Round Robin</h2>
+      <p class="lede" data-in="3">GHL's Round Robin assigns each new lead to Ethan Soto, Blake Dunn or Ryan Rhodes in turn, so leads are spread evenly across the team.</p>
+      <div class="acts" data-in="4"><button class="btn t" id="rrgo">Send a new lead</button><button class="btn o" id="rr5">Send five</button></div>
+    </div>
+    <div class="vis">
+      <img class="coin f" src="assets/coin.webp" alt="" style="width:18%;right:2%;top:2%;--r:14deg">
+      <div class="fit" data-w="900" data-h="620" data-by="contain" style="width:100%;height:100%">
+        <div class="rr" id="rrbox">
+          <div class="lead" id="rrlead"><b>New Lead</b><div>Name: <span id="rrn">John</span><br>Email: <span id="rre">john.r@example.com</span></div></div>
+          <svg width="900" height="620" fill="none" stroke="#C55B3E" stroke-width="5" stroke-linecap="round">
+            <path id="rp0" d="M450 175 C450 205 210 200 210 330"/><path id="rp1" d="M450 175 L450 330"/><path id="rp2" d="M450 175 C450 205 690 200 690 330"/>
+            <path d="M198 318 L210 334 L222 318M438 318 L450 334 L462 318M678 318 L690 334 L702 318"/>
+          </svg>
+          <div class="rep" style="left:210px"><div class="av">RR<span class="cnt">0</span></div><b>Ryan Rhodes</b><small>last: none</small></div>
+          <div class="rep" style="left:450px"><div class="av">ES<span class="cnt">0</span></div><b>Ethan Soto</b><small>last: none</small></div>
+          <div class="rep" style="left:690px"><div class="av">BD<span class="cnt">0</span></div><b>Blake Dunn</b><small>last: none</small></div>
+          <span class="tok" id="rrtok"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Opportunities -->
+  <section class="slide" data-title="Opportunities" data-dur="17000" data-hint="Drag any card to another stage to start its workflow" data-group="The UMR system" data-id="pl">
+    <div class="copy" style="width:30%">
+      <span class="eb" data-in>Pipeline</span>
+      <h2 data-in="2">Opportunities</h2>
+      <p class="lede" data-in="3">Each quote is an opportunity in the GHL pipeline. Moving it to a new stage starts that stage's workflow, so every customer gets the right message at the right point.</p>
+      <div class="acts" data-in="4" style="margin-top:20px"><button class="btn t" id="plplay">Play the pipeline</button></div>
+      <div class="wf" data-in="4" id="wf"><div class="wf-h"><i></i>Workflow</div><p class="empty" style="margin-top:10px">Drag a card in the pipeline, or play the demo, to see which workflow runs.</p></div>
+    </div>
+    <div class="vis">
+      <div class="laptop" data-in="2" style="width:100%">
+        <div class="lid"><div class="scr"><div class="fit" data-w="1280" data-h="800" data-by="contain" style="height:100%"><div id="ghlboard"></div></div></div></div><div class="base"></div>
+      </div>
+      <div class="wonpop" id="wonpop" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 7 · Slack -->
+  <section class="slide" data-title="Slack Integration" data-dur="12000" data-hint="Pick a channel to see what lands there" data-group="The UMR system" data-id="slack">
+    <div class="vis slvis" data-in><div class="fit" data-w="1080" data-h="1000" data-by="contain" style="width:100%;height:100%"><div id="slackwin"></div></div></div>
+    <div class="copy" style="flex:1;width:auto">
+      <span class="eb" data-in>Where the team already talks</span>
+      <h2 data-in="2">Slack integration</h2>
+      <p class="lede" data-in="3">Each kind of request lands in its own channel, posted by a bot, with the right rep tagged.</p>
+      <ul class="chs7" data-in="4" id="chs7">
+        <li><button data-c="quoterequests" class="on"><b><span>#</span>quoterequests</b><small>The UMR Quote bot posts every quote request with the full project details, the customer's photos and the rep the round robin assigned.</small></button></li>
+        <li><button data-c="customer-support-requests"><b><span>#</span>customer-support-requests</b><small>UMR Support posts existing-order questions and support cases from the website chat, with order number and photos.</small></button></li>
+        <li><button data-c="orders-and-sales-wins"><b><span>#</span>orders-and-sales-wins</b><small>When a deal is won, the Sales Bot congratulates the team and tags the rep who closed it.</small></button></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 · Conversations -->
+  <section class="slide" data-title="Representative Conversations" data-dur="12000" data-hint="Pick a callout, or open another conversation" data-group="The UMR system" data-id="conv">
+    <div class="copy" style="width:30%">
+      <span class="eb" data-in>One inbox per rep</span>
+      <h2 data-in="2" style="font-size:clamp(30px,3.2vw,52px)">Representative <em>conversations</em></h2>
+      <p class="lede" data-in="3">Every email, text and call with a customer sits in one GHL thread, owned by the rep the round robin picked.</p>
+      <ul class="co8" data-in="4" id="co8">
+        <li><button data-a="inbox" class="on"><b>Team inbox</b><small>Every quote reply, chat and text lands in one shared inbox, with unread counts.</small></button></li>
+        <li><button data-a="call"><b>Recorded calls</b><small>Calls are logged in the thread with a recording, so anyone can pick up where the rep left off.</small></button></li>
+        <li><button data-a="follow"><b>Rep follow-up</b><small>Follow-ups go out from the thread itself, by text or email.</small></button></li>
+        <li><button data-a="owner"><b>Owner = assigned rep</b><small>The round robin sets the contact owner, so each customer's messages route to their rep.</small></button></li>
+      </ul>
+    </div>
+    <div class="vis tabvis8">
+      <div class="tablet" data-in="2"><div class="scr"><div class="fit" data-w="1200" data-h="900" data-by="contain" style="height:100%"><div id="ghlconv"></div></div></div></div>
+    </div>
+  </section>
+
+  <!-- 9 · How the website chat works -->
+  <section class="slide" data-title="How the Chat Works" data-dur="12000" data-hint="Pick a route to follow it" data-group="The website chat" data-id="routes" style="flex-direction:column;padding:clamp(24px,3vw,48px)">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap">
+      <div><span class="eb" data-in>Part two</span><h2 data-in="2" style="max-width:14em">Then we put a <em>chat</em> on the store.</h2></div>
+      <div data-in="3" style="max-width:440px"><p class="lede" style="margin:0 0 18px">Visitors pick what they need. Each request goes straight to the people who handle it.</p><button class="btn t" id="rtall">Play every route</button></div>
+    </div>
+    <div class="vis" data-in="4" style="min-height:0"><div class="fit" data-w="1200" data-h="580" data-by="contain" style="width:100%;height:100%">
+      <div class="rtw" id="rtw">
+        <svg width="1200" height="580" fill="none" stroke="#9A9EA2" stroke-width="1.4">
+          <path id="r0a" d="M200 290 C290 290 300 85 360 85"/><path id="r1a" d="M200 290 C290 290 300 225 360 225"/><path id="r2a" d="M200 290 C290 290 300 365 360 365"/><path id="r3a" d="M200 290 C290 290 300 505 360 505"/>
+          <path id="r0b" d="M580 85 H850"/><path id="r1b" d="M580 225 C700 225 720 295 850 295"/><path id="r2b" d="M580 365 C700 365 720 295 850 295"/><path id="r3b" d="M580 505 H660 M820 505 H850"/>
+        </svg>
+        <div class="nd src" style="left:110px;top:290px"><b>Website chat</b><small>ultramodernrails.com</small></div>
+        <div class="nd" data-r="0" style="left:470px;top:85px"><b>Custom Quote</b><small>A detailed quote for a new project</small></div>
+        <div class="nd" data-r="1" style="left:470px;top:225px"><b>Existing Order</b><small>Track, update or ask about an order</small></div>
+        <div class="nd" data-r="2" style="left:470px;top:365px"><b>Customer Support</b><small>Installation help or a question</small></div>
+        <div class="nd" data-r="3" style="left:470px;top:505px"><b>Talk to a Rep</b><small>Someone reaches out directly</small></div>
+        <div class="nd" data-d="0" style="left:960px;top:85px"><span class="kind">Slack</span><b># quoterequests</b><small>UMR Quote bot, rep tagged</small></div>
+        <div class="nd" data-d="1" style="left:960px;top:295px"><span class="kind">Slack</span><b># customer-support-requests</b><small>UMR Support bot, order # and photos</small></div>
+        <div class="nd" data-d="3a" style="left:740px;top:505px;width:150px"><b>Round robin</b><small>Next rep in turn</small></div>
+        <div class="nd" data-d="3" style="left:960px;top:505px"><span class="kind">Email</span><b>To the assigned rep</b><small>Visitor's details, ready to call</small></div>
+        <span class="bead" id="rtb"></span>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 10 · The widget experience -->
+  <section class="slide" data-title="The Chat Experience" data-dur="50000" data-hint="Use the chat: pick an option and finish the flow" data-group="The website chat" data-id="widget">
+    <div class="copy" style="width:29%">
+      <span class="eb" data-in>Try it</span>
+      <h2 data-in="2">Four ways in, <em>one</em> answer.</h2>
+      <p class="lede" data-in="3">Every request goes straight to the people who handle it.</p>
+      <div class="dcap" data-in="4" id="dcap" aria-live="polite"><span class="n">Demo</span><b>Watch a visitor use the chat</b><p>It starts in a moment. Click inside the chat at any time to take over.</p></div>
+      <div class="landed" data-in="4" id="landed"><div class="lph">Finish a flow in the chat and the Slack message or rep email it creates shows up here.</div></div>
+    </div>
+    <div class="vis" style="padding:clamp(10px,2vh,24px) 0 clamp(56px,8vh,76px)"><div class="fit" data-w="1060" data-h="800" data-by="contain" style="width:100%;height:100%" data-in="2">
+      <div class="browser real"><div class="ch"><i></i><i></i><i></i><span>ultramodernrails.com</span></div><div class="pg live10"><img src="assets/live/site-desktop.webp" alt="The ultramodernrails.com homepage"></div><div class="wmount" id="wmount"></div><svg class="dcur" id="dcur" viewBox="0 0 24 24"><path d="M4 2l15 9.5-6.6 1.4 3.9 7.3-2.9 1.5-3.9-7.3L4 19z" fill="#111" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+    </div></div>
+  </section>
+
+  <!-- 11 · Close -->
+  <section class="slide closing" data-title="Thank you" data-dur="0" data-hint="Ultra Modern Rails" data-group="The website chat">
+    <img class="coin f" src="assets/coin.webp" alt="" style="width:min(26vw,360px);left:5%;top:10%;--r:-14deg">
+    <img class="coin f" src="assets/coin.webp" alt="" style="width:min(12vw,170px);right:9%;bottom:12%;--r:30deg;animation-delay:-4s">
+    <span class="wm" data-in><b>ultramodern</b><i><img src="assets/rails.webp" alt="rails"></i></span>
+    <div class="panel" data-in="2">
+      <p class="lede" style="margin:0 auto;color:var(--ink)">One connected setup: every quote tracked, every rep in rotation, every customer answered in seconds.</p>
+      <div class="acts" style="justify-content:center"><button class="btn o" id="restart">Back to the start</button></div>
+    </div>
+  </section>
+
+  <div class="nav-glass"><button id="gpv" aria-label="Previous slide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button><button id="gnx" aria-label="Next slide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button></div>
+  </main>
+</div>
+
+<div class="drawer" id="drawer" aria-hidden="true"><div class="shade"></div><aside aria-label="Contents"><h3>CONTENTS</h3><ol id="toc"></ol></aside></div>
+
+<script src="assets/demos.js"></script>
+<script src="assets/ghl.js"></script>
+<script src="assets/slack.js"></script>
+<script>
+(() => {
+  const slides = [...document.querySelectorAll(".slide")];
+  const card = document.getElementById("card");
+  const N = slides.length, pad = (n) => String(n).padStart(2, "0");
+  let i = -1;
+  const W = UMR.wait;
+  const EMBED = document.documentElement.classList.contains("embed");
+  const host = (msg) => { if (EMBED && parent !== window) parent.postMessage({ source: "umr-deck", ...msg }, location.origin); };
+  document.querySelectorAll(".fit").forEach(UMR.fit);
+  // the card clips its slides; focus or scrollIntoView must never shift it
+  card.addEventListener("scroll", () => { if (card.scrollTop || card.scrollLeft) card.scrollTo(0, 0); });
+
+  /* ---------- contents drawer ---------- */
+  const toc = document.getElementById("toc"); let g;
+  slides.forEach((s, k) => {
+    if (s.dataset.group !== g) { g = s.dataset.group; toc.insertAdjacentHTML("beforeend", `<li class="grp">${g.toUpperCase()}</li>`); }
+    toc.insertAdjacentHTML("beforeend", `<li data-k="${k}"><button><span class="pst"><i></i></span><span><b>${s.dataset.title}</b><small>${s.dataset.hint}</small></span></button></li>`);
+  });
+  const dr = document.getElementById("drawer");
+  const drawer = (on) => { dr.classList.toggle("on", on); dr.setAttribute("aria-hidden", !on); if (on) dr.querySelector("li.on button")?.focus(); };
+  document.getElementById("openc").onclick = () => drawer(true);
+  dr.querySelector(".shade").onclick = () => drawer(false);
+  toc.querySelectorAll("li[data-k]").forEach((li) => li.querySelector("button").onclick = () => { go(+li.dataset.k); drawer(false); });
+
+  /* ---------- autoplay ---------- */
+  const auto = { on: true, t: 0, dur: 0, last: 0 };
+  const abar = document.getElementById("autobar"), afill = document.getElementById("autofill"), abtn = document.getElementById("autoplay");
+  function autoUi() {
+    abtn.setAttribute("aria-pressed", auto.on); abtn.setAttribute("aria-label", auto.on ? "Pause autoplay" : "Play autoplay");
+    abar.classList.toggle("paused", !auto.on); abar.classList.toggle("off", !auto.dur);
+    afill.style.width = auto.dur ? Math.min(100, auto.t / auto.dur * 100) + "%" : "0";
+  }
+  function autoTick(now) {
+    if (!EMBED && auto.on && auto.dur && !document.hidden) {
+      auto.t += Math.min(100, now - (auto.last || now));
+      if (auto.t >= auto.dur) { auto.last = now; go(i + 1); requestAnimationFrame(autoTick); return; }
+    }
+    auto.last = now; autoUi(); requestAnimationFrame(autoTick);
+  }
+  function autoReset(slide) { auto.t = 0; auto.dur = +slide.dataset.dur || 0; autoUi(); }
+  function autoSet(on) { auto.on = on; autoUi(); }
+  abtn.onclick = () => autoSet(!auto.on);
+  // clicking or dragging inside a slide means the viewer is exploring: pause
+  card.addEventListener("pointerdown", (e) => { if (e.isTrusted && !e.target.closest(".nav-glass")) { autoSet(false); host({ type: "interact" }); } });
+  requestAnimationFrame(autoTick);
+
+  /* ---------- per-slide behaviour ---------- */
+  const hooks = {};
+
+  // 1 · the real site scrolling inside the laptop and phone
+  const lives = [...document.querySelectorAll('[data-id="ov"] .live')];
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let liveOn = false, liveRaf = 0;
+  const liveState = lives.map((el) => ({ el, pos: 0, hold: 0, user: 0 }));
+  lives.forEach((el, k) => {
+    const st = liveState[k], wake = () => { st.user = performance.now() + 5000; st.pos = el.scrollTop; };
+    ["wheel", "touchstart", "pointerdown"].forEach((ev) => el.addEventListener(ev, wake, { passive: true }));
+    el.addEventListener("pointerenter", () => st.user = Infinity);
+    el.addEventListener("pointerleave", () => { st.user = performance.now() + 1200; st.pos = el.scrollTop; });
+  });
+  let liveT = 0;
+  function liveTick(t) {
+    const dt = liveT ? Math.min(64, t - liveT) / 1000 : 0; liveT = t;
+    for (const st of liveState) {
+      const el = st.el, max = el.scrollHeight - el.clientHeight;
+      if (max <= 0 || t < st.user || t < st.hold) continue;
+      if (st.pos >= max - 1) { st.hold = t + 2600; st.pos = 0; el.scrollTo({ top: 0, behavior: "smooth" }); st.user = t + 3600; continue; }
+      st.pos = Math.min(max, st.pos + el.clientHeight * 0.16 * dt); el.scrollTop = st.pos;
+    }
+    if (liveOn) liveRaf = requestAnimationFrame(liveTick);
+  }
+  hooks.ov = {
+    enter: () => { if (still) return; liveOn = true; liveT = 0; const t = performance.now(); liveState.forEach((st) => { st.pos = st.el.scrollTop; st.user = t + 1800; }); cancelAnimationFrame(liveRaf); liveRaf = requestAnimationFrame(liveTick); },
+    leave: () => { liveOn = false; cancelAnimationFrame(liveRaf); },
+  };
+
+  // 2 · quote form
+  const qfields = [["First Name", "John"], ["Last Name", "Reeves"], ["Email", "john.r@example.com"], ["Phone", "+1 323 555 0161"], ["I am a:", "Home Owner"], ["Project Type", "Residential"], ["Indoor or Outdoor Project", "Outdoor"], ["My Budget", "$10,000 to $25,000"], ["Rail System will be Installed on", "Concrete"], ["Railing Height", "36\" Stairs, 42\" Horizontal"]];
+  const qf = document.getElementById("qf"); let qrun = 0;
+  const dzs = [...document.querySelectorAll('[data-id="form"] .dz')];
+  const dzReset = () => dzs.forEach((d) => { d.classList.remove("up", "ok"); d.querySelector(".dz-bar i").style.width = "0"; });
+  async function upload(d, my) {
+    if (d.classList.contains("ok")) return;
+    d.querySelector(".dz-f").textContent = d.dataset.file; d.classList.add("up");
+    const bar = d.querySelector(".dz-bar i");
+    for (let pct = 0; pct <= 100; pct += 10) { if (my !== qrun) return; bar.style.width = pct + "%"; await W(70); }
+    d.classList.remove("up"); d.classList.add("ok");
+  }
+  dzs.forEach((d) => { const go = () => upload(d, qrun); d.onclick = go; d.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }; });
+  const qreset = () => { qrun++; dzReset(); qf.innerHTML = qfields.map(([l]) => `<div class="f">${l}*</div>`).join(""); document.getElementById("qdone").classList.remove("on"); document.querySelectorAll("#qflow li").forEach((l) => l.classList.remove("ok")); };
+  async function qfill() {
+    const my = ++qrun; dzReset(); document.getElementById("qdone").classList.remove("on"); document.querySelectorAll("#qflow li").forEach((l) => l.classList.remove("ok"));
+    const els = qf.children;
+    for (let k = 0; k < qfields.length; k++) {
+      const f = els[k]; f.classList.add("typing"); f.textContent = "";
+      for (const ch of qfields[k][1]) { if (my !== qrun) return; f.textContent += ch; await W(14); }
+      f.classList.remove("typing"); f.classList.add("v");
+    }
+    for (const d of dzs) { await upload(d, my); if (my !== qrun) return; await W(150); }
+    await W(300); if (my !== qrun) return;
+    await qsubmit(my);
+  }
+  async function qsubmit(my = ++qrun) {
+    if (!qf.querySelector(".v")) return qfill();
+    await W(250); if (my !== qrun) return; document.getElementById("qdone").classList.add("on");
+    for (const li of document.querySelectorAll("#qflow li")) { await W(380); if (my !== qrun) return; li.classList.add("ok"); }
+  }
+  qreset();
+  document.getElementById("qfill").onclick = qfill;
+  document.getElementById("qsub").onclick = () => qsubmit();
+  document.getElementById("qreset").onclick = qreset;
+  hooks.form = { enter: () => { qreset(); setTimeout(() => slides[i]?.dataset.id === "form" && qfill(), 900); }, leave: qreset };
+
+  // 3 · instant response
+  const rscr = document.getElementById("rscr"), rlap = document.getElementById("rlap"), rph = document.getElementById("rphone");
+  const ico = {
+    sig: '<svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>',
+    wifi: '<svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.3c2.4 0 4.6.9 6.2 2.5l1.3-1.3A10.6 10.6 0 0 0 8.5.4 10.6 10.6 0 0 0 1 3.5l1.3 1.3a8.7 8.7 0 0 1 6.2-2.5Zm0 3.8c1.4 0 2.6.5 3.6 1.4L13.4 6a7 7 0 0 0-9.8 0l1.3 1.4c1-.9 2.2-1.4 3.6-1.4Zm0 3.7c-.5 0-1 .2-1.3.5l1.3 1.4 1.3-1.4c-.3-.3-.8-.5-1.3-.5Z"/></svg>',
+    bat: '<svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg>',
+    chev: '<svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg>',
+    mic: '<svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="1" width="7" height="11" rx="3.5"/><path d="M1 9a6 6 0 0 0 12 0M7 15v4"/></svg>',
+  };
+  const sbar = (t) => `<div class="sbar"><b>${t}</b><span>${ico.sig}${ico.wifi}${ico.bat}</span></div>`;
+  const imsg = (bubbles) => `${sbar("9:41")}
+    <div class="im-h"><span class="bk blue">${ico.chev}</span><div class="im-av"><img src="assets/rails.webp" alt=""></div><div class="nm">Ultra Modern Rails <span style="color:#c7c7cc">›</span></div></div>
+    <div class="im-b">${bubbles}</div>
+    <div class="im-c"><span class="pl">+</span><span class="in">Text Message ${ico.mic}</span></div><span class="home"></span>`;
+  const sms1 = 'Hi John, thanks for your quote request with Ultra Modern Rails! We\'ve received your project details and we\'re building your custom railing quote now.';
+  const sms2 = 'Hey John, this is Ethan with Ultra Modern Rails. I just got your project details and I\'m taking a look now. I\'ll reach out shortly!';
+  const views = [
+    () => `${sbar("9:41")}
+      <div class="ml-n blue"><span>${ico.chev}&nbsp;Inbox</span><span style="gap:22px"><svg width="18" height="11" viewBox="0 0 18 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 9l7-7 7 7"/></svg><svg width="18" height="11" viewBox="0 0 18 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 2l7 7 7-7"/></svg></span></div>
+      <div class="ml-h"><div class="r"><span class="av"><img src="assets/rails.webp" alt=""></span><div class="fr"><b>Ultra Modern Rails</b><small>To: John Reeves</small></div><time>9:32 AM</time></div><h6>Thank you for your quote request!</h6></div>
+      <div class="ml-b"><div class="sc"><div class="cd">
+        <div style="text-align:center"><span class="wm" style="font-size:24px"><b>ultramodern</b><i><img src="assets/rails.webp" alt=""></i></span></div>
+        <h5>Thank you for your quote request!</h5><p>Hi John,</p><p>Thanks for sending in your project details. We've received your information and we've already begun building your custom railing quote.</p>
+        <div class="cap">Here's what happens now</div><ul><li>Our team reviews your measurements, drawings, or photos</li><li>We map out your layout and determine your post count</li><li>We calculate materials, glass, hardware, and freight</li><li>We prepare your accurate quote</li></ul>
+        <p style="margin-top:12px">You'll typically receive your full estimate within 24 hours.</p><p>Talk soon,<br><b>Ultra Modern Rails</b></p>
+        <div class="cap">What you submitted</div><table><tr><td>I am a</td><td>Home Owner</td></tr><tr><td>Project Type</td><td>Residential</td></tr><tr><td>Budget</td><td><b>$10,000 to $25,000</b></td></tr><tr><td>Installed On</td><td>Concrete</td></tr><tr><td>Railing Height</td><td>36" Stairs, 42" Horizontal</td></tr></table>
+      </div></div></div>
+      <div class="ml-t blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v4"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+      <span class="home"></span>`,
+    () => imsg(`<div class="im-ts"><b>Text Message</b><br>Today 9:32 AM</div><div class="bub">${sms1}</div>`),
+    null,
+    () => imsg(`<div class="im-ts"><b>Text Message</b><br>Today 9:32 AM</div><div class="bub" style="animation:none">${sms1}</div><div class="im-ts" style="margin-top:14px">Today 9:33 AM</div><div class="bub" style="animation-delay:.35s">${sms2}</div>`),
+  ];
+  let rrun = 0;
+  function chan(c) {
+    document.querySelectorAll("#chan button").forEach((b) => b.classList.toggle("on", +b.dataset.c === c));
+    const lap = c === 2;
+    rlap.style.opacity = lap ? 1 : .82; rlap.style.transform = lap ? "scale(1.015)" : "none";
+    rph.style.transform = lap ? "translateY(8%) scale(.9)" : "none";
+    if (views[c]) {
+      rscr.innerHTML = views[c]();
+      const sc = rscr.querySelector(".ml-b .sc");
+      if (sc && !matchMedia("(prefers-reduced-motion: reduce)").matches) setTimeout(() => { sc.style.transform = "translateY(-330px)"; }, 900);
+    }
+  }
+  async function replay() { const my = ++rrun; for (let c = 0; c < 4; c++) { if (my !== rrun) return; chan(c); await W(2200); } }
+  document.querySelectorAll("#chan button").forEach((b) => b.onclick = () => { rrun++; chan(+b.dataset.c); });
+  document.getElementById("replay").onclick = replay;
+  hooks.resp = { enter: () => setTimeout(replay, 500), leave: () => rrun++ };
+  chan(0);
+
+  // 4 · email scroll
+  const emsc = document.getElementById("emsc");
+  hooks.mail = { enter: () => { emsc.style.transition = "none"; emsc.style.transform = "none"; setTimeout(() => { emsc.style.transition = ""; emsc.style.transform = "translateY(-560px)"; }, 1400); } };
+
+  // 5 · round robin
+  const rrReps = [...document.querySelectorAll("#rrbox .rep")], tok = document.getElementById("rrtok");
+  const leads = [["John", "john.r@example.com"], ["Andrea", "andrea.m@example.com"], ["Daniel", "daniel.b@example.com"], ["Graham", "graham.l@example.com"], ["Adam", "andrew.b@example.com"], ["Jordan", "jordan.g@example.com"], ["Derek", "derek.g@example.com"]];
+  const order = [1, 2, 0]; // Ethan, Blake, Ryan, as GHL rotates them
+  let rrk = 0, rrBusy = Promise.resolve();
+  function sendLead() {
+    rrBusy = rrBusy.then(async () => {
+      const L = leads[rrk % leads.length], who = order[rrk % 3]; rrk++;
+      document.getElementById("rrn").textContent = L[0]; document.getElementById("rre").textContent = L[1];
+      const lead = document.getElementById("rrlead"); lead.style.transform = "translateX(-50%) scale(1.05)"; await W(160); lead.style.transform = "translateX(-50%)";
+      const p = document.getElementById("rp" + who), len = p.getTotalLength();
+      tok.style.opacity = 1; const t0 = performance.now(), dur = matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 520;
+      await new Promise((res) => { const f = (t) => { const q = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - q, 3), pt = p.getPointAtLength(e * len); tok.style.left = pt.x + "px"; tok.style.top = pt.y + "px"; q < 1 ? requestAnimationFrame(f) : res(); }; requestAnimationFrame(f); });
+      tok.style.opacity = 0;
+      const r = rrReps[who]; r.classList.add("hit"); const c = r.querySelector(".cnt"); c.textContent = +c.textContent + 1; r.querySelector("small").textContent = "last: " + L[0];
+      setTimeout(() => r.classList.remove("hit"), 600); await W(220);
+    });
+  }
+  document.getElementById("rrgo").onclick = sendLead;
+  document.getElementById("rr5").onclick = () => { for (let k = 0; k < 5; k++) sendLead(); };
+  hooks.rr = { enter: () => setTimeout(() => { if (rrk === 0) sendLead(); }, 900) };
+
+  // 6 · GHL pipeline: each stage change runs that stage's workflow
+  const FLOWS = {
+    "New Quote": ["New quote received", [["Send confirmation email", "Thank you for your quote request"], ["Send confirmation SMS", "Within seconds of the form"], ["Assign owner by round robin", "Next rep in turn"], ["Post to Slack #quoterequests", "UMR Quote bot, rep tagged"]]],
+    "Contacted": ["Contacted follow-up", [["SMS from the rep", "“Hi {first}, this is {rep} with Ultra Modern Rails…”"], ["Wait 1 day", "Stops if the customer replies"], ["Email: Quick update on your railing project", "From the assigned rep"], ["Create task: call {first}", "Assigned to {rep}"]]],
+    "Quote Sent": ["Quote follow-up", [["Email the quote", "Itemized system, materials and freight"], ["Wait 2 days, then SMS check-in", "“Any questions on your quote?”"], ["Wait 3 days, then email", "Anything we need to change?"], ["Create task: call {first}", "Final nudge from {rep}"]]],
+    "Won": ["Deal won", [["Post to Slack #orders-and-sales-wins", "Sales Bot tags {rep}"], ["Send thank-you email to {first}", "Order confirmation and next steps"], ["Create order task for fulfilment", "Hand-off to the orders team"], ["Remove from follow-up sequences", "No more quote reminders"]]],
+  };
+  const REPS = { RR: "Ryan Rhodes", BD: "Blake Dunn", ES: "Ethan Soto" };
+  const wf = document.getElementById("wf"), wonpop = document.getElementById("wonpop");
+  let wfrun = 0, wonT;
+  async function runFlow({ card, to }) {
+    const my = ++wfrun, [name, steps] = FLOWS[to], rep = REPS[card.own] || "the rep", first = card.n.split(" ")[0];
+    const fill = (t) => t.replace(/\{rep\}/g, rep).replace(/\{first\}/g, first);
+    wf.classList.add("run");
+    wf.innerHTML = `<div class="wf-h"><i></i>Workflow · <b>${name}</b></div><div class="wf-t">Trigger: stage changed to <b>${to}</b> · ${card.n}</div><ol>${steps.map(([a, b]) => `<li><span class="d">✓</span><div>${fill(a)}<small>${fill(b)}</small></div></li>`).join("")}</ol>`;
+    if (to === "Won") {
+      clearTimeout(wonT);
+      wonpop.innerHTML = Slack.mini("orders-and-sales-wins", Slack.msg.won({ rep, value: card.value, name: card.n, email: first.toLowerCase() + "@example.com", phone: "(413) 555-01" + String(10 + card.n.length).slice(-2) }));
+      setTimeout(() => wonpop.classList.add("on"), 400);
+      wonT = setTimeout(() => wonpop.classList.remove("on"), 6500);
+    }
+    for (const li of wf.querySelectorAll("li")) { await W(520); if (my !== wfrun) return; li.classList.add("ok"); }
+    wf.classList.remove("run");
+  }
+  const board = GHL.board(document.getElementById("ghlboard"), { onMove: runFlow });
+  let plrun = 0;
+  async function playPipeline() {
+    const my = ++plrun;
+    for (const [n, to] of [["Howard Moore", 1], ["Chrissy Ford", 2], ["Greg Bauer", 3]]) {
+      if (my !== plrun || slides[i]?.dataset.id !== "pl") return;
+      await board.move(n, to); await W(3200);
+    }
+  }
+  document.getElementById("plplay").onclick = playPipeline;
+  hooks.pl = { enter: () => { if (!board.cardsIn(3).includes("Greg Bauer")) setTimeout(playPipeline, 1100); }, leave: () => { plrun++; wonpop.classList.remove("on"); } };
+
+  // 7 · Slack window: pick a channel
+  const sk = Slack.window(document.getElementById("slackwin"), { channel: "quoterequests" });
+  const chs7 = [...document.querySelectorAll("#chs7 button")];
+  const pickCh = (c) => { chs7.forEach((b) => b.classList.toggle("on", b.dataset.c === c)); sk.show(c); };
+  chs7.forEach((b) => b.onclick = () => pickCh(b.dataset.c));
+  let ch7T;
+  hooks.slack = {
+    enter: () => { pickCh("quoterequests"); clearInterval(ch7T); let k = 0; ch7T = setInterval(() => { if (!auto.on) return; k = (k + 1) % chs7.length; pickCh(chs7[k].dataset.c); }, 3800); },
+    leave: () => clearInterval(ch7T),
+  };
+
+  // 8 · GHL conversations in the iPad
+  const cv = GHL.convos(document.getElementById("ghlconv"));
+  const co8 = [...document.querySelectorAll("#co8 button")];
+  const pickCo = (a) => { co8.forEach((b) => b.classList.toggle("on", b.dataset.a === a)); cv.open(0); cv.highlight(a); };
+  co8.forEach((b) => b.onclick = () => pickCo(b.dataset.a));
+  let co8T;
+  hooks.conv = {
+    enter: () => { pickCo("inbox"); clearInterval(co8T); let k = 0; co8T = setInterval(() => { if (!auto.on) return; k = (k + 1) % co8.length; pickCo(co8[k].dataset.a); }, 2800); },
+    leave: () => clearInterval(co8T),
+  };
+
+  // 9 · routes from the website chat
+  const rtw = document.getElementById("rtw"), rtb = document.getElementById("rtb");
+  const along = (p, dur) => new Promise((res) => { const len = p.getTotalLength(), t0 = performance.now(); rtb.style.opacity = 1;
+    const f = (t) => { const q = Math.min(1, (t - t0) / (matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : dur)), e = q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2, pt = p.getPointAtLength(e * len); rtb.style.left = pt.x + "px"; rtb.style.top = pt.y + "px"; q < 1 ? requestAnimationFrame(f) : res(); }; requestAnimationFrame(f); });
+  let rtrun = 0;
+  async function route(r, my = ++rtrun) {
+    rtw.querySelectorAll(".hot").forEach((x) => x.classList.remove("hot")); rtw.querySelectorAll("path.on").forEach((x) => x.classList.remove("on"));
+    const a = document.getElementById(`r${r}a`), b = document.getElementById(`r${r}b`); a.classList.add("on"); b.classList.add("on");
+    await along(a, 650); if (my !== rtrun) return; rtw.querySelector(`[data-r="${r}"]`).classList.add("hot");
+    if (r === 3) {
+      await along({ getTotalLength: () => 80, getPointAtLength: (d) => ({ x: 580 + d, y: 505 }) }, 350); if (my !== rtrun) return;
+      rtw.querySelector('[data-d="3a"]').classList.add("hot"); await W(450); if (my !== rtrun) return;
+      await along({ getTotalLength: () => 30, getPointAtLength: (d) => ({ x: 820 + d, y: 505 }) }, 250);
+    } else await along(b, 650);
+    if (my !== rtrun) return; rtw.querySelector(`[data-d="${r === 2 ? 1 : r}"]`).classList.add("hot"); rtb.style.opacity = 0;
+  }
+  rtw.querySelectorAll("[data-r]").forEach((n) => n.onclick = () => route(+n.dataset.r));
+  async function allRoutes() { const my = ++rtrun; for (const r of [0, 1, 2, 3]) { await route(r, my); if (my !== rtrun) return; await W(900); } }
+  document.getElementById("rtall").onclick = allRoutes;
+  hooks.routes = { enter: () => setTimeout(allRoutes, 900), leave: () => rtrun++ };
+
+  // 10 · the chat on the store, and where each case lands
+  const landed = document.getElementById("landed");
+  const chat = UMR.widget(document.getElementById("wmount"), { open: false, onSubmit: (l) => {
+    const rep = l.rep ? l.rep.n : "Ethan Soto", row = (k) => (l.rows.find((r) => r[0] === k) || [])[1];
+    let html;
+    if (l.kind === "Custom Quote") html = `<div class="lbl">Posted to Slack</div>${Slack.mini("quoterequests", Slack.msg.quote({ name: "Website visitor", email: "visitor@example.com", type: row("I am a"), on: row("Installed on"), budget: row("Budget"), rep }))}`;
+    else if (l.kind === "Support") html = `<div class="lbl">Posted to Slack</div>${Slack.mini("customer-support-requests", Slack.msg.support({ id: l.id, name: "Website visitor", email: "visitor@example.com", said: row("Issue") }))}`;
+    else if (l.kind === "Existing Order") html = `<div class="lbl">Posted to Slack</div>${Slack.mini("customer-support-requests", Slack.msg.order({ id: l.id, name: "Website visitor", email: "visitor@example.com", order: (row("Order") || "#1623").replace("#", ""), said: row("Request") }))}`;
+    else html = `<div class="lbl">Round robin picked ${rep}, then emailed them</div><div class="repmail"><div class="h"><b>To:</b> ${rep} &lt;${rep.split(" ")[0].toLowerCase()}@example.com&gt;<br><b>Subject:</b> New Talk to a Rep request: please reach out</div><div class="bd"><span class="wm" style="font-size:18px"><b>ultramodern</b><i><img src="assets/rails.webp" alt=""></i></span><p style="margin-top:12px">Hi ${rep.split(" ")[0]}, a website visitor asked to talk to a rep. You're next in the rotation.</p><table><tr><td>Name</td><td>Website visitor</td></tr><tr><td>Email</td><td>visitor@example.com</td></tr><tr><td>Phone</td><td>(413) 555-0117</td></tr><tr><td>Location</td><td>Westfield, MA</td></tr></table></div></div>`;
+    landed.innerHTML = html;
+  } });
+
+  // the guided demo: opens the chat after 3s, then a cursor clicks through it and explains each step
+  const dcap = document.getElementById("dcap"), dcur = document.getElementById("dcur"), browser = dcur.parentElement;
+  let drun = 0;
+  const cap = (n, b, p) => { dcap.classList.remove("swap"); void dcap.offsetWidth; dcap.classList.add("swap"); dcap.innerHTML = `<span class="n">${n}</span><b>${b}</b><p>${p}</p>`; };
+  const bscale = () => browser.getBoundingClientRect().width / browser.offsetWidth || 1;
+  async function pointAt(target, my) {
+    if (!target || my !== drun) return false;
+    const br = browser.getBoundingClientRect(), r = target.getBoundingClientRect(), s = bscale();
+    dcur.classList.add("on");
+    dcur.style.transition = "opacity .3s, transform .75s cubic-bezier(.45,0,.2,1)";
+    dcur.style.transform = `translate(${(r.left + r.width * .5 - br.left) / s}px,${(r.top + r.height * .55 - br.top) / s}px)`;
+    await W(850); if (my !== drun) return false;
+    dcur.classList.remove("tap"); void dcur.offsetWidth; dcur.classList.add("tap");
+    return true;
+  }
+  const q = (sel, text) => [...chat.el.querySelectorAll(sel)].find((e) => !text || e.textContent.includes(text));
+  async function click(sel, text, my) { let t; for (let k = 0; k < 30 && !(t = q(sel, text)); k++) await W(100); if (!(await pointAt(t, my))) return false; t.click(); await W(500); return my === drun; }
+  async function typeSend(msg, my) {
+    const inp = chat.el.querySelector(".uw-comp input");
+    if (!(await pointAt(inp, my))) return false; inp.focus({ preventScroll: true });
+    for (const ch of msg) { if (my !== drun) return false; inp.value += ch; await W(38); }
+    if (!(await pointAt(chat.el.querySelector(".uw-send"), my))) return false;
+    chat.el.querySelector(".uw-comp").requestSubmit(); await W(1700); return my === drun;
+  }
+  async function demo() {
+    const my = ++drun;
+    chat.el.classList.add("closed"); chat.home(); dcur.classList.remove("on");
+    landed.innerHTML = '<div class="lph">The Slack message or rep email each request creates shows up here.</div>';
+    cap("Step 1", "A visitor lands on the store", "The chat waits quietly in the corner with a friendly nudge.");
+    await W(3000); if (my !== drun) return;
+    cap("Step 2", "They open the chat", "Four clear options: a quote, an existing order, support, or a person.");
+    if (!(await pointAt(chat.el.querySelector(".uw-launch"), my))) return; chat.el.classList.remove("closed"); await W(1400); if (my !== drun) return;
+    cap("Step 3", "They type a question and send it", "The assistant replies right away and points them to the right option.");
+    if (!(await typeSend("Hi, I need railing for my back deck", my))) return;
+    if (!(await click(".uw-back", "", my))) return;
+    cap("Step 4", "They pick Custom Quote", "The chat asks what your team would ask: who they are, the surface, the budget.");
+    if (!(await click(".uw-cat", "Custom Quote", my))) return;
+    for (const c of ["Homeowner", "Concrete", "$10,000 to $25,000"]) if (!(await click(".uw-chip", c, my))) return;
+    cap("Step 5", "They confirm the request", "Nothing is sent until the visitor checks the summary and confirms.");
+    await W(600); if (!(await click(".uw-btn", "Confirm", my))) return;
+    cap("Result", "Posted to Slack #quoterequests", "The quote lands in the quote channel with every detail and the assigned rep tagged.");
+    await W(5200); if (my !== drun) return;
+    if (!(await click(".uw-back", "", my))) return;
+    cap("Next", "Support goes to the support channel", "Order questions and support cases post to #customer-support-requests.");
+    if (!(await click(".uw-cat", "Support", my))) return;
+    if (!(await click(".uw-chip", "Missing parts", my))) return;
+    await W(500); if (!(await click(".uw-btn", "Confirm", my))) return;
+    cap("Result", "Posted to Slack #customer-support-requests", "The support team sees the issue, the order number and the photos.");
+    await W(5200); if (my !== drun) return;
+    if (!(await click(".uw-back", "", my))) return;
+    cap("Next", "Talk to a Rep uses the round robin", "The next rep in turn is picked and emailed the visitor's details to reach out.");
+    if (!(await click(".uw-cat", "Talk to a Rep", my))) return;
+    await W(1400); if (my !== drun) return;
+    cap("Result", "Emailed to the next rep in turn", "Reps take requests one by one, so every lead gets a named owner.");
+    dcur.classList.remove("on");
+  }
+  // a real click inside the chat ends the demo and hands control to the viewer
+  chat.el.addEventListener("pointerdown", (e) => { if (e.isTrusted && drun) { drun++; dcur.classList.remove("on"); cap("Your turn", "Try it yourself", "Pick any option and finish the flow to see where it lands."); } });
+  hooks.widget = { enter: () => setTimeout(() => slides[i]?.dataset.id === "widget" && demo(), 200), leave: () => { drun++; dcur.classList.remove("on"); } };
+
+  document.getElementById("restart").onclick = () => go(0);
+
+  /* ---------- navigation ---------- */
+  function go(n) {
+    n = Math.max(0, Math.min(N - 1, n)); if (n === i) return;
+    const dir = n > i ? 1 : -1, old = slides[i];
+    if (old) { old.classList.remove("on"); old.classList.toggle("prev", dir > 0); hooks[old.dataset.id]?.leave?.(); }
+    const s = slides[n]; s.classList.remove("prev"); s.style.transition = "none"; s.style.transform = `translateX(${dir * 48}px)`; s.offsetWidth; s.style.transition = s.style.transform = ""; s.classList.add("on");
+    i = n; s.scrollTop = 0;
+    card.style.background = s.dataset.bg || "var(--paper-2)"; card.classList.toggle("terra", !!s.dataset.bg);
+    document.getElementById("stitle").textContent = s.dataset.title; document.getElementById("shint").textContent = s.dataset.hint;
+    document.getElementById("cnt").innerHTML = `${pad(n + 1)}<span> / ${pad(N)}</span>`;
+    document.getElementById("bead").style.left = (n / (N - 1)) * 100 + "%";
+    toc.querySelectorAll("li[data-k]").forEach((li) => li.classList.toggle("on", +li.dataset.k === n));
+    ["pv", "gpv"].forEach((id) => document.getElementById(id).disabled = n === 0);
+    ["nx", "gnx"].forEach((id) => document.getElementById(id).disabled = n === N - 1);
+    if (!EMBED) { history.replaceState(null, "", "#" + (n + 1)); document.title = `${s.dataset.title} · Ultra Modern Rails`; }
+    hooks[s.dataset.id]?.enter?.();
+    autoReset(s);
+  }
+  ["pv", "gpv"].forEach((id) => document.getElementById(id).onclick = () => go(i - 1));
+  ["nx", "gnx"].forEach((id) => document.getElementById(id).onclick = () => go(i + 1));
+  addEventListener("keydown", (e) => {
+    if (e.target.closest("input,textarea")) return;
+    if (EMBED) { if (["ArrowRight", "ArrowLeft", "PageDown", "PageUp", "Home", "End"].includes(e.key)) { e.preventDefault(); host({ type: "key", key: e.key }); } return; }
+    if (e.key === "Escape") return drawer(false);
+    if (dr.classList.contains("on")) return;
+    if (["ArrowRight", "PageDown"].includes(e.key) || (e.key === " " && !e.target.closest("button"))) { e.preventDefault(); go(i + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === "Home") go(0); if (e.key === "End") go(N - 1);
+  });
+  let tx = null;
+  card.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; }, { passive: true });
+  card.addEventListener("touchend", (e) => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 70 && !e.target.closest(".uw,.ud,.fit,.live")) { if (EMBED) host({ type: "key", key: dx < 0 ? "ArrowRight" : "ArrowLeft" }); else go(i + (dx < 0 ? 1 : -1)); } tx = null; });
+  if (EMBED) {
+    // the host sends { slide: "<data-id>" } to change slide and { autoplay: bool } to mirror its play state
+    addEventListener("message", (e) => {
+      if (e.origin !== location.origin || e.source !== parent || e.data?.target !== "umr-deck") return;
+      if (typeof e.data.autoplay === "boolean") autoSet(e.data.autoplay);
+      if (e.data.slide) { const k = slides.findIndex((s) => s.dataset.id === e.data.slide); if (k >= 0) go(k); }
+    });
+    const first = slides.findIndex((s) => s.dataset.id === new URLSearchParams(location.search).get("slide"));
+    go(Math.max(0, first));
+    host({ type: "ready" });
+  } else go(Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1));
+})();
+</script>
+</body>
+</html>

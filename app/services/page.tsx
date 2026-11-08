@@ -5,7 +5,9 @@ import { IndustryFaq } from "@/components/sections/industries/industry-faq";
 import { IndustriesCarousel } from "@/components/sections/industries/industries-carousel";
 import { TradeFigure } from "@/components/sections/industries/trade-figure";
 import { Wash, washTone } from "@/components/sections/company/wash";
-import { ServiceRows } from "@/components/sections/services/service-rows";
+import { IndustryServicesStrip } from "@/components/sections/industries/industry-services-strip";
+import { groupTone } from "@/components/sections/services/group-tone";
+import { serviceGroups, servicePages } from "@/content/service-pages";
 import { ProcessTrack } from "@/components/sections/services/process-track";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { services } from "@/content/services";
@@ -30,6 +32,7 @@ const faqJsonLd = {
 
 const tone = washTone("apricot");
 
+
 export default function ServicesPage() {
   return (
     <>
@@ -47,11 +50,14 @@ export default function ServicesPage() {
         figure={<TradeFigure set="service" name="connect" gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
       />
 
-      <ServiceRows
-        heading={services.list.heading}
-        items={services.services}
-        labels={{ jump: services.jump.label, included: services.list.included, ask: services.list.ask }}
-      />
+      {serviceGroups.map((g) => (
+        <IndustryServicesStrip
+          key={g.id}
+          tone={groupTone(g.id)}
+          heading={{ eyebrow: services.groupsEyebrow, title: g.name, body: g.body }}
+          items={servicePages.filter((p) => p.group === g.id).map((p) => ({ icon: p.icon, name: p.name, href: `/services/${p.slug}` }))}
+        />
+      ))}
 
       <ProcessTrack heading={services.process.heading} steps={services.process.steps} />
 

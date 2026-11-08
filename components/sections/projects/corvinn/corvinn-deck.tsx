@@ -5,16 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  BarChart3,
+  Clock,
   Code2,
   FileCheck,
+  Globe,
+  MapPin,
+  Megaphone,
+  MessageSquareHeart,
+  Navigation,
   Palette,
   PhoneCall,
   Receipt,
   Repeat,
   Smartphone,
   Sparkles,
-  Wallet,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -31,7 +35,7 @@ import { InventoryScreen } from "./screen-inventory";
 import { AutomationsScreen } from "./screen-automations";
 import { HvacHairline } from "./hvac-hairline";
 
-const MODULE_ICONS: Record<string, LucideIcon> = { Smartphone, Repeat, FileCheck, Receipt, BarChart3, Wallet, Palette, Code2, Sparkles, PhoneCall };
+const MODULE_ICONS: Record<string, LucideIcon> = { Smartphone, Receipt, Navigation, Globe, Megaphone, MessageSquareHeart, MapPin, Clock, Repeat, FileCheck, Sparkles, Palette, Code2, PhoneCall };
 
 const SCREENS: ScreenId[] = ["dashboard", "jobs", "dispatch", "customers", "inventory", "automations"];
 

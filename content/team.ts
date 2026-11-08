@@ -11,7 +11,7 @@ import type { PageContent, Cta, Feature, SectionHeading, TeamMember } from "./ty
 
 export const team = {
   meta: {
-    title: "Team",
+    title: "Leadership",
     description:
       "Meet the engineers behind Growtk, led by co-founders Muhammad Anique on automation and CRM integrations and Asad Ali on AI agents and voice systems.",
     path: "/team",

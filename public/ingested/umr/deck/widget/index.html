@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UMR Widget · Quote Desk</title>
+<meta name="description" content="An AI chat widget for Shopify stores that turns visitors into quotes, support cases and rep hand-offs, and posts every confirmed case to your CRM.">
+<link rel="icon" href="../assets/rails.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/demos.css">
+<style>
+:root{--max:1320px;--g:clamp(16px,3vw,40px)}
+html{scroll-behavior:smooth}
+body{background:var(--paper);font-size:16px;line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;border-left:1px solid var(--hair);border-right:1px solid var(--hair);position:relative}
+.rule{border-top:1px solid var(--hair)}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.serif{font-family:var(--serif);font-weight:300;letter-spacing:-.015em}
+.serif em{font-style:italic}
+
+/* nav */
+header{position:sticky;top:0;z-index:30;background:rgba(250,250,249,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+header .wrap{display:flex;align-items:center;height:62px;padding:0 var(--g);gap:28px;border-color:transparent}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.brand b{font-family:var(--serif);font-weight:400;font-size:25px;letter-spacing:.06em}
+.brand span{font-family:var(--mono);font-size:10.5px;color:var(--steel);letter-spacing:.1em;text-transform:uppercase}
+header nav{display:flex;gap:26px;margin-left:auto;font-size:14px}
+header nav a{text-decoration:none;color:var(--ink-2);transition:color .2s}
+header nav a:hover{color:var(--ink)}
+.cta{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s,transform .2s;white-space:nowrap}
+.cta:hover{background:#000;transform:translateY(-1px)}
+.cta.t{background:var(--terra)}.cta.t:hover{background:var(--terra-d)}
+.cta.o{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.cta.o:hover{background:var(--ink);color:#fff}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;min-height:calc(100dvh - 62px - 150px)}
+.hero .l{padding:clamp(40px,7vw,96px) var(--g) 48px;border-right:1px solid var(--hair);display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(54px,8.4vw,132px);line-height:.9;letter-spacing:-.03em;margin-top:26px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero p{font-size:clamp(16px,1.3vw,19px);color:var(--ink-2);max-width:31em;margin-top:30px;line-height:1.6}
+.hero .acts{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
+.hero .r{position:relative;display:flex;align-items:center;justify-content:center;padding:40px var(--g);background:
+  linear-gradient(var(--hair),var(--hair)) 50% 0/1px 100% no-repeat}
+.hero .r .stage{width:min(100%,380px);position:relative;z-index:2;background:var(--paper);padding:14px 0}
+.hero .r .lbl{position:absolute;top:22px;left:var(--g);right:var(--g);display:flex;justify-content:space-between}
+.live{display:inline-flex;align-items:center;gap:8px}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+
+/* the railing (signature) */
+.rail{position:relative;height:150px;border-top:1px solid var(--hair);overflow:hidden}
+.rail svg{position:absolute;inset:0;width:100%;height:100%}
+.rail .bead{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--terra);margin:-6px 0 0 -6px;box-shadow:0 0 0 6px rgba(197,91,62,.18);opacity:0;top:34px;left:0}
+.rail .log{position:absolute;right:var(--g);bottom:16px;font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--paper);padding:4px 10px;border:1px solid var(--hair);border-radius:999px;opacity:0;transform:translateY(6px);transition:all .4s var(--ease)}
+.rail .log.on{opacity:1;transform:none}
+.rail .log b{color:var(--terra);font-weight:500}
+.rail .tip{position:absolute;left:var(--g);bottom:16px;font-family:var(--mono);font-size:11.5px;color:var(--steel);background:var(--paper);padding:4px 10px 4px 0}
+
+/* sections */
+section{border-top:1px solid var(--hair)}
+.sh{display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--hair)}
+.sh>div{padding:clamp(28px,4vw,56px) var(--g)}
+.sh>div:first-child{border-right:1px solid var(--hair)}
+.sh h2{font-family:var(--serif);font-weight:300;font-size:clamp(40px,5vw,76px);line-height:.95;letter-spacing:-.025em}
+.sh h2 em{font-style:italic}
+.sh p{font-size:clamp(16px,1.2vw,18px);color:var(--ink-2);max-width:36em;line-height:1.65}
+
+.ways{display:grid;grid-template-columns:repeat(4,1fr)}
+.way{padding:30px var(--g) 34px;border-right:1px solid var(--hair);display:flex;flex-direction:column;gap:14px;transition:background .3s}
+.way:last-child{border-right:0}
+.way:hover{background:#fff}
+.way .ic{width:42px;height:42px;border:1px solid var(--hair);border-radius:50%;display:grid;place-items:center;color:var(--terra);background:#fff}
+.way h3{font-family:var(--serif);font-weight:400;font-size:32px;letter-spacing:-.02em;line-height:1}
+.way p{font-size:15px;color:var(--ink-2)}
+.way dl{margin-top:auto;border-top:1px solid var(--hair);padding-top:14px;font-size:13.5px}
+.way dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.way dd{margin-top:4px}
+.way button{align-self:flex-start;font-size:13.5px;font-weight:600;border-bottom:1px solid var(--ink);padding-bottom:2px;transition:color .2s,border-color .2s}
+.way button:hover{color:var(--terra);border-color:var(--terra)}
+
+/* routing diagram */
+.route{padding:clamp(24px,4vw,56px) var(--g);position:relative}
+.route .fit{max-width:1180px;margin:0 auto}
+.rt{width:1180px;height:440px;position:relative;font-family:var(--sans)}
+.rt .n{position:absolute;width:190px;transform:translate(-50%,0);text-align:center}
+.rt .n i{display:block;width:15px;height:15px;border-radius:50%;margin:0 auto;border:1.5px solid var(--ink);background:var(--paper);transition:all .3s}
+.rt .n.hot i{background:var(--terra);border-color:var(--terra);box-shadow:0 0 0 7px rgba(197,91,62,.16)}
+.rt .n b{display:block;font-size:17px;letter-spacing:-.02em;margin-top:24px;font-weight:600}
+.rt .n small{display:block;font-size:13px;color:var(--steel);margin-top:3px;line-height:1.4}
+.rt .bead{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--terra);margin:-5.5px 0 0 -5.5px;opacity:0;box-shadow:0 0 0 5px rgba(197,91,62,.2)}
+.route .go{position:absolute;right:var(--g);top:clamp(24px,4vw,56px);z-index:2}
+
+/* dashboard */
+.desk{display:grid;grid-template-columns:330px 1fr}
+.desk ol{list-style:none;border-right:1px solid var(--hair)}
+.desk li button{width:100%;text-align:left;padding:18px var(--g);border-bottom:1px solid var(--hair);display:block;transition:background .2s}
+.desk li button:hover{background:#fff}
+.desk li button.on{background:#fff;box-shadow:inset 2px 0 0 var(--terra)}
+.desk li b{font-size:16px;font-weight:600;letter-spacing:-.01em;display:block}
+.desk li span{font-size:13.5px;color:var(--ink-2);display:block;margin-top:3px;line-height:1.5}
+.desk .screen{padding:clamp(18px,3vw,40px);background:
+  repeating-linear-gradient(90deg,transparent 0 79px,rgba(0,0,0,.035) 79px 80px),repeating-linear-gradient(0deg,transparent 0 79px,rgba(0,0,0,.035) 79px 80px)}
+.desk .screen .frame{border:1px solid var(--hair);border-radius:22px;overflow:hidden;background:#F4F4F5}
+
+/* install */
+.inst{display:grid;grid-template-columns:1fr 1.2fr}
+.steps{list-style:none;counter-reset:s;border-right:1px solid var(--hair)}
+.steps li{padding:26px var(--g);border-bottom:1px solid var(--hair);display:grid;grid-template-columns:56px 1fr;gap:6px}
+.steps li:last-child{border-bottom:0}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--serif);font-size:44px;line-height:.9;color:var(--terra);font-weight:300}
+.steps b{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.steps p{font-size:14.5px;color:var(--ink-2);margin-top:5px}
+.steps code{font-family:var(--mono);font-size:12.5px;background:var(--paper-2);padding:1px 6px;border-radius:4px}
+.code{padding:clamp(24px,3vw,44px) var(--g);display:flex;flex-direction:column;justify-content:center}
+.code pre{background:var(--ink);color:#e9e9e9;border-radius:18px;padding:26px 28px;font-family:var(--mono);font-size:clamp(12px,1vw,14px);line-height:1.8;overflow-x:auto;position:relative}
+.code pre .a{color:#F5A48C}.code pre .c{color:#7d7d7d}
+.code .cp{position:absolute;right:14px;top:14px;font-family:var(--sans);font-size:12.5px;color:#fff;border:1px solid #444;border-radius:999px;padding:6px 12px;transition:border-color .2s}
+.code .cp:hover{border-color:#fff}
+
+/* case study */
+.case{display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;min-height:440px}
+.case .l{padding:clamp(32px,5vw,72px) var(--g);border-right:1px solid var(--hair);display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.case blockquote{font-family:var(--serif);font-weight:300;font-size:clamp(28px,3vw,44px);line-height:1.12;letter-spacing:-.015em;margin-top:28px}
+.case blockquote em{color:var(--terra)}
+.case .r{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;padding:40px var(--g)}
+.case .r .wm{font-size:clamp(40px,4.4vw,66px);position:relative;z-index:2}
+.case .coin{width:min(56%,380px);right:-6%;top:-12%;--r:-18deg}
+.case ul{list-style:none;position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.case li{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;border:1px solid var(--hair);background:var(--paper);border-radius:999px;padding:5px 12px}
+
+footer .wrap{display:flex;justify-content:space-between;align-items:center;padding:28px var(--g);gap:20px;flex-wrap:wrap;border-top:1px solid var(--hair)}
+footer p{font-size:13px;color:var(--steel)}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:980px){
+  header nav{display:none}
+  .hero,.sh,.inst,.case,.desk{grid-template-columns:minmax(0,1fr)}
+  .hero .l,.sh>div:first-child,.steps,.case .l,.desk ol{border-right:0;border-bottom:1px solid var(--hair)}
+  .hero .r{min-height:auto}
+  .ways{grid-template-columns:1fr 1fr}.way:nth-child(2){border-right:0}.way:nth-child(-n+2){border-bottom:1px solid var(--hair)}
+  .route .go{position:static;margin-bottom:18px}
+  .desk ol{display:grid;grid-template-columns:1fr 1fr}
+  .desk li button{border-right:1px solid var(--hair)}
+}
+@media (max-width:560px){
+  .ways{grid-template-columns:1fr}.way{border-right:0;border-bottom:1px solid var(--hair)}
+  .desk ol{grid-template-columns:1fr}
+  .brand span{display:none}
+  .rail .log{left:var(--g);right:auto;max-width:calc(100% - 32px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rail .tip{display:none}
+}
+</style>
+</head>
+<body>
+<script>window.UMR_ASSETS = "../assets/";</script>
+
+<header><div class="wrap">
+  <a class="brand" href="#top"><b>umr widget</b><span>by the UMR platform</span></a>
+  <nav aria-label="Sections"><a href="#ways">Four ways in</a><a href="#route">Routing</a><a href="#desk">Dashboard</a><a href="#install">Install</a><a href="#case">Case study</a></nav>
+  <a class="cta" href="#install">Get the widget</a>
+</div></header>
+
+<main id="top">
+<div class="wrap">
+  <div class="hero">
+    <div class="l">
+      <span class="mono rv">AI chat widget for stores that sell by quote</span>
+      <h1 class="rv">The quote desk that <em>never</em> closes.</h1>
+      <p class="rv">UMR Widget sits on your Shopify store, walks each visitor through a quote, a support case or a rep hand-off, and sends every confirmed case to your CRM, your Slack and the right rep's inbox.</p>
+      <div class="acts rv"><a class="cta t" href="#ways">See the four ways in</a></div>
+    </div>
+    <div class="r">
+      <div class="lbl"><span class="mono live">Live widget · try it</span><span class="mono">ultramodernrails.com</span></div>
+      <div class="stage"><div class="fit" data-w="380" data-h="620"><div id="hw"></div></div></div>
+    </div>
+  </div>
+
+  <!-- the railing: hairlines as cable runs, a bead per confirmed case -->
+  <div class="rail" aria-hidden="true">
+    <svg id="railsvg" preserveAspectRatio="none"></svg>
+    <span class="bead" id="rbead"></span>
+    <span class="tip">Confirm a case in the widget and watch it run to your CRM →</span>
+    <span class="log" id="rlog"></span>
+  </div>
+</div>
+
+<section id="ways"><div class="wrap">
+  <div class="sh">
+    <div><span class="mono">Visitors</span><h2 class="rv" style="margin-top:18px">Four ways <em>in.</em></h2></div>
+    <div style="display:flex;align-items:end"><p class="rv">A visitor opens the widget and picks one of four categories. The assistant asks the follow-up questions your team would ask, shows the case back for review, and only sends it once they confirm.</p></div>
+  </div>
+  <div class="ways">
+    <article class="way rv"><span class="ic" data-i="quote"></span><h3>Custom Quote</h3><p>Get a detailed quote for a new project. Walks the visitor through describing the job, with photos of the area and drawings with measurements.</p><dl><dt>Your team gets</dt><dd>Budget, materials, installed-on surface, photos</dd></dl><button data-f="Custom Quote">Try this flow ↑</button></article>
+    <article class="way rv"><span class="ic" data-i="box"></span><h3>Existing Order</h3><p>Track, update, or ask about an order. The visitor gives an order number and says what they need.</p><dl><dt>Your team gets</dt><dd>Order number and the change requested</dd></dl><button data-f="Existing Order">Try this flow ↑</button></article>
+    <article class="way rv"><span class="ic" data-i="help"></span><h3>Support</h3><p>Installation help or a general question. Missing parts, damage or tension questions become a support ticket.</p><dl><dt>Your team gets</dt><dd>A ticket with the issue and photos</dd></dl><button data-f="Support">Try this flow ↑</button></article>
+    <article class="way rv"><span class="ic" data-i="rep"></span><h3>Talk to a Rep</h3><p>Have someone reach out directly. The next rep in your rotation is assigned and gets the visitor's details.</p><dl><dt>Your team gets</dt><dd>A named owner, in turn, every time</dd></dl><button data-f="Talk to a Rep">Try this flow ↑</button></article>
+  </div>
+</div></section>
+
+<section id="route"><div class="wrap">
+  <div class="sh">
+    <div><span class="mono">Routing</span><h2 class="rv" style="margin-top:18px">One webhook, <em>every</em> tool.</h2></div>
+    <div style="display:flex;align-items:end"><p class="rv">Confirmed cases post to a single CRM webhook: a Zapier catch hook or a GoHighLevel inbound webhook. The payload is shaped for Zapier Paths, so one case can open a GHL opportunity, post a ready-made message to Slack and email the assigned rep.</p></div>
+  </div>
+  <div class="route">
+    <button class="cta t go" id="rtgo">Send a case down the line</button>
+    <div class="fit rv" data-w="1180" data-h="440"><div class="rt" id="rt">
+      <svg width="1180" height="440" fill="none">
+        <g stroke="#161616" stroke-width="1"><path id="r0" d="M80 70 H620"/><path id="r1" d="M620 70 C760 70 800 70 1090 70"/><path id="r2" d="M620 70 C780 70 780 220 1090 220"/><path id="r3" d="M620 70 C780 70 780 370 1090 370"/></g>
+        <g stroke="#9A9EA2" opacity=".55"><path d="M80 78 H620"/><path d="M80 86 H620" opacity=".6"/></g>
+        <g stroke="#161616" stroke-width="3"><path d="M80 48 V96M260 48 V96M440 48 V96M620 48 V96"/></g>
+      </svg>
+      <div class="n" style="left:80px;top:62px"><i></i><b>Your store</b><small>Shopify, or any site</small></div>
+      <div class="n" style="left:260px;top:62px"><i></i><b>UMR Widget</b><small>Visitor picks a way in</small></div>
+      <div class="n" style="left:440px;top:62px"><i></i><b>Review &amp; confirm</b><small>Case shown back first</small></div>
+      <div class="n" style="left:620px;top:62px"><i></i><b>CRM webhook</b><small>Zapier or GHL inbound</small></div>
+      <div class="n" style="left:1090px;top:62px"><i></i><b>GoHighLevel</b><small>Contact + opportunity</small></div>
+      <div class="n" style="left:1090px;top:212px"><i></i><b>Slack</b><small>Ready-made channel message</small></div>
+      <div class="n" style="left:1090px;top:362px"><i></i><b>Rep's inbox</b><small>Branded email to the assigned rep</small></div>
+      <span class="bead"></span><span class="bead"></span><span class="bead"></span>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="desk"><div class="wrap">
+  <div class="sh">
+    <div><span class="mono">Your team</span><h2 class="rv" style="margin-top:18px">Your side of <em>the desk.</em></h2></div>
+    <div style="display:flex;align-items:end"><p class="rv">Each business gets its own dashboard with sessions, tickets and quotes, and nothing from anyone else's. Everything below is clickable.</p></div>
+  </div>
+  <div class="desk">
+    <ol id="deskl">
+      <li><button class="on" data-a="tickets"><b>Tickets</b><span>Change one status from its card, or select several and set them at once.</span></button></li>
+      <li><button data-a="drawer"><b>One drawer per case</b><span>Client, Ticket, Chat and Images tabs, with the full transcript.</span></button></li>
+      <li><button data-a="sessions"><b>Location &amp; timezone</b><span>City and timezone for every visitor, without a location prompt.</span></button></li>
+      <li><button data-a="reps"><b>Talk to a Rep rotation</b><span>Add, pause and reorder the reps who take hand-offs in turn.</span></button></li>
+      <li><button data-a="preview"><b>Live preview</b><span>Run your real widget inside the dashboard before it goes live.</span></button></li>
+      <li><button data-a="overview"><b>Widget ID &amp; how it works</b><span>Copy your widget ID and see what each category does.</span></button></li>
+    </ol>
+    <div class="screen"><div class="frame"><div class="fit" data-w="1180" data-h="720"><div id="dsh"></div></div></div></div>
+  </div>
+</div></section>
+
+<section id="install"><div class="wrap">
+  <div class="sh">
+    <div><span class="mono">Install</span><h2 class="rv" style="margin-top:18px">One line, <em>then</em> it's live.</h2></div>
+    <div style="display:flex;align-items:end"><p class="rv">The widget runs in a Shadow DOM, so your theme can't restyle it and it can't break your theme.</p></div>
+  </div>
+  <div class="inst">
+    <ol class="steps">
+      <li><div><b>Paste the script</b><p>Add it right before <code>&lt;/body&gt;</code> in your Shopify theme, or on any site.</p></div></li>
+      <li><div><b>Point it at your CRM</b><p>Set a Zapier catch hook or a GoHighLevel inbound webhook as the CRM webhook URL.</p></div></li>
+      <li><div><b>Add your reps</b><p>Put the people who take Talk to a Rep requests into the rotation, in the order you want.</p></div></li>
+    </ol>
+    <div class="code rv">
+<pre><button class="cp" id="cp">Copy</button><span class="c">&lt;!-- before &lt;/body&gt; --&gt;</span>
+&lt;script src="https://umr-widget.vercel.app/widget.js"
+  <span class="a">data-business-name</span>="Ultra Modern Rails"
+  <span class="a">data-avatar-url</span>="https://ultramodernrails.com/rails.png"
+  <span class="a">data-crm-webhook-url</span>="https://hooks.zapier.com/hooks/catch/…"&gt;
+&lt;/script&gt;</pre>
+    </div>
+  </div>
+</div></section>
+
+<section id="case"><div class="wrap">
+  <div class="case">
+    <div class="l">
+      <span class="mono">In production</span>
+      <blockquote class="rv">For Ultra Modern Rails, every quote request became an <em>automated, fully tracked lead</em> the moment it's submitted.</blockquote>
+      <div style="display:flex;gap:10px;margin-top:32px;flex-wrap:wrap"></div>
+    </div>
+    <div class="r">
+      <img class="coin f" src="../assets/coin.webp" alt="">
+      <span class="wm"><b>ultramodern</b><i><img src="../assets/rails.webp" alt="rails"></i></span>
+      <ul><li>Shopify</li><li>GoHighLevel</li><li>Zapier</li><li>Slack</li><li>Round robin</li></ul>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <a class="brand" href="#top"><b>umr widget</b></a>
+  <p>Built for Ultra Modern Rails, ready for the next business.</p>
+  
+</div></footer>
+
+<script src="../assets/demos.js"></script>
+<script>
+(() => {
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".way .ic").forEach((e) => e.innerHTML = UMR.icon(e.dataset.i, 19));
+
+  /* ---------- railing ---------- */
+  const svg = document.getElementById("railsvg"), rail = svg.parentElement, bead = document.getElementById("rbead"), log = document.getElementById("rlog");
+  function drawRail() {
+    const w = rail.clientWidth, h = rail.clientHeight, gap = Math.max(110, Math.min(170, w / 9));
+    let d = `<path d="M0 34 H${w}" stroke="#161616" stroke-width="2"/>`;
+    [52, 66, 80, 94, 108].forEach((y, k) => d += `<path d="M0 ${y} H${w}" stroke="#9A9EA2" stroke-width="1" opacity="${.9 - k * .1}"/>`);
+    for (let x = gap / 2; x < w; x += gap) d += `<path d="M${x} 28 V${h}" stroke="#161616" stroke-width="3"/>`;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`); svg.innerHTML = d;
+  }
+  drawRail(); addEventListener("resize", drawRail);
+  function runRail(l) {
+    const w = rail.clientWidth, t0 = performance.now(), dur = reduced ? 1 : 1600;
+    bead.style.opacity = 1;
+    const f = (t) => { const q = Math.min(1, (t - t0) / dur), e = q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2; bead.style.left = (w * .62 * (1 - e) + w * .02) + "px"; q < 1 ? requestAnimationFrame(f) : (bead.style.opacity = 0); };
+    requestAnimationFrame(f);
+    log.innerHTML = `${l.id === "REP" ? "Hand-off" : l.id} · ${l.kind} → <b>GoHighLevel · Slack · ${l.rep ? l.rep.n : "team"}</b>`;
+    log.classList.add("on"); clearTimeout(runRail.t); runRail.t = setTimeout(() => log.classList.remove("on"), 5200);
+  }
+
+  /* ---------- hero widget ---------- */
+  document.querySelectorAll(".fit").forEach(UMR.fit);
+  const hw = UMR.widget(document.getElementById("hw"), { onSubmit: (l) => { runRail(l); dash.addLead(l); routeGo(); } });
+  document.querySelectorAll(".way button").forEach((b) => b.onclick = () => {
+    hw.el.classList.remove("closed"); document.getElementById("top").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    setTimeout(() => hw.flow(b.dataset.f), reduced ? 0 : 500);
+  });
+
+  /* ---------- routing diagram ---------- */
+  const nodes = [...document.querySelectorAll("#rt .n")], beads = [...document.querySelectorAll("#rt .bead")];
+  let rr = 0;
+  const along = (p, b, dur) => new Promise((res) => { const len = p.getTotalLength(), t0 = performance.now(); b.style.opacity = 1;
+    const f = (t) => { const q = Math.min(1, (t - t0) / (reduced ? 1 : dur)), e = q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2, pt = p.getPointAtLength(e * len); b.style.left = pt.x + "px"; b.style.top = pt.y + "px"; q < 1 ? requestAnimationFrame(f) : res(); }; requestAnimationFrame(f); });
+  async function routeGo() {
+    const my = ++rr; nodes.forEach((n) => n.classList.remove("hot")); beads.forEach((b) => b.style.opacity = 0);
+    const xs = [80, 260, 440, 620];
+    for (let k = 0; k < 4; k++) {
+      nodes[k].classList.add("hot"); if (k === 3) break;
+      await along({ getTotalLength: () => 180, getPointAtLength: (d) => ({ x: xs[k] + d, y: 70 }) }, beads[0], 520); if (my !== rr) return;
+    }
+    await Promise.all([1, 2, 3].map((k) => along(document.getElementById("r" + k), beads[k - 1], 850))); if (my !== rr) return;
+    [4, 5, 6].forEach((k) => nodes[k].classList.add("hot")); beads.forEach((b) => b.style.opacity = 0);
+  }
+  document.getElementById("rtgo").onclick = routeGo;
+
+  /* ---------- dashboard ---------- */
+  const dash = UMR.dash(document.getElementById("dsh"), { screen: "tickets" });
+  const acts = {
+    tickets: () => dash.go("tickets"),
+    drawer: () => { dash.go("tickets"); setTimeout(() => dash.el.querySelector(".ud-tk")?.click(), 250); },
+    sessions: () => { dash.go("sessions"); setTimeout(() => dash.el.querySelector("tr[data-i]")?.click(), 250); },
+    reps: () => { dash.go("widget"); dash.el.querySelectorAll(".ud-wt button")[2].click(); },
+    preview: () => { dash.go("widget"); dash.el.querySelectorAll(".ud-wt button")[1].click(); },
+    overview: () => { dash.go("widget"); },
+  };
+  document.querySelectorAll("#deskl button").forEach((b) => b.onclick = () => { document.querySelectorAll("#deskl button").forEach((x) => x.classList.toggle("on", x === b)); acts[b.dataset.a](); });
+
+  /* ---------- copy ---------- */
+  document.getElementById("cp").onclick = (e) => {
+    const t = `<script src="https://umr-widget.vercel.app/widget.js"\n  data-business-name="Ultra Modern Rails"\n  data-avatar-url="https://ultramodernrails.com/rails.png"\n  data-crm-webhook-url="https://hooks.zapier.com/hooks/catch/…"><\/script>`;
+    navigator.clipboard?.writeText(t).then(() => { e.target.textContent = "Copied"; setTimeout(() => e.target.textContent = "Copy", 1600); }).catch(() => {});
+  };
+
+  /* ---------- reveal ---------- */
+  const io = new IntersectionObserver((es) => es.forEach((x) => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { rootMargin: "0px 0px -60px 0px" });
+  document.querySelectorAll(".rv").forEach((e, k) => { e.style.transitionDelay = (k % 4) * 70 + "ms"; io.observe(e); });
+  const rtObs = new IntersectionObserver((es) => { if (es[0].isIntersecting) { routeGo(); rtObs.disconnect(); } }, { threshold: .5 });
+  rtObs.observe(document.getElementById("rt"));
+})();
+</script>
+</body>
+</html>
