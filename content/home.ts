@@ -11,7 +11,9 @@
 import type { PageContent, Cta, Img, SectionHeading, Stat, FaqItem, Testimonial, Feature, StatementStep } from "./types";
 
 type IndustryCard = { icon: string; name: string; teaser: string; href: string };
-import type { TabItem } from "@/components/sections/features/feature-05";
+import { industryPages } from "./industry-pages";
+import type { StackItem } from "@/components/sections/solutions/solutions-stack";
+import type { Outcome } from "@/components/sections/testimonials/outcome-spotlight";
 
 export const home = {
   meta: {
@@ -130,149 +132,69 @@ export const home = {
   /** Bespoke icon-led strip, not a catalog component: three industries plus a link to the hub. */
   industries: {
     heading: {
-      eyebrow: "Built for the trades",
-      title: "Built around how each trade actually wins and loses jobs",
-      body: "A no-heat call, a storm-damage lead, a fence quote, a recurring clean: every one of them gets lost the same way, too slow to respond. Every build starts from the specific way your industry loses jobs, not a generic template with your logo swapped in.",
+      eyebrow: "Industries we serve",
+      title: "Built for how your industry actually works",
+      body: "A disputed charge, a late driver, a missing parcel, an outage, a booking, a stuck user: every industry has its own rush hours and hard cases. Every build starts from yours.",
     } as SectionHeading,
-    items: [
-      {
-        icon: "Wind",
-        name: "HVAC",
-        teaser: "A no-heat call at midnight will not wait for morning. It gets triaged, routed to whoever is on call, and booked before the homeowner tries the next number.",
-        href: "/industries/hvac",
-      },
-      {
-        icon: "Droplets",
-        name: "Plumbing",
-        teaser: "A burst pipe does not check the clock before it floods a kitchen. Every emergency call gets triaged and routed to whoever is on call, day or night.",
-        href: "/industries/plumbing",
-      },
-      {
-        icon: "Zap",
-        name: "Electrical",
-        teaser: "A tripped breaker is a safety call, not a maybe-later call. Estimate requests and urgent service calls get triaged and booked before a homeowner calls someone else first.",
-        href: "/industries/electrical",
-      },
-      {
-        icon: "HardHat",
-        name: "Roofing",
-        teaser: "After a storm, the first roofer to call back gets the job, not the nicest website. Every single storm lead gets an instant quote and a fast callback.",
-        href: "/industries/roofing",
-      },
-      {
-        icon: "Fence",
-        name: "Railing",
-        teaser: "A quote that takes a week to send gets three bids first. Homeowners get a visual estimate on the spot, and every bid gets followed up until decided.",
-        href: "/industries/railing-fencing",
-      },
-      {
-        icon: "Trees",
-        name: "Landscaping",
-        teaser: "A landscaping business loses money re-selling the same customer every spring. Recurring visits book and rebill themselves, so the calendar stays full without a phone call each season.",
-        href: "/industries/landscaping",
-      },
-      {
-        icon: "Bug",
-        name: "Pest control",
-        teaser: "A new infestation call goes to whoever answers first, and a treatment plan is lost the moment renewal slips through the cracks. Both now run on autopilot instead.",
-        href: "/industries/pest-control",
-      },
-      {
-        icon: "SprayCan",
-        name: "Cleaning",
-        teaser: "A cleaning business runs on repeat visits, not one-off jobs. Recurring bookings renew themselves automatically, and a review request goes out the moment a job is marked done.",
-        href: "/industries/cleaning",
-      },
-      {
-        icon: "HeartPulse",
-        name: "Healthcare",
-        teaser: "A front desk stuck on the phone booking all day has less time for the patient in front of them. Booking, reminders and no-show follow-up run quietly instead.",
-        href: "/industries/healthcare",
-      },
-    ] as IndustryCard[],
+    items: industryPages.map((p) => ({ icon: p.icon, name: p.name, teaser: p.teaser, href: `/industries/${p.slug}` })) as IndustryCard[],
     cta: { label: "See all industries", href: "/industries" } as Cta,
   },
 
-  /** Tabbed solutions: Feature05. The four systems Growtk builds, same order and slugs as content/solutions.ts. */
+  /** Stacking solution cards: SolutionsStack. The four systems Growtk builds, same order and slugs as content/solutions.ts. */
   capabilities: {
     heading: {
       eyebrow: "Our solutions",
-      title: "Four systems we build into your operation",
-      body: "Off the shelf tools rarely fit how a team actually works. We build these four around your channels, your CRM and your data, and run them for you if you want us to.",
+      title: "The systems behind every answer",
+      body: "Every AI agent and every person on your team is only as good as the system behind them. We build these four around your channels, your CRM and your data, and keep them running if you want us to.",
     } as SectionHeading,
+    counterOf: "of",
     items: [
       {
         icon: "BookOpen",
-        tab: "Knowledge base",
-        title: "Answers customers find themselves, and agents find instantly",
         meta: "Self service",
-        body: "A searchable help center for your customers and an internal knowledge base for your AI and human agents, written from your real tickets so the answers match the questions people actually ask.",
-        image: {
-          src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-          alt: "Two people pointing at an article on a laptop screen",
-        },
-        bullets: [
-          "Public help center with search",
-          "The same answers power your AI agents",
-          "Gaps flagged from questions it could not answer",
-        ],
-        cta: { label: "See knowledge base system", href: "/solutions/knowledge-base-system" },
+        name: "Knowledge base system",
+        title: "Answers customers find before they ask",
+        body: "A searchable help center for customers and one source of truth for your agents, written from your real tickets so the answers match the questions people actually ask.",
+        bullets: ["Search that understands typos and plain phrasing", "The same answers power your AI agents", "Every failed search becomes the next article"],
+        mock: "kb",
+        tone: "yellow",
+        cta: { label: "Explore knowledge base", href: "/solutions/knowledge-base-system" },
       },
       {
         icon: "LifeBuoy",
-        tab: "Helpdesk",
-        title: "One queue for every call, chat, email and message",
         meta: "Ticketing",
-        body: "Every request becomes a ticket, routed by topic and priority, tracked against a response time, and resolved without anything slipping through, whether an AI agent or a person picks it up.",
-        image: {
-          src: "https://images.unsplash.com/photo-1587560699334-cc4ff634909a?auto=format&fit=crop&w=1200&q=80",
-          alt: "A laptop on an office desk next to a desk phone",
-        },
-        bullets: [
-          "Calls, chats, email and social in one queue",
-          "Routing and response targets by topic and priority",
-          "AI drafts the reply, a person approves when it matters",
-        ],
-        cta: { label: "See helpdesk system", href: "/solutions/help-desk-software" },
+        name: "Helpdesk system",
+        title: "One queue for every call, chat and email",
+        body: "Every request becomes a ticket, routed by topic and priority, tracked against a response time, and closed without anything slipping through, whether an AI agent or a person picks it up.",
+        bullets: ["Calls, chats, email and social in one place", "Routing and response targets you set", "AI drafts the reply, a person approves when it matters"],
+        mock: "helpdesk",
+        tone: "lilac",
+        cta: { label: "Explore helpdesk", href: "/solutions/help-desk-software" },
       },
       {
         icon: "ClipboardCheck",
-        tab: "Quality management",
-        title: "Every conversation scored, not one in fifty",
         meta: "Assurance",
-        body: "AI reviews every call and chat against your own scorecard, flags the conversations that need a coach, and shows trends by agent, topic and channel so quality stops being a guess.",
-        image: {
-          src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-          alt: "A laptop showing charts and metrics on an analytics dashboard",
-        },
-        bullets: [
-          "Scorecards built around your standards",
-          "AI scoring on every conversation",
-          "A coaching queue for the ones that need a human eye",
-        ],
-        cta: { label: "See quality management system", href: "/solutions/quality-management-system" },
+        name: "Quality management system",
+        title: "Every conversation scored, not one in fifty",
+        body: "Every call and chat is reviewed against your own scorecard, the ones that need a coach are flagged, and trends show by agent, topic and channel, for AI agents and people alike.",
+        bullets: ["Scorecards built around your standards", "Scoring on every conversation", "A coaching queue for the ones that need a human eye"],
+        mock: "qa",
+        tone: "peach",
+        cta: { label: "Explore quality management", href: "/solutions/quality-management-system" },
       },
       {
         icon: "MessageSquareHeart",
-        tab: "Surveys",
-        title: "Feedback at every touchpoint, turned into action",
         meta: "Voice of the customer",
-        body: "CSAT, NPS and post-call surveys sent by text, email or chat at the right moment, with low scores routed to a person the same day and results rolled up into decisions.",
-        image: {
-          src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
-          alt: "A person holding a phone with a chat open beside a laptop",
-        },
-        bullets: [
-          "CSAT, NPS and custom surveys",
-          "Sent after calls, chats, deliveries or visits",
-          "Low scores alert a manager right away",
-        ],
-        cta: { label: "See survey software", href: "/solutions/survey-software" },
+        name: "Survey software",
+        title: "Feedback at every touchpoint, turned into action",
+        body: "Short surveys by text, email or chat at the right moment, after a call, a delivery or a visit, with low scores sent to a person the same day and results rolled up into decisions.",
+        bullets: ["CSAT, NPS and custom surveys", "Sent after calls, chats, deliveries or visits", "Low scores alert a manager right away"],
+        mock: "survey",
+        tone: "yellow",
+        cta: { label: "Explore survey software", href: "/solutions/survey-software" },
       },
-    ] as TabItem[],
+    ] as StackItem[],
   },
-
-  /** What we do, numbered cards: Feature07. Four featured services; all thirteen live on /services. */
   process: {
     heading: {
       eyebrow: "What we do",
@@ -321,40 +243,51 @@ export const home = {
   },
 
   /**
-   * Testimonial09, used for outcomes, not testimonials: each line states what
-   * a real Growtk build does today, attributed to the project, not to a person.
-   * Swap in real client quotes as they come in.
+   * OutcomeSpotlight: what a real Growtk build does today, one project at a
+   * time, attributed to the project, never to a person. Swap in real client
+   * quotes as they come in.
    */
   testimonials: {
     heading: {
       eyebrow: "Outcomes",
       title: "What runs today for the businesses we built for",
+      body: "No borrowed logos or made up numbers. These are systems we built that are working right now.",
     } as SectionHeading,
     items: [
       {
-        quote: "Every quote request now lands in GoHighLevel as a tracked lead, gets an email and a text within seconds, and goes to the next rep in line.",
         name: "Ultra Modern Rails",
         role: "Lead generation and sales support",
+        quote: "Every quote request now lands in GoHighLevel as a tracked lead, gets an email and a text within seconds, and goes to the next rep in line.",
+        tags: ["GoHighLevel", "Shopify", "Slack", "Lead routing"],
+        image: { src: "/ingested/umr/preview.jpg", alt: "The Ultra Modern Rails GoHighLevel pipeline, each stage starting its own workflow" },
+        cta: { label: "See the project", href: "/work/umr" },
       },
       {
-        quote: "Guests ask on WhatsApp, Instagram or email, and the AI front desk checks availability, books the trip and takes the payment.",
         name: "Yetti",
         role: "Inbound contact center",
+        quote: "Guests ask on WhatsApp, Instagram or email, and the AI front desk checks availability, books the trip and takes the payment.",
+        tags: ["AI front desk", "WhatsApp", "Instagram", "Payments"],
+        image: { src: "/ingested/yetti/preview.jpg", alt: "The Yetti inbox answering a guest across WhatsApp, Instagram and email" },
+        cta: { label: "See the project", href: "/work/yetti" },
       },
       {
-        quote: "Every sale takes its recipe out of stock, and low stock, drawer counts and the day's sales reach the owner on WhatsApp.",
         name: "Jerry's",
         role: "Back office automation",
+        quote: "Every sale takes its recipe out of stock, and low stock, drawer counts and the day's sales reach the owner on WhatsApp.",
+        tags: ["Point of sale", "Stock control", "WhatsApp alerts"],
+        image: { src: "/ingested/jerrys/preview.jpg", alt: "The Jerry's POS checkout with the real menu: zinger burger, shawarma, fries and shakes" },
+        cta: { label: "See the project", href: "/work/jerrys" },
       },
       {
-        quote: "A request from the clinic website becomes a lead on the board, gets an automated reply and books straight onto the calendar.",
         name: "Dentavanta",
         role: "Customer experience platform, pre-launch",
+        quote: "A request from the clinic website becomes a lead on the board, gets an automated reply and books straight onto the calendar.",
+        tags: ["Lead board", "Auto reply", "Online booking"],
+        image: { src: "/ingested/dentavanta/preview.jpg", alt: "The Dentavanta leads board, from first inquiry to booked visit" },
+        cta: { label: "See the project", href: "/work/dentavanta" },
       },
-    ] as Testimonial[],
+    ] as Outcome[],
   },
-
-  /** Full screen image band, ImageStatement: why Growtk. */
   statement: {
     eyebrow: "Why Growtk",
     title: "Scale without adding headcount",

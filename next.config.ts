@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* The trade pages were replaced by the seven industries in content/industry-pages.ts. */
+  async redirects() {
+    return ["hvac", "plumbing", "electrical", "roofing", "railing-fencing", "landscaping", "pest-control", "cleaning"].map((slug) => ({
+      source: `/industries/${slug}`,
+      destination: "/industries",
+      permanent: true,
+    }));
+  },
   experimental: {
     webpackMemoryOptimizations: true,
     preloadEntriesOnStart: false,

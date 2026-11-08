@@ -18,7 +18,14 @@ export const INDUSTRY_THEME: Record<string, { icon: string; tone: IndustryTone }
   landscaping: { icon: "Trees", tone: { angle: 150, from: "#9FE3B4", to: "#D4F4DE", glow: "#BAEBC9" } },
   "pest-control": { icon: "Bug", tone: { angle: 150, from: "#FFB3C7", to: "#FFDDE7", glow: "#FFC8D7" } },
   cleaning: { icon: "SprayCan", tone: { angle: 150, from: "#8EDFE0", to: "#CCF2F2", glow: "#ADE8E9" } },
-  healthcare: { icon: "HeartPulse", tone: { angle: 150, from: "#A6D2FF", to: "#D7EAFF", glow: "#BFDEFF" } },
+  healthcare: { icon: "HeartPulse", tone: { angle: 150, from: "#9FE3B4", to: "#D4F4DE", glow: "#BAEBC9" } },
+  /* The seven industries Growtk serves (content/industry-pages.ts). */
+  "banking-fintech": { icon: "Landmark", tone: { angle: 150, from: "#A6D2FF", to: "#D7EAFF", glow: "#BFDEFF" } },
+  "ride-hailing": { icon: "Car", tone: { angle: 150, from: "#FFDE59", to: "#FFF0AD", glow: "#FFE88A" } },
+  ecommerce: { icon: "ShoppingCart", tone: { angle: 150, from: "#FFBA7B", to: "#FFDDBC", glow: "#FFCB9C" } },
+  logistics: { icon: "Truck", tone: { angle: 150, from: "#D6EE72", to: "#EEF8BD", glow: "#E3F396" } },
+  telecom: { icon: "RadioTower", tone: { angle: 150, from: "#F2C4FF", to: "#F9E3FF", glow: "#F6D3FF" } },
+  saas: { icon: "Cloud", tone: { angle: 150, from: "#FFB3C7", to: "#FFDDE7", glow: "#FFC8D7" } },
 };
 
 /** The industries hub: the signature yellow. */

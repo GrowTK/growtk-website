@@ -79,10 +79,12 @@ tool means Growtk builds with it, not that Growtk is a partner of that vendor.
 
 ## Industries
 
-Growtk's industry pages today cover HVAC, plumbing, electrical, roofing,
-railing and fencing, landscaping, pest control, cleaning and healthcare front
-offices. Growtk is not a covered entity or a compliance vendor and does not
-claim HIPAA or any other certification.
+Growtk's industry pages cover banking and fintech, ride hailing, e-commerce,
+logistics, telecom, healthcare and SaaS. Each page describes the problems Growtk
+solves there, the jobs AI agents take on and how data is handled. Growtk does
+not yet have clients in every one of these industries and does not claim past
+results in them. Growtk is not a covered entity or a compliance vendor and does
+not claim HIPAA, PCI, SOC 2, ISO or any other certification.
 
 ## Case studies
 

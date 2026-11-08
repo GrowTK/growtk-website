@@ -17,6 +17,8 @@ export type Link = {
   /** Optional lucide-react icon name, resolved by the component. */
   icon?: string;
   external?: boolean;
+  /** Optional one line description shown under the label in dropdowns. */
+  desc?: string;
 };
 
 /** A nav entry, optionally with a dropdown / mega-menu group. */
@@ -26,6 +28,8 @@ export type NavItem = Link & {
   menu?: "thumbs" | "list";
   /** Label of the "see all" row at the bottom of the dropdown. */
   seeAll?: string;
+  /** Mega menu columns on desktop. `children` stays the flat list for mobile. */
+  groups?: { title: string; links: Link[] }[];
 };
 
 /** A call to action. `variant` maps to the button styles. */

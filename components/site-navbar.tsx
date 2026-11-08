@@ -109,11 +109,37 @@ export function SiteNavbar() {
                   <ChevronDown aria-hidden className="size-3.5 transition-transform duration-200 group-hover/nav:rotate-180" />
                 </Link>
                 <div
-                  className={cn("invisible absolute top-full left-1/2 z-50 -translate-x-1/2 pt-3", item.menu === "list" && item.children.length <= 6 ? "w-[30rem]" : "w-[44rem]", " opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100")}
+                  className={cn("invisible absolute top-full left-1/2 z-50 -translate-x-1/2 pt-3", item.groups ? "w-[min(64rem,calc(100vw-3rem))]" : item.menu === "list" && item.children.length <= 6 ? "w-[30rem]" : "w-[44rem]", " opacity-0 transition-[opacity,visibility] duration-200 group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100")}
                 >
                   <div className="rounded-2xl border border-black/6 bg-card p-4 shadow-xl">
-                    {item.menu === "list" ? (
-                      <ul className="grid grid-cols-2 gap-1 lg:grid-cols-3">
+                    {item.groups ? (
+                      <div className="grid grid-cols-3 gap-4">
+                        {item.groups.map((g) => (
+                          <div key={g.title}>
+                            <p className="eyebrow px-2 pt-1 pb-3 text-muted-foreground">{g.title}</p>
+                            <ul className="space-y-0.5">
+                              {g.links.map((child) => (
+                                <li key={child.href}>
+                                  <Link
+                                    href={child.href}
+                                    className="group/item flex cursor-pointer items-start gap-3 rounded-xl p-2 text-foreground transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                  >
+                                    <span className="grid size-9 shrink-0 place-items-center rounded-xl text-[#26262a] transition-transform duration-200 ease-out group-hover/item:scale-105" style={{ backgroundImage: toneGradient(themeFor(child.href).tone) }}>
+                                      {child.icon ? <Icon name={child.icon} className="size-4" /> : null}
+                                    </span>
+                                    <span className="min-w-0">
+                                      <span className="block text-sm font-semibold leading-snug">{child.label}</span>
+                                      {child.desc ? <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{child.desc}</span> : null}
+                                    </span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    ) : item.menu === "list" ? (
+                      <ul className={cn("grid grid-cols-2 gap-1", !item.children.some((c) => c.desc) && "lg:grid-cols-3")}>
                         {item.children.map((child) => (
                           <li key={child.href}>
                             <Link
@@ -123,7 +149,10 @@ export function SiteNavbar() {
                               <span className="grid size-9 shrink-0 place-items-center rounded-xl text-[#26262a] transition-transform duration-200 ease-out group-hover/item:scale-105" style={{ backgroundImage: toneGradient(themeFor(child.href).tone) }}>
                                 {child.icon ? <Icon name={child.icon} className="size-4" /> : null}
                               </span>
-                              <span className="leading-snug">{child.label}</span>
+                              <span className="min-w-0 leading-snug">
+                                <span className="block">{child.label}</span>
+                                {child.desc ? <span className="mt-0.5 block text-xs font-normal text-muted-foreground">{child.desc}</span> : null}
+                              </span>
                             </Link>
                           </li>
                         ))}

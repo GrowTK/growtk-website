@@ -3,15 +3,17 @@ import { ArrowRight } from "lucide-react";
 import { IsoGrid } from "@/components/sections/industries/iso-grid";
 import { ToneBackdrop } from "@/components/sections/industries/tone-backdrop";
 import { toneGradient, type IndustryTone } from "@/components/sections/industries/industry-tones";
-import type { Cta, SectionHeading } from "@/content/types";
+import type { Cta, SectionHeading, Stat } from "@/content/types";
 
 /**
  * Bespoke inner-page hero in the home hero's shape: the trade's tone with
  * glow and grain as the backdrop, a white panel on it, copy on the left and a
  * Hairline figure over an isometric hairline grid on the right.
  */
-export function IndustryHero({ heading, ctas = [], tone, figure, backdrop }: {
+export function IndustryHero({ heading, ctas = [], tone, figure, backdrop, stats }: {
   heading: SectionHeading;
+  /** Optional row of three short facts under the buttons. */
+  stats?: Stat[];
   ctas?: Cta[];
   tone: IndustryTone;
   figure: ReactNode;
@@ -50,6 +52,17 @@ export function IndustryHero({ heading, ctas = [], tone, figure, backdrop }: {
                   </a>
                 ))}
               </div>
+            ) : null}
+            {stats?.length ? (
+              <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-black/[0.07] pt-7">
+                {stats.map((s) => (
+                  <div key={s.label}>
+                    <dt className="sr-only">{s.label}</dt>
+                    <dd className="font-display text-2xl font-bold tracking-tight text-[#26262a] sm:text-3xl">{s.value}</dd>
+                    <dd className="mt-1 text-xs leading-snug text-muted-foreground sm:text-sm">{s.label}</dd>
+                  </div>
+                ))}
+              </dl>
             ) : null}
           </div>
           <div className="relative flex min-h-[22rem] flex-1 items-center justify-center p-6 lg:p-10">

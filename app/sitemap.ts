@@ -1,19 +1,17 @@
 import type { MetadataRoute } from "next";
 import { brand } from "@/brand.config";
+import { industryPages } from "@/content/industry-pages";
+import { servicePages } from "@/content/service-pages";
+import { solutions } from "@/content/solutions";
 
 const routes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
   { path: "/services", priority: 0.9, changeFrequency: "monthly" },
   { path: "/industries", priority: 0.9, changeFrequency: "monthly" },
-  { path: "/industries/hvac", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/plumbing", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/electrical", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/roofing", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/railing-fencing", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/landscaping", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/pest-control", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/cleaning", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/industries/healthcare", priority: 0.8, changeFrequency: "monthly" },
+  ...industryPages.map((p) => ({ path: `/industries/${p.slug}`, priority: 0.8, changeFrequency: "monthly" as const })),
+  ...servicePages.map((p) => ({ path: `/services/${p.slug}`, priority: 0.8, changeFrequency: "monthly" as const })),
+  { path: "/solutions", priority: 0.8, changeFrequency: "monthly" },
+  ...solutions.map((p) => ({ path: `/solutions/${p.slug}`, priority: 0.7, changeFrequency: "monthly" as const })),
   { path: "/code-cleanup", priority: 0.7, changeFrequency: "monthly" },
   { path: "/process", priority: 0.6, changeFrequency: "monthly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },

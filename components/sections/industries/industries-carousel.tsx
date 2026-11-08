@@ -7,6 +7,8 @@ import { Reveal } from "@/components/magic/reveal";
 import { AutoSlider, type AutoSliderHandle } from "@/components/magic/auto-slider";
 import { NoiseTexture } from "@/components/blocks/magicui/noise-texture";
 import { TradeFigure } from "@/components/sections/industries/trade-figure";
+import { IndustryVisual } from "@/components/sections/industries/visuals";
+import { industryPages } from "@/content/industry-pages";
 import { themeFor, toneGlow, toneGradient } from "@/components/sections/industries/industry-tones";
 import type { Cta, SectionHeading } from "@/content/types";
 
@@ -17,15 +19,27 @@ type IndustryCard = { name: string; teaser: string; href: string };
  * its Hairline figure, then a same-hue glow and grain laid over the figure so
  * they tint plates and card alike. Text and line art stay charcoal on top.
  */
+const LIVE = new Set<string>(industryPages.map((p) => p.slug));
+
 export function IndustryTile({ industry }: { industry: IndustryCard }) {
   const { icon, tone } = themeFor(industry.href);
+  const slug = industry.href.split("/").filter(Boolean).pop() ?? "";
   return (
     <Link
       href={industry.href}
       style={{ backgroundImage: toneGradient(tone) }}
       className="group relative isolate flex h-full min-h-[34rem] w-full cursor-pointer flex-col overflow-hidden rounded-2xl text-[#26262a] transition duration-300 ease-out hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#26262a] focus-visible:ring-offset-2"
     >
-      <TradeFigure name={icon} gradient={tone} className="px-2 pt-4" />
+      {LIVE.has(slug) ? (
+        <div className="pointer-events-none relative h-[21rem] overflow-hidden px-6 pt-6">
+          <div className="origin-top scale-[0.92] transition-transform duration-500 ease-out group-hover:scale-95">
+            <IndustryVisual slug={slug} />
+          </div>
+          <span aria-hidden className="absolute inset-x-0 bottom-0 h-20" style={{ backgroundImage: `linear-gradient(180deg, transparent, ${tone.to})` }} />
+        </div>
+      ) : (
+        <TradeFigure name={icon} gradient={tone} className="px-2 pt-4" />
+      )}
       <span aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: toneGlow(tone) }} />
       <NoiseTexture frequency={0.75} octaves={4} slope={0.12} noiseOpacity={0.5} className="z-10 opacity-25" />
       <div className="relative z-20 mt-auto flex flex-col px-7 pb-8">

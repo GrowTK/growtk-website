@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowRight, Check, Clock, Copy, Headset, LifeBuoy, Mail, Plug, Target, UserRound, Workflow, HelpCircle, type LucideIcon } from "lucide-react";
+import { ArrowRight, Check, Clock, Copy, Headset, Mail, Plug, Target, UserRound, Workflow, HelpCircle, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { brand } from "@/brand.config";
 import { Reveal } from "@/components/magic/reveal";
@@ -11,8 +11,7 @@ import { Wash, washTone, type WashName } from "@/components/sections/company/was
 import type { SectionHeading } from "@/content/types";
 
 const SERVICE_ICON: Record<string, LucideIcon> = {
-  "contact-center": Headset,
-  "customer-support": LifeBuoy,
+  "customer-support": Headset,
   growth: Target,
   operations: Workflow,
 };

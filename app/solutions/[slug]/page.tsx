@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IndustryHero } from "@/components/sections/industries/industry-hero";
-import { IndustryServices } from "@/components/sections/industries/industry-services";
 import { IndustryFaq } from "@/components/sections/industries/industry-faq";
 import { IndustryCta } from "@/components/sections/industries/industry-cta";
-import { TradeFigure } from "@/components/sections/industries/trade-figure";
 import { INDUSTRY_THEME } from "@/components/sections/industries/industry-tones";
-import { Feature03 } from "@/components/sections/features/feature-03";
-import { Feature04 } from "@/components/sections/features/feature-04";
-import { Feature06 } from "@/components/sections/features/feature-06";
 import { ProcessSteps } from "@/components/sections/services/process-steps";
 import { RelatedLinks } from "@/components/sections/services/related-links";
+import { StatementReveal } from "@/components/sections/services/statement-reveal";
+import { StackChips } from "@/components/sections/services/stack-chips";
+import { ProductMock } from "@/components/sections/solutions/product-mock";
+import {
+  AudienceCards,
+  CapabilityBento,
+  CompareTable,
+  GovernancePanel,
+  OutcomeSplit,
+  SpotlightSplit,
+  mockGradient,
+} from "@/components/sections/solutions/solution-sections";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-jsonld";
 import { solutions, solutionBySlug, solutionsHub } from "@/content/solutions";
 import { home } from "@/content/home";
@@ -43,17 +50,18 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           { name: page.name, path: `/solutions/${page.slug}` },
         ]}
       />
-      <IndustryHero
-        heading={page.hero}
-        ctas={page.hero.ctas}
-        tone={tone}
-        figure={<TradeFigure set="service" name={page.figure} gradient={{ angle: 0, from: "#ffffff", to: "#ffffff" }} />}
-      />
-      <IndustryServices heading={page.capabilities.heading} features={page.capabilities.features} tone={tone} ownLinks />
-      <Feature03 heading={page.deepDives.heading} rows={page.deepDives.rows} />
-      <Feature06 heading={page.audience.heading} features={page.audience.items} />
-      <Feature04 heading={page.built.heading} features={page.built.items} />
-      <ProcessSteps heading={page.process.heading} steps={page.process.steps} />
+      <IndustryHero heading={page.hero} ctas={page.hero.ctas} stats={page.hero.stats} tone={tone} figure={<ProductMock kind={page.mock} />} />
+      <StatementReveal eyebrow={page.problem.eyebrow} text={page.problem.text} />
+      <CapabilityBento heading={page.capabilities.heading} features={page.capabilities.features} gradient={mockGradient(page.mock)} lead={<ProductMock kind={page.mock} compact />} />
+      <SpotlightSplit heading={page.spotlight.heading} points={page.spotlight.points} image={page.spotlight.image} mock={page.mock} />
+      <GovernancePanel heading={page.governance.heading} points={page.governance.points} image={page.governance.image} />
+      <div id="how-it-works" className="scroll-mt-24">
+        <ProcessSteps heading={page.process.heading} steps={page.process.steps} />
+      </div>
+      <AudienceCards heading={page.audience.heading} items={page.audience.items} gradient={mockGradient(page.mock)} />
+      <StackChips heading={page.integrations.heading} items={page.integrations.items} note={page.integrations.note} />
+      <CompareTable heading={page.compare.heading} columns={page.compare.columns} rows={page.compare.rows} />
+      <OutcomeSplit heading={page.outcome.heading} items={page.outcome.items} image={page.outcome.image} mock={page.mock} />
       <IndustryFaq heading={page.faq.heading} items={page.faq.items} cta={solutionsHub.labels.faqCta} tone={tone} />
       <RelatedLinks eyebrow={solutionsHub.labels.related} links={page.related} />
       <IndustryCta heading={page.cta.heading} primary={page.cta.primary} tone={tone} figureLabel={home.hero.figureLabel} />

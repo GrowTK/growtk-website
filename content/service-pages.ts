@@ -12,7 +12,7 @@
  */
 import type { Cta, Feature, FaqItem, SectionHeading, Step } from "./types";
 
-export type ServiceGroup = "contact-center" | "customer-support" | "growth" | "operations";
+export type ServiceGroup = "customer-support" | "operations" | "growth";
 
 export type ServicePage = {
   slug: string;
@@ -42,11 +42,10 @@ export type ServicePage = {
 };
 
 export const serviceGroups: { id: ServiceGroup; name: string; body: string }[] = [
-  { id: "contact-center", name: "Contact center", body: "Every call, chat and message answered, and every outbound campaign run, by AI agents with a person on escalation." },
-  { id: "customer-support", name: "Customer support", body: "Support that resolves instead of deflects, from tier 1 questions to orders, returns and the experience around them." },
-  { id: "growth", name: "Sales and growth", body: "A pipeline that fills itself: every lead captured, qualified, routed and followed up until it decides." },
-  { id: "operations", name: "Operations", body: "The back office, the schedule and the process itself, automated and redesigned so the work gets lighter as you grow." },
-];
+  { id: "customer-support", name: "Customer support", body: "Every call, chat, email and message answered, every outbound campaign run, and the whole customer journey looked after, by AI agents with a person on escalation." },
+  { id: "operations", name: "Operations", body: "Staffing, technical support, the back office and the process itself, automated and redesigned so the work gets lighter as you grow." },
+  { id: "growth", name: "Growth", body: "A pipeline that fills itself: every lead captured, qualified, called, followed up and handed to sales ready to close." },
+]
 
 const contact = (label = "Book a free audit"): Cta => ({ label, href: "/contact", variant: "primary" });
 
@@ -67,7 +66,7 @@ const sharedProcess = (what: string): { heading: SectionHeading; steps: Step[] }
 export const servicePages: ServicePage[] = [
   {
     slug: "contact-center-services",
-    group: "contact-center",
+    group: "customer-support",
     name: "Contact center services",
     icon: "Headset",
     teaser: "A full contact center run by AI agents, answering and calling out across every channel, with a person on escalation.",
@@ -90,6 +89,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Plug", title: "One record across every channel", body: "A customer who calls, then texts, then emails is one conversation, not three tickets, so nobody has to explain themselves twice." },
         { icon: "Headset", title: "Human escalation that keeps context", body: "Angry, complex or high value conversations go to the right person by your rules, with a summary and the full transcript attached." },
         { icon: "Search", title: "Reporting you can act on", body: "Volume, resolution and wait times by channel and topic, plus the questions your knowledge base could not answer yet." },
+        { icon: "Moon", title: "Overflow and after-hours cover", body: "Keep your in-house team and let the AI agents take the spikes, nights and weekends. Customers never notice the switch." },
       ],
     },
     whoFor: {
@@ -124,7 +124,7 @@ export const servicePages: ServicePage[] = [
   },
   {
     slug: "inbound-contact-center",
-    group: "contact-center",
+    group: "customer-support",
     name: "Inbound contact center",
     icon: "PhoneIncoming",
     teaser: "Every inbound call, chat and email answered in seconds and resolved right, day or night.",
@@ -147,6 +147,7 @@ export const servicePages: ServicePage[] = [
         { icon: "ClipboardCheck", title: "Resolution from your own knowledge", body: "Order lookups, account changes, bookings and policy questions answered from your systems and knowledge base, not guessed." },
         { icon: "Headset", title: "Warm handoffs to your team", body: "When a person is needed, the call or chat transfers with a summary, so your team starts at the answer, not at hello." },
         { icon: "Star", title: "Every contact logged and followed up", body: "Each conversation lands in your CRM or helpdesk with its outcome, and anything promised gets a follow-up on its own." },
+        { icon: "ShoppingCart", title: "Sales moments on inbound calls", body: "Buying questions get answered and quotes or orders started in the same conversation, helpfully and without a hard sell." },
       ],
     },
     whoFor: {
@@ -181,7 +182,7 @@ export const servicePages: ServicePage[] = [
   },
   {
     slug: "outbound-contact-center",
-    group: "contact-center",
+    group: "customer-support",
     name: "Outbound contact center",
     icon: "PhoneOutgoing",
     teaser: "Reminders, renewals, callbacks and win-backs placed on schedule, with consent checked first.",
@@ -204,6 +205,7 @@ export const servicePages: ServicePage[] = [
         { icon: "PhoneCall", title: "Callbacks and missed-call follow-up", body: "Every missed call and callback request gets returned fast, before the customer tries someone else." },
         { icon: "ClipboardCheck", title: "Consent and quiet hours built in", body: "Calls and texts go only to contacts with the right consent, inside allowed hours, with opt-outs honored straight away." },
         { icon: "Star", title: "Outcomes written back", body: "Every answer, no answer, booking and opt-out is recorded on the contact, so the next step is always clear." },
+        { icon: "BarChart3", title: "Surveys and market research", body: "Short post-service and research calls that ask your questions naturally and roll every answer into one report." },
       ],
     },
     whoFor: {
@@ -261,6 +263,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Search", title: "A knowledge base that keeps up", body: "Answers come from a knowledge base built from your real tickets, and gaps are flagged the moment a question goes unanswered.", href: "/solutions/knowledge-base-system" },
         { icon: "Headset", title: "People where they count", body: "Refunds, complaints and anything sensitive reach a person by your rules, with a drafted reply ready to approve." },
         { icon: "Star", title: "Satisfaction measured after every contact", body: "A short survey follows each resolved conversation, and low scores reach a manager the same day.", href: "/solutions/survey-software" },
+        { icon: "BarChart3", title: "Weekly insights and reporting", body: "Contact reasons, resolution and satisfaction by channel every week, plus the questions that still need a better answer." },
       ],
     },
     whoFor: {
@@ -295,7 +298,7 @@ export const servicePages: ServicePage[] = [
   },
   {
     slug: "technical-support",
-    group: "customer-support",
+    group: "operations",
     name: "Technical support",
     icon: "Wrench",
     teaser: "Tier 1 troubleshooting resolved from your docs, clean handoffs to engineers for the rest.",
@@ -318,6 +321,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Plug", title: "Clean escalation to engineering", body: "Confirmed issues land in your issue tracker or helpdesk with priority, impact and everything an engineer needs." },
         { icon: "BellRing", title: "Incident and status updates", body: "When something is down, affected users hear about it and hear again when it is fixed, without your team writing every message." },
         { icon: "Search", title: "Backend and account operations", body: "Routine account changes, data fixes and provisioning steps handled by automation with an audit trail, not by hand." },
+        { icon: "BookOpen", title: "Documentation that keeps up", body: "Every resolved issue that had no article becomes one, so the next user finds the fix without opening a ticket.", href: "/solutions/knowledge-base-system" },
       ],
     },
     whoFor: {
@@ -375,6 +379,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Calculator", title: "Pre-sale help that converts", body: "Sizing, compatibility, stock and shipping questions answered on the product page, while the shopper is still deciding." },
         { icon: "Star", title: "Quote and custom order requests", body: "Custom and bulk requests captured with every detail and sent to the right person as a ready to work lead." },
         { icon: "BellRing", title: "Proactive delivery updates", body: "Delays and exceptions trigger a message before the customer has to ask, which keeps tickets and chargebacks down." },
+        { icon: "MessageSquareHeart", title: "Reviews requested after delivery", body: "Happy customers get a review request once the order arrives, and unhappy ones reach your team before they post." },
       ],
     },
     whoFor: {
@@ -432,6 +437,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Zap", title: "Response in seconds", body: "Every new lead gets an email and a text straight away, and hot leads get a call, before they reach the next company on their list." },
         { icon: "Plug", title: "Routing and round robin", body: "Leads go to the right rep by territory, product or turn, with the full context, in the CRM you already use." },
         { icon: "Repeat", title: "Follow-up until it decides", body: "Day 1, 3 and 7 follow-ups and longer nurture sequences run by themselves and stop the moment the lead replies." },
+        { icon: "CalendarCheck", title: "Meetings booked on the spot", body: "Qualified leads pick a time on the right rep's live calendar in the same conversation, with reminders sent before the call." },
       ],
     },
     whoFor: {
@@ -489,6 +495,7 @@ export const servicePages: ServicePage[] = [
         { icon: "ClipboardCheck", title: "Consent first, every time", body: "Only contacts with the right consent, within allowed hours, with opt-outs honored straight away and recorded." },
         { icon: "TrendingUp", title: "Scripts tested and improved", body: "We test openings and offers, keep what converts and rewrite what does not, with results by script and segment." },
         { icon: "Star", title: "Every outcome on the record", body: "Interested, not now, call back later or opt out: every result written to the contact in your CRM." },
+        { icon: "ListChecks", title: "Lists cleaned before every campaign", body: "Duplicates, bad numbers and opted-out contacts removed first, and every campaign updates the list for the next one." },
       ],
     },
     whoFor: {
@@ -546,6 +553,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Plug", title: "A CRM that updates itself", body: "Calls, emails and chats logged, notes summarized and fields filled in, so the pipeline reflects what actually happened." },
         { icon: "ClipboardCheck", title: "Pipeline stages that do the work", body: "Moving a deal to a new stage starts that stage's workflow: messages, tasks and alerts, without anyone remembering to send them." },
         { icon: "BellRing", title: "Team alerts where reps already are", body: "New leads, hot replies and won deals posted to the right Slack channel or phone with the rep tagged." },
+        { icon: "RefreshCw", title: "Renewals started on time", body: "Contracts coming up for renewal start their outreach weeks ahead, and the account owner sees every reply." },
       ],
     },
     whoFor: {
@@ -603,6 +611,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Repeat", title: "Spreadsheets and documents that update themselves", body: "Google Sheets, Docs and reports filled from your systems on a schedule, so nobody copies numbers between tabs." },
         { icon: "BellRing", title: "Alerts for what needs attention", body: "Low stock, overdue payments, failed syncs and unusual numbers sent to the right person by WhatsApp, text, email or Slack." },
         { icon: "Plug", title: "Systems that talk to each other", body: "CRM, accounting, inventory and payments connected, so a change in one updates the rest." },
+        { icon: "ShieldCheck", title: "Checks and verification steps", body: "Documents and details checked against your rules before a record moves forward, with anything unclear sent to a person to decide." },
       ],
     },
     whoFor: {
@@ -660,6 +669,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Star", title: "Reviews requested and answered", body: "Happy customers get a review request at the right time, and every review gets a reply drafted for you." },
         { icon: "BellRing", title: "Recovery for unhappy customers", body: "A low score or bad review alerts the right person straight away, so a problem gets fixed before the customer leaves." },
         { icon: "TrendingUp", title: "Insights turned into fixes", body: "Themes across surveys, tickets and reviews rolled up monthly, with the changes most likely to move satisfaction." },
+        { icon: "Gauge", title: "Quality reviewed on every conversation", body: "Calls and chats, from AI agents and people, scored against your own standard, so coaching starts from real examples.", href: "/solutions/quality-management-system" },
       ],
     },
     whoFor: {
@@ -717,6 +727,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Repeat", title: "Dispatch and job assignment", body: "Field jobs assigned by skill, location and availability, with the day rebuilt automatically when something changes." },
         { icon: "Headset", title: "AI agents on the peaks", body: "When volume beats the forecast, AI agents pick up the overflow so wait times stay flat and nobody is pulled off their real work." },
         { icon: "ClipboardCheck", title: "Time, attendance and coverage reports", body: "Hours, overtime and coverage against demand reported weekly, ready for payroll." },
+        { icon: "Activity", title: "A live view of the day", body: "Volume, wait times and who is on shift in one live view, so a manager sees a gap while there is still time to fix it." },
       ],
     },
     whoFor: {
@@ -774,6 +785,7 @@ export const servicePages: ServicePage[] = [
         { icon: "Workflow", title: "Redesign around AI and automation", body: "A future process where AI agents and automation take the repetitive steps and people keep the judgment calls." },
         { icon: "Plug", title: "Build and connect", body: "We build the new workflow inside your tools, connect the systems and retire the workarounds." },
         { icon: "TrendingUp", title: "Before and after measurement", body: "Hours, errors and turnaround measured before and after launch, so you see what changed, not what was promised." },
+        { icon: "FileText", title: "Written procedures and KPIs", body: "The new process documented step by step, with an owner for each step and the few numbers that show whether it works." },
       ],
     },
     whoFor: {
@@ -816,4 +828,37 @@ export const servicePageLabels = {
   related: "Related services",
   caseStudies: { eyebrow: "Case studies", title: "Built and running", body: "Real systems behind this service. Open one to click through it." } as SectionHeading,
   faqCta: { label: "Ask us anything", href: "/contact" } as Cta,
+  /** How the work splits between AI agents and people. Shared by every service page. */
+  models: {
+    heading: {
+      eyebrow: "How engagements work",
+      title: "Pick how much the AI handles on its own",
+      body: "Every engagement uses one of three models. Which one fits depends on how routine your requests are and how much your team wants to stay in the loop. You can move between them as trust builds.",
+    } as SectionHeading,
+    items: [
+      {
+        icon: "Bot",
+        name: "AI handles it end to end",
+        body: "AI agents answer, resolve and log routine requests on their own, around the clock. Anything outside the rules goes to your team with the full history attached.",
+        points: ["Answers, bookings and updates done for you", "Your team sees only the escalations", "Every conversation logged to your CRM"],
+        bestFor: "Best for: high volume, routine requests",
+      },
+      {
+        icon: "Users",
+        name: "AI plus your team",
+        body: "AI agents take the routine work and the first reply on everything else. Your people own the complex cases, with drafts, context and next steps already prepared.",
+        points: ["AI drafts, a person approves when it matters", "Clear escalation rules you set", "Weekly review of what went to a person and why"],
+        bestFor: "Best for: most growing teams",
+      },
+      {
+        icon: "UserCheck",
+        name: "AI behind your people",
+        body: "Your team stays on the front line. AI sits inside their tools, suggesting answers, filling in records and following up, so each person handles more without rushing.",
+        points: ["Suggested answers in the conversation", "Notes and records filled in for them", "Follow ups sent without anyone remembering"],
+        bestFor: "Best for: regulated or high touch work",
+      },
+    ],
+    footnote: "Ongoing automation and AI agent engagements start at $1,200 per month, and full retainers are quoted to scope. You get a final, written quote after the free audit call.",
+    cta: { label: "Book a free audit", href: "/contact" } as Cta,
+  },
 };

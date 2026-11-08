@@ -8,10 +8,10 @@ import { HeroLeadMachine } from "@/components/sections/hero/hero-lead-machine";
 import { IndustriesCarousel } from "@/components/sections/industries/industries-carousel";
 import { FeatureVoiceBlob } from "@/components/sections/features/voice-blob";
 import { LogoMarqueeBand } from "@/components/sections/logos/logo-marquee-band";
-import { Feature05 } from "@/components/sections/features/feature-05";
+import { SolutionsStack } from "@/components/sections/solutions/solutions-stack";
 import { Feature07 } from "@/components/sections/features/feature-07";
 import { Quote01 } from "@/components/sections/quote/quote-01";
-import { Testimonial09 } from "@/components/sections/testimonials/testimonial-09";
+import { OutcomeSpotlight } from "@/components/sections/testimonials/outcome-spotlight";
 import { ImageStatement } from "@/components/sections/cta/image-statement";
 import { ProjectsShowcase } from "@/components/sections/projects/projects-showcase";
 import { Faq03 } from "@/components/sections/faq/faq-03";
@@ -113,9 +113,9 @@ export default function Home() {
 
       <ProjectsShowcase heading={projectsShowcase.heading} items={projectsShowcase.items} />
 
-      <Testimonial09 heading={home.testimonials.heading} testimonials={home.testimonials.items} />
+      <OutcomeSpotlight heading={home.testimonials.heading} items={home.testimonials.items} />
 
-      <Feature05 heading={home.capabilities.heading} features={home.capabilities.items} />
+      <SolutionsStack heading={home.capabilities.heading} items={home.capabilities.items} counterOf={home.capabilities.counterOf} />
 
       <FeatureVoiceBlob
         heading={home.voice.heading}
