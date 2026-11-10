@@ -14,12 +14,12 @@ export const terms = {
   },
   effectiveDate: "Draft, last updated September 2026",
   intro:
-    "These terms cover your use of this website and your general inquiries with Growtk. This is a draft policy pending review by counsel before public launch. If anything here is unclear, contact hello@growtk.com before relying on it.",
+    "These terms cover your use of this website and your general inquiries with Growtk. This is a draft policy pending review by counsel before public launch. If anything here is unclear, contact hello@growtk.co before relying on it.",
   sections: [
     {
       heading: "Who this applies to",
       body: [
-        "These terms apply to anyone visiting growtk.com or contacting Growtk about a project or quote.",
+        "These terms apply to anyone visiting growtk.co or contacting Growtk about a project or quote.",
         "If you sign a separate written services agreement with Growtk for a website, automation, voice agent, or integration project, that agreement governs the work itself. These website terms do not replace it.",
       ],
     },
@@ -77,7 +77,7 @@ export const terms = {
     {
       heading: "Contact",
       body: [
-        "Questions about these terms can be sent to hello@growtk.com.",
+        "Questions about these terms can be sent to hello@growtk.co.",
       ],
     },
   ],
@@ -88,7 +88,7 @@ export const terms = {
       title: "Anything here unclear?",
       body: "Write to us directly and a real person will answer.",
     } as SectionHeading,
-    primary: { label: "Email hello@growtk.com", href: "mailto:hello@growtk.com" } as Cta,
+    primary: { label: "Email hello@growtk.co", href: "mailto:hello@growtk.co" } as Cta,
     secondary: { label: "Contact us", href: "/contact" } as Cta,
   },
 } satisfies PageContent & Record<string, unknown>;

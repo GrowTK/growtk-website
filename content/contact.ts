@@ -1,7 +1,7 @@
 /**
- * Contact page copy. This is a mailto-based inquiry form, not a wired-up
- * backend. Copy must stay honest about that (see BookDemoForm component,
- * reused here as-is with contact-specific copy).
+ * Contact page copy. The form posts to /api/contact, which emails the team
+ * through Resend (lib/notify.ts). If that fails, the form falls back to
+ * opening the visitor's email app. Copy must stay honest about both paths.
  */
 import type { PageContent, SectionHeading, Feature, FaqItem } from "./types";
 
@@ -16,7 +16,7 @@ export const contact = {
   header: {
     eyebrow: "Contact",
     title: "Tell us about your business",
-    body: "Fill in the form and it will open a pre-filled email to hello@growtk.com in your email app. We reply directly, usually within one business day, no automated sequence.",
+    body: "Fill in the form and it comes straight to the Growtk team. We reply directly, usually within one business day, no automated sequence.",
   },
 
   /** The direct-contact card beside the form. */

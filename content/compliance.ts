@@ -60,7 +60,7 @@ export const compliance = {
     {
       heading: "Contact",
       body: [
-        "Questions about how Growtk builds, or about any of the practices on this page, can be sent to hello@growtk.com.",
+        "Questions about how Growtk builds, or about any of the practices on this page, can be sent to hello@growtk.co.",
       ],
     },
   ],
@@ -71,7 +71,7 @@ export const compliance = {
       title: "Want the honest version before you sign?",
       body: "Ask us directly what we do and do not have in place. We would rather tell you plainly than let you assume.",
     } as SectionHeading,
-    primary: { label: "Email hello@growtk.com", href: "mailto:hello@growtk.com" } as Cta,
+    primary: { label: "Email hello@growtk.co", href: "mailto:hello@growtk.co" } as Cta,
     secondary: { label: "Learn more about Growtk", href: "/about" } as Cta,
   },
 } satisfies PageContent & Record<string, unknown>;

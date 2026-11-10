@@ -3,9 +3,17 @@ import { clientIp, fieldsHtml, isEmail, makeLimiter, notifyOwner } from "@/lib/n
 export const runtime = "nodejs";
 
 /**
- * Contact form → an email to the site owner (lib/notify.ts, via Resend).
- * Reply-to is the visitor, so answering the email answers them.
+ * Contact form → an email to the founder with the team on cc (lib/notify.ts,
+ * via Resend). Reply-to is the visitor, so answering the email answers them.
+ * CONTACT_TO / CONTACT_CC (comma separated) override the recipients.
  */
+
+const list = (v: string | undefined, fallback: string[]) => {
+  const parsed = (v ?? "").split(",").map((s) => s.trim()).filter(isEmail);
+  return parsed.length ? parsed : fallback;
+};
+const CONTACT_TO = list(process.env.CONTACT_TO, ["anique.cs@gmail.com"]);
+const CONTACT_CC = list(process.env.CONTACT_CC, ["affanzahir26@gmail.com"]);
 
 const limited = makeLimiter(5, 10 * 60_000);
 const clip = (v: unknown, n: number) => (typeof v === "string" ? v.trim().slice(0, n) : "");
@@ -45,10 +53,13 @@ export async function POST(req: Request) {
     html: fieldsHtml("New inquiry from the contact page", fields, "Reply to this email to answer them directly."),
     text: fields.map(([k, v]) => `${k}: ${v || "(not given)"}`).join("\n"),
     replyTo: email,
+    to: CONTACT_TO,
+    cc: CONTACT_CC,
   });
   if (!result.sent) {
     console.error("[contact] email not sent:", result.error);
     return Response.json({ ok: false, error: "send-failed" }, { status: 502 });
   }
+  console.info("[contact] sent", result.id);
   return Response.json({ ok: true });
 }

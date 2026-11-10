@@ -23,7 +23,7 @@ export const brand = {
     "Growtk runs customer operations AI first: contact center, customer and technical support, lead generation, sales support and back office, with a person on every escalation.",
 
   /** Production domain, no protocol. Only used for metadataBase + canonical URLs. */
-  domain: "growtk.com",
+  domain: "growtk.co",
 
   /** Theme. Run `npm run brand` after editing. */
   theme: {
@@ -75,7 +75,7 @@ export const brand = {
   contact: {
     whatsapp: "",
     phone: "",
-    email: "hello@growtk.com",
+    email: "hello@growtk.co",
     address: "",
     mapQuery: "",
   },

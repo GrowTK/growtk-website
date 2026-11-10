@@ -5,6 +5,7 @@
  * - RESEND_API_KEY (required to send; without it nothing is sent and callers carry on)
  * - RESEND_FROM    (optional) a sender on a domain verified in Resend. Defaults to notifications@growtk.co.
  * - NOTIFY_TO      (optional) where notifications go. Defaults to the site owner.
+ *                  A caller can pass its own `to` and `cc` instead (the contact form does).
  */
 
 const DEFAULT_TO = "anique.cs@gmail.com";
@@ -32,12 +33,16 @@ export async function notifyOwner({
   html,
   text,
   replyTo,
+  to,
+  cc,
 }: {
   subject: string;
   html: string;
   text: string;
   replyTo?: string;
-}): Promise<{ sent: boolean; error?: string }> {
+  to?: string[];
+  cc?: string[];
+}): Promise<{ sent: boolean; id?: string; error?: string }> {
   const key = process.env.RESEND_API_KEY || process.env.RESEND_TOKEN;
   if (!key) return { sent: false, error: "no-key" };
   try {
@@ -46,7 +51,8 @@ export async function notifyOwner({
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: process.env.RESEND_FROM || DEFAULT_FROM,
-        to: [process.env.NOTIFY_TO || DEFAULT_TO],
+        to: to?.length ? to : [process.env.NOTIFY_TO || DEFAULT_TO],
+        ...(cc?.length ? { cc } : {}),
         subject,
         html,
         text,
@@ -54,7 +60,8 @@ export async function notifyOwner({
       }),
     });
     if (!res.ok) return { sent: false, error: `resend ${res.status}: ${(await res.text().catch(() => "")).slice(0, 200)}` };
-    return { sent: true };
+    const data = (await res.json().catch(() => ({}))) as { id?: string };
+    return { sent: true, id: data.id };
   } catch (err) {
     return { sent: false, error: (err as Error).message };
   }

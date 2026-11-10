@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Bot, CheckCircle2, FileStack, Mail, MessageCircle, MessageSquare, Phone, Smartphone } from "lucide-react";
+import { ArrowUpRight, Bot, CheckCircle2, FileStack, Mail, MessageCircle, MessageSquare, Phone, ShoppingBag, Smartphone } from "lucide-react";
 import { Icon } from "@/components/sections/icon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/magic/reveal";
 import type { Feature, SectionHeading } from "@/content/types";
+import type { StoreOps } from "@/content/industry-pages";
 import { cn } from "@/lib/utils";
 
 /**
  * Bespoke sections for the seven industry pages: the challenges as a split
  * index, the operation beside a pinned live visual, the services as linked
- * cards, and the AI agent jobs styled as incoming notifications.
+ * cards, the AI agent jobs styled as incoming notifications, and (ecommerce
+ * only) the store work run behind the inbox.
  */
 
 type Point = { title: string; body: string };
@@ -83,6 +85,65 @@ export function InsideSplit({ heading, points, gradient, visual }: { heading: Se
             ))}
           </ol>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------- Store management ---------------------------- */
+
+export function StoreOpsSplit({ data, gradient }: { data: StoreOps; gradient: string }) {
+  return (
+    <section className="bg-background px-6 py-20 sm:px-10 lg:py-28">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <Head heading={data.heading} />
+          <Reveal delay={0.1} className="mt-10">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-[#1A1A1A] p-7 sm:p-8">
+              <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full opacity-30 blur-3xl" style={{ backgroundImage: gradient }} />
+              <div className="relative flex items-center gap-4">
+                <span className="grid size-12 place-items-center rounded-2xl text-[#26262a]" style={{ backgroundImage: gradient }}>
+                  <ShoppingBag aria-hidden className="size-5" />
+                </span>
+                <p className="font-display text-2xl font-bold tracking-tight text-white">{data.platform.name}</p>
+              </div>
+              <p className="relative mt-4 text-sm leading-relaxed text-white/70">{data.platform.body}</p>
+              <ul className="relative mt-6 flex flex-wrap gap-2">
+                {data.platform.tools.map((t) => (
+                  <li key={t} className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/85 ring-1 ring-white/10">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="eyebrow mt-8 text-muted-foreground">{data.alsoLabel}</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {data.also.map((t) => (
+                <li key={t} className="rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium text-foreground">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+        <ol className="divide-y divide-border overflow-hidden rounded-[1.75rem] border border-border bg-card">
+          {data.items.map((it, i) => (
+            <Reveal as="li" key={it.title} delay={i * 0.06}>
+              <div className="group flex gap-5 p-6 transition-colors duration-300 hover:bg-muted/40 sm:gap-6 sm:p-8">
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl text-[#26262a] transition-transform duration-300 group-hover:-rotate-6" style={{ backgroundImage: gradient }}>
+                  <Icon name={it.icon} className="size-5" />
+                </span>
+                <div className="min-w-0">
+                  <p className="eyebrow text-muted-foreground">
+                    {String(i + 1).padStart(2, "0")} · {it.tag}
+                  </p>
+                  <h3 className="mt-2 font-display text-xl font-bold tracking-tight text-foreground">{it.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{it.body}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );

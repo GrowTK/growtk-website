@@ -16,6 +16,14 @@ import type { Cta, FaqItem, Feature, SectionHeading, Stat, Step } from "./types"
 export type IndustrySlug = "banking-fintech" | "ride-hailing" | "ecommerce" | "logistics" | "telecom" | "healthcare" | "saas";
 export type IndustryTone = "yellow" | "peach" | "lilac" | "mint" | "sky" | "rose" | "lime";
 export type IndustryPoint = { title: string; body: string };
+/** Optional "we run the store too" section, used by ecommerce. */
+export type StoreOps = {
+  heading: SectionHeading;
+  platform: { name: string; body: string; tools: string[] };
+  alsoLabel: string;
+  also: string[];
+  items: (Feature & { tag: string })[];
+};
 
 export type IndustryPage = {
   slug: IndustrySlug;
@@ -28,6 +36,7 @@ export type IndustryPage = {
   problem: { eyebrow: string; text: string };
   challenges: { heading: SectionHeading; items: Feature[] };
   inside: { heading: SectionHeading; points: IndustryPoint[] };
+  storeOps?: StoreOps;
   services: { heading: SectionHeading; items: { slug: string; body: string }[] };
   segments: { heading: SectionHeading; items: (Feature & { tag: string })[] };
   useCases: { heading: SectionHeading; items: { title: string; body: string; channel: string }[] };
@@ -278,13 +287,13 @@ export const industryPages: IndustryPage[] = [
     teaser: "Scale support for high-order volume retail",
     tone: "peach",
     meta: {
-      title: "AI customer support for ecommerce and retail",
-      description: "Growtk builds AI agents for online stores: order status, returns, delivery questions and pre-sale help answered in seconds across chat, email and phone, with exceptions handed to your team.",
+      title: "AI customer support and Shopify store management for ecommerce",
+      description: "Growtk builds AI agents and automation for online stores: order status, returns and pre-sale help answered in seconds, plus Shopify store management for products, stock, orders and promotions, with exceptions handed to your team.",
     },
     hero: {
       eyebrow: "Ecommerce",
       title: "Support that scales with every order",
-      body: "Where is my order, can I return this, will it fit. AI agents answer from your store and your courier data in seconds, process returns inside your policy, and pass the tricky ones to your team.",
+      body: "Where is my order, can I return this, will it fit. AI agents answer from your store and your courier data in seconds, process returns inside your policy, and pass the tricky ones to your team. Behind the inbox, automation keeps your Shopify products, stock and orders in order.",
       ctas: ctas(),
       stats: [
         { value: "24/7", label: "Shopper support" },
@@ -313,6 +322,28 @@ export const industryPages: IndustryPage[] = [
         { title: "Order context on open", body: "Order, payment and tracking details load before the first reply, so shoppers never paste an order number twice." },
         { title: "Returns inside your rules", body: "Eligibility is checked, labels are sent and refunds start, all within the policy you set." },
         { title: "Pre-sale help that sells", body: "Sizing, stock and delivery questions answered on the product page while the shopper is still deciding." },
+      ],
+    },
+    storeOps: {
+      heading: {
+        eyebrow: "Store management",
+        title: "We run the store work, not just the inbox",
+        body: "Support is half the job. We also build the automation behind your store: products, stock, orders and promotions, so your team stops copying data between tabs.",
+      },
+      platform: {
+        name: "Shopify",
+        body: "Built for Shopify first. We work inside your existing store and theme, and connect it to the rest of your tools.",
+        tools: ["Admin API", "Shopify Flow", "Webhooks", "Custom apps", "Theme sections"],
+      },
+      alsoLabel: "Also connects to",
+      also: ["WooCommerce", "BigCommerce", "Amazon Seller Central", "Etsy", "QuickBooks", "Google Sheets"],
+      items: [
+        { icon: "Store", tag: "Setup", title: "Store setup and custom apps", body: "New Shopify stores set up, messy ones cleaned up, and custom apps or theme sections built when the app store does not have what you need." },
+        { icon: "Tags", tag: "Catalog", title: "Products and catalog", body: "Products, variants, prices and descriptions created or updated in bulk from a sheet or a supplier feed, with collections and tags kept tidy." },
+        { icon: "Boxes", tag: "Inventory", title: "Stock kept in sync", body: "Stock levels matched across your store, marketplaces and warehouse, with an alert before a best seller runs out." },
+        { icon: "Truck", tag: "Orders", title: "Orders routed and fulfilled", body: "Orders tagged, sent to the right warehouse or supplier, and tracking pushed back to the shopper without anyone copying it over." },
+        { icon: "Percent", tag: "Promotions", title: "Sales and discounts on schedule", body: "Sale prices, discount codes and bundles switched on for launch day and switched off again when the sale ends." },
+        { icon: "ChartColumn", tag: "Reporting", title: "One daily store report", body: "Sales, refunds, stock and support numbers pulled into one report or sheet, instead of five dashboards." },
       ],
     },
     services: {
@@ -358,13 +389,14 @@ export const industryPages: IndustryPage[] = [
     },
     integrations: {
       heading: { eyebrow: "Works in your stack", title: "Built on the tools stores already run" },
-      items: ["Shopify", "Stripe", "HubSpot", "GoHighLevel", "WhatsApp Business", "Twilio", "Google Workspace", "REST API and webhooks"],
+      items: ["Shopify", "WooCommerce", "Stripe", "QuickBooks", "HubSpot", "GoHighLevel", "WhatsApp Business", "Twilio", "Google Workspace", "REST API and webhooks"],
       note,
     },
     faq: {
       heading: { eyebrow: "Ecommerce questions", title: "What store owners ask first" },
       items: [
         { q: "Does it work with Shopify?", a: "Yes. We connect to your store so the agents can read orders, products and customers, and take the actions you allow." },
+        { q: "Can you manage our Shopify store, not just the support?", a: "Yes. We automate the store work too: bulk product and price updates, stock sync across channels, order routing to your warehouse or suppliers, scheduled sales and a daily report. Anything outside the rules you set goes to your team." },
         { q: "Can it process returns?", a: "Yes, inside your return policy. It checks eligibility, sends the label and starts the refund, and flags anything unusual." },
         { q: "Will it sound like our brand?", a: "Yes. We write the tone, phrases and rules with you, and you approve them before launch." },
         { q: "What about sales days?", a: "That is where it helps most. The AI handles the surge, so your team only sees the exceptions." },

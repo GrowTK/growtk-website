@@ -13,7 +13,7 @@ export const privacy = {
   },
   effectiveDate: "Draft, last updated September 2026",
   intro:
-    "This policy covers growtk.com, our public marketing website. Growtk is a service studio, not a software platform with its own login, so this page covers what we collect when you visit this site or get in touch through it. This is a draft pending review by counsel before public launch.",
+    "This policy covers growtk.co, our public marketing website. Growtk is a service studio, not a software platform with its own login, so this page covers what we collect when you visit this site or get in touch through it. This is a draft pending review by counsel before public launch.",
   sections: [
     {
       heading: "What we collect on this website",
@@ -46,7 +46,7 @@ export const privacy = {
       heading: "SMS and voice communications",
       body: [
         "If you submit the contact form or book a free audit call, Growtk may follow up by text message or phone call about your inquiry, in addition to email. We only send SMS messages or place calls to people who reached out first through this website, either by submitting the contact form or by booking a call. We do not maintain a separate marketing text or call list.",
-        "You can opt out of SMS or voice follow-up at any time: reply STOP to any text message, tell us during a call, or email hello@growtk.com. We will honor that request.",
+        "You can opt out of SMS or voice follow-up at any time: reply STOP to any text message, tell us during a call, or email hello@growtk.co. We will honor that request.",
       ],
     },
     {
@@ -58,7 +58,7 @@ export const privacy = {
     {
       heading: "Your rights",
       body: [
-        "You can ask us what information we hold about you from this website and ask us to delete it by writing to hello@growtk.com. We will respond within a reasonable time.",
+        "You can ask us what information we hold about you from this website and ask us to delete it by writing to hello@growtk.co. We will respond within a reasonable time.",
       ],
     },
     {
@@ -70,7 +70,7 @@ export const privacy = {
     {
       heading: "Contact",
       body: [
-        "Questions about this policy, or requests about your data, can be sent to hello@growtk.com.",
+        "Questions about this policy, or requests about your data, can be sent to hello@growtk.co.",
       ],
     },
   ],
@@ -81,7 +81,7 @@ export const privacy = {
       title: "Want to know what we hold about you?",
       body: "Ask us directly. We will respond within a reasonable time.",
     } as SectionHeading,
-    primary: { label: "Email hello@growtk.com", href: "mailto:hello@growtk.com" } as Cta,
+    primary: { label: "Email hello@growtk.co", href: "mailto:hello@growtk.co" } as Cta,
     secondary: { label: "Learn more about Growtk", href: "/about" } as Cta,
   },
 } satisfies PageContent & Record<string, unknown>;

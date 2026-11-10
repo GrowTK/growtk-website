@@ -57,5 +57,5 @@ persisted credential, then plain `git push` works without the `-c` flags.
   Never commit it. Rotate the token if it's ever exposed.
 - The repo is **public**. Flip to private if that changes:
   `gh repo edit GrowTK/growtk-website --visibility private --accept-visibility-change-consequences`.
-- Domain in `brand.config.ts` is `growtk.com` (placeholder). Update it once
-  the real domain is live, then `npm run brand` to resync.
+- Domain in `brand.config.ts` is `growtk.co`. Update it if
+  the domain ever changes, then `npm run brand` to resync.

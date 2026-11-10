@@ -35,6 +35,10 @@ Customer support:
   collected up front, clean escalation to the client's engineers.
 - E-commerce customer support: order status, returns, exchanges and pre-sale
   questions answered, connected to the store and carriers (often Shopify).
+- Store management for e-commerce (Shopify first, also WooCommerce and
+  others with an API): store setup and custom apps, bulk product and price
+  updates, stock sync across store, marketplaces and warehouse, order routing
+  and tracking, scheduled sales and discounts, and a daily store report.
 - Customer experience management: journey mapping, surveys after each
   touchpoint, review requests and replies, recovery for unhappy customers.
 
